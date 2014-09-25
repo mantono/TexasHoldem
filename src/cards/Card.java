@@ -1,16 +1,30 @@
 package cards;
 
-public class Card
+public class Card implements Comparable<Card>
 {
+	private final Colour colour;
+	private final Rank rank;
 
-	public Card(Colour colour, Value value)
+	public Card(Colour colour, Rank rank)
 	{
-		// TODO Auto-generated constructor stub
+		this.colour = colour;
+		this.rank = rank;
 	}
-	
-	public Value getValue()
+
+	public Rank getRank()
 	{
-		return Value.FIVE;
+		return rank;
+	}
+
+	public Colour getColour()
+	{
+		return colour;
+	}
+
+	@Override
+	public int compareTo(Card card)
+	{
+		return this.rank.getValue() - card.rank.getValue();
 	}
 
 }
