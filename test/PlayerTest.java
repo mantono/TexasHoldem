@@ -11,10 +11,17 @@ import cards.Value;
 public class PlayerTest {
 
 	@Test
-	public void test()
+	public void nameTest()
 	{
 		Player player = new Player("kalle");
 		assertEquals("kalle",player.getName());
 	}
-
+	
+	@Test
+	public void potTest1(){
+		Player player = new Player("kalle");
+		assertEquals(0,player.getChips());
+		
+		
+	}
 }
