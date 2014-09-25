@@ -1,1 +1,7 @@
+<<<<<<< 50a824c8133637008ac5ba115d9916ffa9e15c23
 Hej Elliot! <3 <3 <3 <3
+=======
+Hej Elliot!
+
+ändring 1 / Elliot
+>>>>>>> f80038ecf8053c4cc056edc5a4c3e13781ba25a9
