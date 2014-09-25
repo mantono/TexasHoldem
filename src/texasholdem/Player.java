@@ -1,5 +1,5 @@
 package texasholdem;
-//hej
+//hej!
 public class Player
 {
 
