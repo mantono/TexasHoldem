@@ -20,6 +20,12 @@ public class Card implements Comparable<Card>
 	{
 		return colour;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return rank + " of " + colour;
+	}
 
 	@Override
 	public int compareTo(Card card)
