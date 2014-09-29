@@ -3,7 +3,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import cards.Card;
+import cards.Colour;
 import cards.Deck;
+import cards.Rank;
 
 
 public class DeckTest
@@ -26,10 +28,10 @@ public class DeckTest
 	}
 	
 	@Test
-	public void testDrawARandomCard() //Obe ej random ännu!
+	public void testDrawARandomCard()
 	{
 		Deck deck = new Deck();
-		Card card = deck.drawCard();
+		deck.drawCard();
 		assertEquals(51, deck.getSize());
 	}
 }

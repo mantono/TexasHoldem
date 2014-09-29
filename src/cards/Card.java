@@ -32,5 +32,16 @@ public class Card implements Comparable<Card>
 	{
 		return this.rank.getValue() - card.rank.getValue();
 	}
+	
+	@Override
+	public boolean equals(Object object)
+	{
+		if(object == null)
+			return false;
+		if(!object.getClass().equals(this.getClass()))
+			return false;
+		Card other = (Card) object;
+		return (this.colour.equals(other.colour) && this.rank.equals(other.rank));
+	}
 
 }

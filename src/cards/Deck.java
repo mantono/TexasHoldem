@@ -1,10 +1,13 @@
 package cards;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class Deck
 {
 	private ArrayList<Card> cards = new ArrayList<Card>();
+	private final SecureRandom randomNumber = new SecureRandom();
+	
 	public Deck()
 	{
 		this(1);
@@ -21,17 +24,18 @@ public class Deck
 	private void generateCards()
 	{
 		for(Colour colour : Colour.values())
-		{
 			for(Rank rank : Rank.values())
-			{
 				cards.add(new Card(colour, rank));
-			}
-		}
+	}
+	
+	protected void setSeed(long seed)
+	{
+		randomNumber.setSeed(seed);
 	}
 	
 	public Card drawCard()
 	{
-		return cards.remove(0); //Ska förstås bli slumpmässig! Nästa steg.
+		return cards.remove(randomNumber.nextInt(getSize()));
 	}
 	
 	public int getSize()

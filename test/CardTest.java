@@ -12,7 +12,7 @@ public class CardTest
 	public void testCreateValidCard()
 	{
 		Card card = new Card(Colour.CLUBS, Rank.THREE);
-		assertEquals(card.getRank(), (Rank.THREE));
+		assertEquals(card.getRank(), Rank.THREE);
 	}
 	
 	@Test
@@ -29,6 +29,26 @@ public class CardTest
 		Card card1 = new Card(Colour.HEARTS, Rank.QUEEN);
 		Card card2 = new Card(Colour.DIAMONDS, Rank.QUEEN);
 		assertEquals(0, card1.compareTo(card2));
+	}
+	
+	@Test
+	public void testEqualsValid()
+	{
+		Card card1 = new Card(Colour.HEARTS, Rank.QUEEN);
+		Card card2 = new Card(Colour.HEARTS, Rank.QUEEN);
+		assertTrue(card1.equals(card2));
+	}
+	@Test
+	public void testEqualsInvalid()
+	{
+		Card card1 = new Card(Colour.HEARTS, Rank.QUEEN);
+		Card card2 = new Card(Colour.HEARTS, Rank.ACE);
+		assertFalse(card1.equals(card2));
+		card2 = new Card(Colour.CLUBS, Rank.QUEEN);
+		assertFalse(card1.equals(card2));
+		card2 = null;
+		assertFalse(card1.equals(card2));
+		assertFalse(card1.equals("A string"));
 	}
 	
 	@Test
