@@ -3,8 +3,8 @@ package texasholdem;
 public class Pot {
 
 	private int amount = 0;
-	private int bet;
-	private boolean valid;
+	private int bet = 0;
+	private boolean valid = true;
 
 	public Pot(int amount) {
 		if (amount < 1)
@@ -19,6 +19,10 @@ public class Pot {
 		this.valid = valid;
 
 	}
+	public int getBet(){
+		return bet;
+	}
+	
 
 	public int getSize() {
 
