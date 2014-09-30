@@ -43,5 +43,11 @@ public class Card implements Comparable<Card>
 		Card other = (Card) object;
 		return (this.colour.equals(other.colour) && this.rank.equals(other.rank));
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		return rank.getValue() + colour.getValue()*100;
+	}
 
 }

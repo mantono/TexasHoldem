@@ -12,7 +12,8 @@ public class CardTest
 	public void testCreateValidCard()
 	{
 		Card card = new Card(Colour.CLUBS, Rank.THREE);
-		assertEquals(card.getRank(), Rank.THREE);
+		assertEquals(Rank.THREE, card.getRank());
+		assertEquals(Colour.CLUBS, card.getColour());
 	}
 	
 	@Test
@@ -38,6 +39,7 @@ public class CardTest
 		Card card2 = new Card(Colour.HEARTS, Rank.QUEEN);
 		assertTrue(card1.equals(card2));
 	}
+	
 	@Test
 	public void testEqualsInvalid()
 	{
@@ -49,6 +51,19 @@ public class CardTest
 		card2 = null;
 		assertFalse(card1.equals(card2));
 		assertFalse(card1.equals("A string"));
+	}
+	
+	@Test
+	public void testHashCode()
+	{
+		Card card1 = new Card(Colour.SPADES, Rank.TWO);
+		Card card2 = new Card(Colour.HEARTS, Rank.THREE);
+		Card card3 = new Card(Colour.DIAMONDS, Rank.FOUR);
+		Card card4 = new Card(Colour.CLUBS, Rank.FIVE);
+		assertEquals(2, card1.hashCode());
+		assertEquals(103, card2.hashCode());
+		assertEquals(204, card3.hashCode());
+		assertEquals(305, card4.hashCode());
 	}
 	
 	@Test

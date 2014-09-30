@@ -9,4 +9,9 @@ public enum Colour
 	{
 		this.colour = colour;
 	}
+	
+	public int getValue()
+	{
+		return colour;
+	}
 }
