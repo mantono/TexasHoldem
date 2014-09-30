@@ -14,14 +14,15 @@ Tillståndsmaskiner		[]
 Granskning			[]
 
 Kodkritiksystem			[]
+http://findbugs.sourceforge.net/ 
 
 Statiska mått			[]
 http://metrics.sourceforge.net/
-http://findbugs.sourceforge.net/ 
+
 
 Dynamiska mått			[]
+http://www.eclemma.org/
 
 Dynamiska mått (forts)		[]
 
 https://code.google.com/a/eclipselabs.org/p/jvmmonitor/
-http://www.eclemma.org/
