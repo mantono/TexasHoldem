@@ -3,6 +3,7 @@
 Enhetstestramverk/JUnit		[]
 
 Byggscript			[]
+http://ant.apache.org/
 
 Testdriven utveckling		[]
 
@@ -15,7 +16,12 @@ Granskning			[]
 Kodkritiksystem			[]
 
 Statiska mått			[]
+http://metrics.sourceforge.net/
+http://findbugs.sourceforge.net/ 
 
 Dynamiska mått			[]
 
 Dynamiska mått (forts)		[]
+
+https://code.google.com/a/eclipselabs.org/p/jvmmonitor/
+http://www.eclemma.org/
