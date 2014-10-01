@@ -1,10 +1,6 @@
 import static org.junit.Assert.*;
 
-import java.util.IllegalFormatException;
-
 import org.junit.Test;
-
-import cards.Deck;
 
 import texasholdem.Pot;
 
