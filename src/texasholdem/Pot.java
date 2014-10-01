@@ -13,7 +13,10 @@ public class Pot {
 
 		this.amount = amount;
 	}
-
+	public Pot(){
+		
+	}
+	
 	public Pot(int bet, boolean valid) { //Varför finns denna konstruktor? - Emil
 		this.bet = bet;
 		this.valid = valid;
@@ -37,5 +40,11 @@ public class Pot {
 			amount = amount+bet;
 			this.bet = bet;
 		}
+	}
+	
+	public void resetPot(){
+		amount = 0;
+		bet = 0;
+		return;
 	}
 }

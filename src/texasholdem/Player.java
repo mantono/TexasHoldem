@@ -41,7 +41,7 @@ public class Player {
 			return false;
 		//Detta ska nog kontrolleras i game via getChips innan requesten ens kommer hit i slutprodukten.
 		chips =-i;
-		//Pot.addToPot(i);
+		//Pot.betToPot(i);
 		return true;
 	}
 

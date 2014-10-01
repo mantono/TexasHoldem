@@ -9,26 +9,41 @@ import cards.Deck;
 import texasholdem.Pot;
 
 public class PotTest {
+	
+		@Test
+		public void NewPotTest(){
+			Pot newPot = new Pot();
+			assertEquals(0, newPot.getSize());
+			assertEquals(0, newPot.getBet());
+		}
 
 	@Test
-	public void TestPotSizeIfPositiveInt() {
+	public void testPotSizeIfPositiveInt() {
 		Pot pot = new Pot(500);
 		assertEquals(500, pot.getSize());
 
 	}
-		@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testForInvalidSize() {
-		Pot invalidpot = new Pot(0);
-		assertEquals(0, invalidpot.getSize());
+		Pot invalidPot = new Pot(-1);
+		assertEquals(-1, invalidPot.getSize());
 	}
-
+	
 	@Test
-	public void BetSizeTest() {
+	public void betSizeTestFromEmptyPot(){
+		Pot emptyPot = new Pot();
+		emptyPot.betToPot(300);
+		assertEquals(300, emptyPot.getSize());
+		assertEquals(300, emptyPot.getBet());
+	}
+	
+	@Test
+	public void betSizeTestFromPositiveSize() {
 
-		Pot Pot = new Pot(1);
-		Pot.betToPot(300);
-		assertEquals(301, Pot.getSize());
-		assertEquals(300, Pot.getBet());
+		Pot positivePot = new Pot(1);
+		positivePot.betToPot(300);
+		assertEquals(301, positivePot.getSize());
+		assertEquals(300, positivePot.getBet());
 
 	}
 
@@ -40,5 +55,22 @@ public class PotTest {
 		invalidBet.betToPot(0);
 		
 	}
-
+	
+	@Test
+	public void testForNewBetOverrideAndMultipleBets(){
+		Pot newPot = new Pot();
+		newPot.betToPot(300);
+		newPot.betToPot(200);
+		assertEquals(500, newPot.getSize());
+		assertEquals(200, newPot.getBet());
+	}
+	
+	@Test
+	public void resetPotTest(){
+		Pot newPot = new Pot(500);
+		newPot.betToPot(200);
+		newPot.resetPot();
+		assertEquals(0, newPot.getSize());
+		assertEquals(0, newPot.getBet());
+	}
 }
