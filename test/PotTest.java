@@ -9,27 +9,27 @@ public class PotTest {
 		@Test
 		public void NewPotTest(){
 			Pot newPot = new Pot();
-			assertEquals(0, newPot.getSize());
+			assertEquals(0, newPot.getAmount());
 			assertEquals(0, newPot.getBet());
 		}
 
 	@Test
 	public void testPotSizeIfPositiveInt() {
 		Pot pot = new Pot(500);
-		assertEquals(500, pot.getSize());
+		assertEquals(500, pot.getAmount());
 
 	}
 	@Test(expected = IllegalArgumentException.class)
 	public void testForInvalidSize() {
 		Pot invalidPot = new Pot(-1);
-		assertEquals(-1, invalidPot.getSize());
+		assertEquals(-1, invalidPot.getAmount());
 	}
 	
 	@Test
 	public void betSizeTestFromEmptyPot(){
 		Pot emptyPot = new Pot();
 		emptyPot.betToPot(300);
-		assertEquals(300, emptyPot.getSize());
+		assertEquals(300, emptyPot.getAmount());
 		assertEquals(300, emptyPot.getBet());
 	}
 	
@@ -38,7 +38,7 @@ public class PotTest {
 
 		Pot positivePot = new Pot(1);
 		positivePot.betToPot(300);
-		assertEquals(301, positivePot.getSize());
+		assertEquals(301, positivePot.getAmount());
 		assertEquals(300, positivePot.getBet());
 
 	}
@@ -57,8 +57,8 @@ public class PotTest {
 		Pot newPot = new Pot();
 		newPot.betToPot(300);
 		newPot.betToPot(200);
-		assertEquals(500, newPot.getSize());
-		assertEquals(200, newPot.getBet());
+		assertEquals(500, newPot.getAmount());
+		assertEquals(200, newPot.getAmount());
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class PotTest {
 		Pot newPot = new Pot(500);
 		newPot.betToPot(200);
 		newPot.resetPot();
-		assertEquals(0, newPot.getSize());
+		assertEquals(0, newPot.getAmount());
 		assertEquals(0, newPot.getBet());
 	}
 }

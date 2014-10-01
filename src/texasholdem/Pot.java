@@ -4,8 +4,8 @@ public class Pot {
 
 	private int amount = 0;
 	private int bet = 0; //Varför finns det en bet och en amount? Jag kommer använda denna int som en "kom ihåg den senaste bet-summa" variabel tills vidare - Emil
-	private boolean valid = true; //Jag vet att detta redan har påpekats i Skype-chatten, men varför finns denna variabel överhuvudtaget?
-
+						//Tänkte att amount skulle vara summan av alla bet och bet skulle vara varje enskild insats som en spelare gör
+						//Var inte helt säker på om den skulle vara i Player-klassen eller i Pot-klassen
 	public Pot(int amount) {
 		if (amount < 1)
 			throw new IllegalArgumentException(
@@ -17,17 +17,12 @@ public class Pot {
 		
 	}
 	
-	public Pot(int bet, boolean valid) { //Varför finns denna konstruktor? - Emil
-		this.bet = bet;
-		this.valid = valid;
-
-	}
 	public int getBet(){
 		return bet;
 	}
 	
 
-	public int getSize() {
+	public int getAmount() {
 
 		return amount;
 	}
@@ -37,7 +32,7 @@ public class Pot {
 			throw new IllegalArgumentException(
 					"The Bet has to be larger than 0");
 		else{
-			amount = amount+bet;
+			amount =+bet;
 			this.bet = bet;
 		}
 	}
