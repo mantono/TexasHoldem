@@ -44,5 +44,18 @@ public class Player {
 		//Pot.betToPot(i);
 		return true;
 	}
-
+	
+	public int hashCode() { //Detta är ett utkast på en hashCode. Förbättringar kan behövas.
+		int hash = 1+name.hashCode();
+		return hash;
+	}
+	public boolean equals(Object o){ //Detta är ett utkast på en equals metod. Förbättringar kan behövas
+		if(o == null)
+			return false;
+		if(!(o instanceof Player))
+			return false;
+		
+		Player other = (Player) o;
+		return this.hashCode() == other.hashCode();
+	}
 }
