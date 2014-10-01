@@ -40,12 +40,21 @@ public class GameTest {
 	}
 	
 	@Test
-	public void initiateRoundTest(){ //Påbörjad. Behöver ett avslut
+	public void initiateRoundTest(){
 		Player kalle = new Player("kalle");
 		Player pelle = new Player("pelle");
 		Game newGame = newGame(kalle, pelle);
-		newGame.initiateGame();
 		newGame.initiateRound();
+		assertTrue(!(newGame.getCurrentDeck() == null));	
+	}
+	
+	@Test
+	public void initiateDealPhaseOneTest(){ //Detta testfall är endast påbörjat. Behövs ett avslut
+		Player kalle = new Player("kalle");
+		Player pelle = new Player("pelle");
+		Game newGame = newGame(kalle, pelle);
+		newGame.setPhase(1);
+		newGame.initiateDeal();
 		
 		
 	}
