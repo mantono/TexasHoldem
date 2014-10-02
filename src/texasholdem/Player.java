@@ -50,11 +50,11 @@ public class Player {
 		return true;
 	}
 	
-	public int hashCode() { //Detta är ett utkast på en hashCode. Förbättringar kan behövas.
+	public int hashCode() { //Detta ï¿½r ett utkast pï¿½ en hashCode. Fï¿½rbï¿½ttringar kan behï¿½vas.
 		int hash = 1+name.hashCode();
 		return hash;
 	}
-	public boolean equals(Object o){ //Detta är ett utkast på en equals metod. Förbättringar kan behövas
+	public boolean equals(Object o){ //Detta ï¿½r ett utkast pï¿½ en equals metod. Fï¿½rbï¿½ttringar kan behï¿½vas
 		if(o == null)
 			return false;
 		if(!(o instanceof Player))
@@ -64,8 +64,8 @@ public class Player {
 		return this.hashCode() == other.hashCode();
 	}
 
-	public void setInGame(boolean b) {
-		inGame = b;
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
 		
 	}
 

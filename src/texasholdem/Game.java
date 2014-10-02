@@ -7,11 +7,8 @@ public class Game{
 	Map<Player, Integer> allPlayers = new HashMap<Player, Integer>();
 	List<Player> blindsRotation = new LinkedList<Player>();
 	List<Card> tableCards = new ArrayList<Card>();
-	int turn; //H�ller koll p� hur m�nga rundor som hittilds har spelats (t�nkte att det kunde vara intressant l�ngre fram)
-	int phase; //H�ller koll p� vilken fas (hole cards, the flop, the turn eller the river) rundan �r i.
-	int bigBlind;
-	int smallBlind;
-	int blindsRaiseFrequency;
+	
+	int bigBlind, smallBlind, blindsRaiseFrequency;
 	
 	public Game(int bigBlind, int smallBlind, int blindsRaiseFrequency, Player... players){
 		

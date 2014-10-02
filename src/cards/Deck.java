@@ -47,6 +47,5 @@ public class Deck
 	public String toString()
 	{
 		return cards.toString();
-		//Eller använd ♥9, ♠3, ♣4, ♦10 osv
 	}
 }
