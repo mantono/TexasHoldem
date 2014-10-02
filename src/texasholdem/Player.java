@@ -8,6 +8,7 @@ public class Player {
 	String name;
 	int chips = 0;
 	ArrayList<Card> hand = new ArrayList<Card>();
+	Boolean inGame = false;
 	
 	public Player(String name){
 	this.name = name;
@@ -28,6 +29,10 @@ public class Player {
 		hand.add(card2);
 	}
 
+	public void clearHand(){
+		hand.clear();
+	}
+	
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
@@ -58,4 +63,15 @@ public class Player {
 		Player other = (Player) o;
 		return this.hashCode() == other.hashCode();
 	}
+
+	public void setInGame(boolean b) {
+		inGame = b;
+		
+	}
+
+	public boolean getInGame() {
+		return inGame;
+	}
+
+	
 }

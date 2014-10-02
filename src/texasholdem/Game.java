@@ -6,10 +6,14 @@ public class Game{
 	Deck deck;
 	Map<Player, Integer> allPlayers = new HashMap<Player, Integer>();
 	List<Player> blindsRotation = new LinkedList<Player>();
+	List<Card> tableCards = new ArrayList<Card>();
 	int turn; //H�ller koll p� hur m�nga rundor som hittilds har spelats (t�nkte att det kunde vara intressant l�ngre fram)
 	int phase; //H�ller koll p� vilken fas (hole cards, the flop, the turn eller the river) rundan �r i.
+	int bigBlind;
+	int smallBlind;
+	int blindsRaiseFrequency;
 	
-	public Game(Player... players){
+	public Game(int bigBlind, int smallBlind, int blindsRaiseFrequency, Player... players){
 		
 		
 	}
@@ -50,6 +54,10 @@ public class Game{
 		return blindsRotation;
 	}
 	
+	public List<Card> getTableCards(){
+		return tableCards;
+	}
+	
 	public Deck getCurrentDeck(){
 		return deck;
 	}
@@ -62,5 +70,16 @@ public class Game{
 		return turn;
 	}
 	
+	public int getBigBlind(){
+		return bigBlind;
+	}
+	
+	public int getSmallBlind(){
+		return smallBlind;
+	}
+	
+	public int getBlindsRaiseFrequency(){
+		return blindsRaiseFrequency;
+	}
 	
 }

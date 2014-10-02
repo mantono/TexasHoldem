@@ -72,10 +72,18 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void addToPottTestFail() {
+	public void addToPotTestFail() {
 		Player player = new Player("kalle");
 		player.addChips(200);
 		assertFalse(player.addToPot(250));
+
+	}
+	
+	@Test
+	public void setInGameTest() {
+		Player player = new Player("kalle");
+		player.setInGame(true);
+		assertTrue(player.getInGame());
 
 	}
 

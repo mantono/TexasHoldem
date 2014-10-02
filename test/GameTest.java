@@ -7,9 +7,9 @@ import org.junit.Test;
 public class GameTest {
 
 	@Test
-	public void addingOnePlayerTest(){ //Detta testfall ï¿½r egentligen onï¿½digt, dï¿½ ett game inte bï¿½r innehï¿½lla endast en spelare. Jag ladde till detta testfall bara fï¿½r att kontrollera att det gick att lï¿½gga till en Player ï¿½verhuvudtaget. - Emil
+	public void addingOnePlayerTest(){ 
 		Player kalle = new Player("kalle");
-		Game newGame = new Game(kalle);
+		Game newGame = new Game(4, 2, 4, kalle);
 		assertTrue(newGame.getAllPlayers().containsKey(kalle));
 		assertTrue(newGame.getBlindsRotation().contains(kalle));
 		
@@ -18,7 +18,7 @@ public class GameTest {
 	public void addingMorePlayersTest(){
 		Player kalle = new Player("kalle");
 		Player pelle = new Player("pelle");
-		Game newGame = new Game(kalle, pelle);
+		Game newGame = new Game(4, 2, 4, kalle, pelle);
 		assertTrue(newGame.getAllPlayers().containsKey(kalle));
 		assertTrue(newGame.getBlindsRotation().contains(kalle));
 		assertTrue(newGame.getAllPlayers().containsKey(pelle));
@@ -27,34 +27,82 @@ public class GameTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void addingNoPlayersTest(){
-		Game newGame = new Game();
+		Game newGame = new Game(4, 2, 4);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void addingNegativeBigBlindTest(){
+		Player kalle = new Player("Kalle");
+		Game newGame = new Game(-4, 2, 4, kalle);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void addingNegativeSmallBlindTest(){
+		Player kalle = new Player("Kalle");
+		Game newGame = new Game(4, -2, 4, kalle);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void addingNegativeBlindsRotationFrequencyTest(){
+		Player kalle = new Player("Kalle");
+		Game newGame = new Game(4, 2, -4, kalle);
 	}
 	
 	@Test
-	public void initiateGameTest(){  //Detta testfall behï¿½vs kompletteras. Vad ska initiateGame egentligen gï¿½ra?
+	public void initiateGameTest(){
 		Player kalle = new Player("kalle");
 		Player pelle = new Player("pelle");
-		Game newGame = new Game(kalle, pelle);
+		Game newGame = new Game(4, 2, 4, kalle, pelle);
 		newGame.initiateGame();
 		assertEquals(0, newGame.getTurn());
+		assertEquals(2, newGame.getSmallBlind());
+		assertEquals(4, newGame.getBigBlind());
+		assertEquals(4, newGame.getBlindsRaiseFrequency());
 	}
 	
 	@Test
 	public void initiateRoundTest(){
 		Player kalle = new Player("kalle");
 		Player pelle = new Player("pelle");
-		Game newGame = new Game(kalle, pelle);
+		kalle.addChips(5);
+		pelle.addChips(5);
+		Game newGame = new Game(4, 2, 4, kalle, pelle);
 		newGame.initiateRound();
-		assertTrue(!(newGame.getCurrentDeck() == null));	
+		assertFalse(newGame.getCurrentDeck() == null);	
+		for(Player player : newGame.getBlindsRotation()){
+			if(player.getInGame()){
+				assertTrue(player.getHand().size() == 2);
+				assertTrue(player.getChips() > 0);
+			}
+			else{
+				assertTrue(player.getHand().size() == 0);
+				assertTrue(player.getChips() <= 0);
+			}
+		}
 	}
 	
 	@Test
-	public void initiateDealPhaseOneTest(){ //Detta testfall ï¿½r endast pï¿½bï¿½rjat. Behï¿½vs ett avslut
+	public void initiateDealPhaseOneTest(){  //Påbörjad testfall. Behöver ett avslut.
 		Player kalle = new Player("kalle");
 		Player pelle = new Player("pelle");
-		Game newGame = new Game(kalle, pelle);
+		kalle.addChips(5);
+		pelle.addChips(5);
+		Game newGame = new Game(4, 2, 4, kalle, pelle);
 		newGame.setPhase(1);
 		newGame.initiateDeal();
+		for(Player player : newGame.getBlindsRotation()){
+			if(newGame.getBlindsRotation().get(0) == player){
+				assertTrue(newGame.getAllPlayers().get(player) <= newGame.getSmallBlind());
+				assertTrue(newGame.getAllPlayers().get(player) > 0);
+			}
+			else if(newGame.getBlindsRotation().get(1) == player){
+				assertTrue(newGame.getAllPlayers().get(player) <= newGame.getBigBlind());
+				assertTrue(newGame.getAllPlayers().get(player) > 0);
+			}
+			else if(player.getInGame()){
+
+			}
+		}
 		
 		
 	}
