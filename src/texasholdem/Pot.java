@@ -47,7 +47,9 @@ public class Pot {
 	}
 
 	public int getBetHistory(Player p) {
-
+		if(!betHistory.containsKey(p)){
+			return 0;
+		}
 		return betHistory.get(p);
 	}
 }

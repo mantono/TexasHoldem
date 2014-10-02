@@ -88,7 +88,7 @@ public class PotTest {
 		newPot.betToPot(200,p);
 		newPot.resetPot();
 		assertEquals(0, newPot.getAmount());
-		assertEquals(0, newPot.containsKey(p));
+		assertEquals(0, newPot.getBetHistory(p));
 
 	}
 }
