@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import cards.Card;
 
 public class Player {
-	String name;
-	int chips = 0;
-	ArrayList<Card> hand = new ArrayList<Card>();
-	Boolean inGame = false;
+	private final String name;
+	private int chips = 0;
+	private ArrayList<Card> hand = new ArrayList<Card>();
+	private Boolean inGame = false;
 	
 	public Player(String name, int chips){
 	this.name = name;
@@ -49,21 +49,6 @@ public class Player {
 		chips =-i;
 		p.betToPot(i, this);
 		return true;
-	}
-	
-	public int hashCode() { //Detta �r ett utkast p� en hashCode. F�rb�ttringar kan beh�vas.
-		int hash = 1+name.hashCode();
-		return hash;
-	}
-	
-	public boolean equals(Object object){
-		if(object == null)
-			return false;
-		if(!(object.getClass().equals(this.getChips())))
-			return false;
-		
-		Player otherPlayer = (Player) object;
-		return this.hashCode() == otherPlayer.hashCode();
 	}
 
 	public void setInGame(boolean inGame) {

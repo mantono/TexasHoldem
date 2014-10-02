@@ -28,6 +28,7 @@ public class PotTest {
 		assertEquals(500, pot.getAmount());
 
 	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testForInvalidSize() {
 		Pot invalidPot = new Pot(-1);
@@ -52,8 +53,6 @@ public class PotTest {
 
 
 	}
-
-
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testForInvalidBet() {
