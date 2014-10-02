@@ -6,10 +6,10 @@ public class Game{
 	Deck deck;
 	Map<Player, Integer> allPlayers = new HashMap<Player, Integer>();
 	List<Player> blindsRotation = new LinkedList<Player>();
-	int turn; //Håller koll på hur många rundor som hittilds har spelats (tänkte att det kunde vara intressant längre fram)
-	int phase; //Håller koll på vilken fas (hole cards, the flop, the turn eller the river) rundan är i.
+	int turn; //Hï¿½ller koll pï¿½ hur mï¿½nga rundor som hittilds har spelats (tï¿½nkte att det kunde vara intressant lï¿½ngre fram)
+	int phase; //Hï¿½ller koll pï¿½ vilken fas (hole cards, the flop, the turn eller the river) rundan ï¿½r i.
 	
-	public Game(){
+	public Game(Player... players){
 		
 		
 	}
@@ -19,7 +19,7 @@ public class Game{
 	}
 	
 	public Action requestPlayerAction(){
-		
+		return Action.FOLD;		
 	}
 	
 	public void endRound(){
@@ -30,7 +30,7 @@ public class Game{
 		
 	}
 	
-	public void initiateGame(){ //Vad är tanken med denna funktion nu igen? - Emil
+	public void initiateGame(){ //Vad ï¿½r tanken med denna funktion nu igen? - Emil
 		
 	}
 	
@@ -38,7 +38,7 @@ public class Game{
 		
 	}
 	
-	public void setPhase(int i){ //Denna metod är enbart till för testning. Behöver göras sådana där "fake classer" elr vad de hette som gör att dessa metoder inte skapar en säkerhetsrisk (denna metod är just nu "public")
+	public void setPhase(int i){ //Denna metod ï¿½r enbart till fï¿½r testning. Behï¿½ver gï¿½ras sï¿½dana dï¿½r "fake classer" elr vad de hette som gï¿½r att dessa metoder inte skapar en sï¿½kerhetsrisk (denna metod ï¿½r just nu "public")
 		phase = i;
 	}
 	
@@ -46,7 +46,7 @@ public class Game{
 	return allPlayers;
 	}
 	
-	public List<Player> getBlindsRotation(){ //Denna metod är mest till för testfallen
+	public List<Player> getBlindsRotation(){ //Denna metod ï¿½r mest till fï¿½r testfallen
 		return blindsRotation;
 	}
 	

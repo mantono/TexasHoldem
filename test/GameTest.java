@@ -7,9 +7,9 @@ import org.junit.Test;
 public class GameTest {
 
 	@Test
-	public void addingOnePlayerTest(){ //Detta testfall är egentligen onödigt, då ett game inte bör innehålla endast en spelare. Jag ladde till detta testfall bara för att kontrollera att det gick att lägga till en Player överhuvudtaget. - Emil
+	public void addingOnePlayerTest(){ //Detta testfall ï¿½r egentligen onï¿½digt, dï¿½ ett game inte bï¿½r innehï¿½lla endast en spelare. Jag ladde till detta testfall bara fï¿½r att kontrollera att det gick att lï¿½gga till en Player ï¿½verhuvudtaget. - Emil
 		Player kalle = new Player("kalle");
-		Game newGame = newGame(kalle);
+		Game newGame = new Game(kalle);
 		assertTrue(newGame.getAllPlayers().containsKey(kalle));
 		assertTrue(newGame.getBlindsRotation().contains(kalle));
 		
@@ -18,7 +18,7 @@ public class GameTest {
 	public void addingMorePlayersTest(){
 		Player kalle = new Player("kalle");
 		Player pelle = new Player("pelle");
-		Game newGame = newGame(kalle, pelle);
+		Game newGame = new Game(kalle, pelle);
 		assertTrue(newGame.getAllPlayers().containsKey(kalle));
 		assertTrue(newGame.getBlindsRotation().contains(kalle));
 		assertTrue(newGame.getAllPlayers().containsKey(pelle));
@@ -27,14 +27,14 @@ public class GameTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void addingNoPlayersTest(){
-		Game newGame = newGame();
+		Game newGame = new Game();
 	}
 	
 	@Test
-	public void initiateGameTest(){  //Detta testfall behövs kompletteras. Vad ska initiateGame egentligen göra?
+	public void initiateGameTest(){  //Detta testfall behï¿½vs kompletteras. Vad ska initiateGame egentligen gï¿½ra?
 		Player kalle = new Player("kalle");
 		Player pelle = new Player("pelle");
-		Game newGame = newGame(kalle, pelle);
+		Game newGame = new Game(kalle, pelle);
 		newGame.initiateGame();
 		assertEquals(0, newGame.getTurn());
 	}
@@ -43,16 +43,16 @@ public class GameTest {
 	public void initiateRoundTest(){
 		Player kalle = new Player("kalle");
 		Player pelle = new Player("pelle");
-		Game newGame = newGame(kalle, pelle);
+		Game newGame = new Game(kalle, pelle);
 		newGame.initiateRound();
 		assertTrue(!(newGame.getCurrentDeck() == null));	
 	}
 	
 	@Test
-	public void initiateDealPhaseOneTest(){ //Detta testfall är endast påbörjat. Behövs ett avslut
+	public void initiateDealPhaseOneTest(){ //Detta testfall ï¿½r endast pï¿½bï¿½rjat. Behï¿½vs ett avslut
 		Player kalle = new Player("kalle");
 		Player pelle = new Player("pelle");
-		Game newGame = newGame(kalle, pelle);
+		Game newGame = new Game(kalle, pelle);
 		newGame.setPhase(1);
 		newGame.initiateDeal();
 		
