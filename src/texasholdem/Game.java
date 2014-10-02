@@ -4,27 +4,40 @@ import java.util.*;
 import cards.*;
 public class Game{
 	Deck deck;
-	Map<Player, Integer> allPlayers = new HashMap<Player, Integer>();
-	List<Player> blindsRotation = new LinkedList<Player>();
-	List<Card> tableCards = new ArrayList<Card>();
+	ArrayList<Player> playersInGame = new ArrayList<Player>();
+	List<Card> cardsOnTable = new ArrayList<Card>();
 	
-	int bigBlind, smallBlind, blindsRaiseFrequency;
+	int bigBlind = 4;
+	double blindsRaisePercentage = 0.2;
 	
-	public Game(int bigBlind, int smallBlind, int blindsRaiseFrequency, Player... players){
-		
-		
+	public Game(int bigBlind, double blindsRaisePercentage, Player... players){
+		this(players);
+		this.bigBlind = bigBlind;
+		this.blindsRaisePercentage = blindsRaisePercentage;
+	}
+	
+	public Game(Player... players){
+		playersInGame.addAll(Arrays.asList(players));
 	}
 	
 	public void initiateRound(){
 		
 	}
 	
+	private void raiseBlinds(){
+		int previousBigBlind = bigBlind;
+		bigBlind = (int) Math.round(bigBlind*(1+blindsRaisePercentage));
+		if(previousBigBlind == bigBlind && blindsRaisePercentage != 0)
+			bigBlind++;
+	}
+
+	
 	public Action requestPlayerAction(){
 		return Action.FOLD;		
 	}
 	
 	public void endRound(){
-		
+		raiseBlinds();
 	}
 	
 	public void distrubuteChip(){
@@ -38,45 +51,29 @@ public class Game{
 	public void initiateDeal(){
 		
 	}
-	
-	public void setPhase(int i){ //Denna metod �r enbart till f�r testning. Beh�ver g�ras s�dana d�r "fake classer" elr vad de hette som g�r att dessa metoder inte skapar en s�kerhetsrisk (denna metod �r just nu "public")
-		phase = i;
+
+	public ArrayList<Player> getAllPlayers(){ //Denna metod �r mest till f�r testfallen
+		return playersInGame;
 	}
 	
-	public Map<Player, Integer> getAllPlayers(){
-	return allPlayers;
-	}
-	
-	public List<Player> getBlindsRotation(){ //Denna metod �r mest till f�r testfallen
-		return blindsRotation;
-	}
-	
-	public List<Card> getTableCards(){
-		return tableCards;
+	public List<Card> getCardsOnTable(){
+		return cardsOnTable;
 	}
 	
 	public Deck getCurrentDeck(){
 		return deck;
 	}
-	
-	public int getCurrentPhase(){
-		return phase;
-	}
-	
-	public int getTurn(){
-		return turn;
-	}
-	
+
 	public int getBigBlind(){
 		return bigBlind;
 	}
 	
 	public int getSmallBlind(){
-		return smallBlind;
+		return bigBlind/2;
 	}
-	
-	public int getBlindsRaiseFrequency(){
-		return blindsRaiseFrequency;
+
+	public double getBlindsRaisePercentage(){
+		return blindsRaisePercentage;
 	}
 	
 }

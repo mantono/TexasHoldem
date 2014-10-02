@@ -54,14 +54,15 @@ public class Player {
 		int hash = 1+name.hashCode();
 		return hash;
 	}
-	public boolean equals(Object o){ //Detta �r ett utkast p� en equals metod. F�rb�ttringar kan beh�vas
-		if(o == null)
+	
+	public boolean equals(Object object){
+		if(object == null)
 			return false;
-		if(!(o instanceof Player))
+		if(!(object.getClass().equals(this.getChips())))
 			return false;
 		
-		Player other = (Player) o;
-		return this.hashCode() == other.hashCode();
+		Player otherPlayer = (Player) object;
+		return this.hashCode() == otherPlayer.hashCode();
 	}
 
 	public void setInGame(boolean inGame) {

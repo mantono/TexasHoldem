@@ -6,12 +6,12 @@ import texasholdem.Pot;
 
 public class PotTest {
 	
-		@Test
-		public void NewPotTest(){
-			Pot newPot = new Pot();
-			assertEquals(0, newPot.getAmount());
-			assertEquals(0, newPot.getBet());
-		}
+	@Test
+	public void NewPotTest(){
+		Pot newPot = new Pot();
+		assertEquals(0, newPot.getAmount());
+		assertEquals(0, newPot.getBet());
+	}
 
 	@Test
 	public void testPotSizeIfPositiveInt() {
