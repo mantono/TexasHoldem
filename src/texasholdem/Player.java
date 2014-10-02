@@ -10,8 +10,9 @@ public class Player {
 	ArrayList<Card> hand = new ArrayList<Card>();
 	Boolean inGame = false;
 	
-	public Player(String name){
+	public Player(String name, int chips){
 	this.name = name;
+	this.chips = chips;
 		
 	}
 	
@@ -37,8 +38,8 @@ public class Player {
 		return hand;
 	}
 
-	public void addChips(int chips) {
-		this.chips+=chips;
+	public int addChips(int add) {
+		return chips += add;
 	}
 
 	public boolean addToPot(int i, Pot p) {

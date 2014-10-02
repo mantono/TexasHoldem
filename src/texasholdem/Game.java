@@ -8,7 +8,8 @@ public class Game{
 	List<Player> blindsRotation = new LinkedList<Player>();
 	List<Card> tableCards = new ArrayList<Card>();
 	
-	int bigBlind, smallBlind, blindsRaiseFrequency;
+	
+	int bigBlind, smallBlind, blindsRaiseFrequency, phase, turn;
 	
 	public Game(int bigBlind, int smallBlind, int blindsRaiseFrequency, Player... players){
 		
