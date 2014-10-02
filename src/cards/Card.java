@@ -27,7 +27,6 @@ public class Card implements Comparable<Card>
 		return rank + " of " + colour;
 	}
 
-	@Override
 	public int compareTo(Card card)
 	{
 		return this.rank.getValue() - card.rank.getValue();

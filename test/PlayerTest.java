@@ -4,31 +4,40 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import texasholdem.Player;
+import texasholdem.Pot;
 import cards.Card;
 import cards.Colour;
 import cards.Rank;
 
 public class PlayerTest {
 
+	private Player player;
+
+	@Before
+	public void setup() {
+		player = new Player("kalle", 0);
+	}
+
 	@Test
 	public void nameTest() {
-		Player player = new Player("kalle");
+
 		assertEquals("kalle", player.getName());
 	}
 
 	@Test
 	public void potTestIfIsZero() {
-		Player player = new Player("kalle");
+
 		assertEquals(0, player.getChips());
 
 	}
 
 	@Test
 	public void getHandTestFromEmptyHand() {
-		Player player = new Player("kalle");
+
 		Card card1 = new Card(Colour.HEARTS, Rank.EIGHT);
 		Card card2 = new Card(Colour.HEARTS, Rank.ACE);
 		player.newHand(card1, card2);
@@ -40,7 +49,7 @@ public class PlayerTest {
 
 	@Test
 	public void getHandTestFromFullHand() {
-		Player player = new Player("kalle");
+
 		Card card1 = new Card(Colour.HEARTS, Rank.EIGHT);
 		Card card2 = new Card(Colour.HEARTS, Rank.ACE);
 		player.newHand(card1, card2);
@@ -58,7 +67,7 @@ public class PlayerTest {
 
 	@Test
 	public void addChipsTest() {
-		Player player = new Player("kalle");
+
 		player.addChips(200);
 		assertEquals(200, player.getChips());
 
@@ -66,22 +75,22 @@ public class PlayerTest {
 
 	@Test
 	public void addToPotTestSuccess() {
-		Player player = new Player("kalle");
+		Pot p = new Pot();
 		player.addChips(200);
-		assertTrue(player.addToPot(150));
+		assertTrue(player.addToPot(150, p));
 	}
 
 	@Test
 	public void addToPotTestFail() {
-		Player player = new Player("kalle");
+		Pot p = new Pot();
 		player.addChips(200);
-		assertFalse(player.addToPot(250));
+		assertFalse(player.addToPot(250, p));
 
 	}
-	
+
 	@Test
 	public void setInGameTest() {
-		Player player = new Player("kalle");
+
 		player.setInGame(true);
 		assertTrue(player.getInGame());
 

@@ -11,8 +11,8 @@ public class GameTest {
 	
 	@Before
 	public void setup(){
-		kalle = new Player("kalle");
-		pelle = new Player("pelle");
+		kalle = new Player("kalle", 200);
+		pelle = new Player("pelle", 200);
 	}
 
 	@Test

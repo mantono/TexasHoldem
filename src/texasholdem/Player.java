@@ -10,8 +10,9 @@ public class Player {
 	ArrayList<Card> hand = new ArrayList<Card>();
 	Boolean inGame = false;
 	
-	public Player(String name){
+	public Player(String name, int chips){
 	this.name = name;
+	this.chips = chips;
 		
 	}
 	
@@ -37,16 +38,16 @@ public class Player {
 		return hand;
 	}
 
-	public void addChips(int chips) {
-		this.chips+=chips;
+	public int addChips(int add) {
+		return chips += add;
 	}
 
-	public boolean addToPot(int i) {
+	public boolean addToPot(int i, Pot p) {
 		if(i > chips)
 			return false;
 		//Detta ska nog kontrolleras i game via getChips innan requesten ens kommer hit i slutprodukten.
 		chips =-i;
-		//Pot.betToPot(i);
+		p.betToPot(i, this);
 		return true;
 	}
 	
