@@ -1,14 +1,23 @@
 import static org.junit.Assert.*;
 import texasholdem.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 
 public class GameTest {
+	
+	private Player kalle, pelle;
+	
+	@Before
+	public void setup()
+	{
+		kalle = new Player("kalle");
+		pelle = new Player("pelle");
+	}
 
 	@Test
 	public void addingOnePlayerTest(){ 
-		Player kalle = new Player("kalle");
 		Game newGame = new Game(4, 2, 4, kalle);
 		assertTrue(newGame.getAllPlayers().containsKey(kalle));
 		assertTrue(newGame.getBlindsRotation().contains(kalle));
@@ -16,8 +25,6 @@ public class GameTest {
 	}
 	@Test
 	public void addingMorePlayersTest(){
-		Player kalle = new Player("kalle");
-		Player pelle = new Player("pelle");
 		Game newGame = new Game(4, 2, 4, kalle, pelle);
 		assertTrue(newGame.getAllPlayers().containsKey(kalle));
 		assertTrue(newGame.getBlindsRotation().contains(kalle));
@@ -32,26 +39,21 @@ public class GameTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void addingNegativeBigBlindTest(){
-		Player kalle = new Player("Kalle");
 		Game newGame = new Game(-4, 2, 4, kalle);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void addingNegativeSmallBlindTest(){
-		Player kalle = new Player("Kalle");
 		Game newGame = new Game(4, -2, 4, kalle);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void addingNegativeBlindsRotationFrequencyTest(){
-		Player kalle = new Player("Kalle");
 		Game newGame = new Game(4, 2, -4, kalle);
 	}
 	
 	@Test
 	public void initiateGameTest(){
-		Player kalle = new Player("kalle");
-		Player pelle = new Player("pelle");
 		Game newGame = new Game(4, 2, 4, kalle, pelle);
 		newGame.initiateGame();
 		assertEquals(0, newGame.getTurn());
@@ -62,8 +64,6 @@ public class GameTest {
 	
 	@Test
 	public void initiateRoundTest(){
-		Player kalle = new Player("kalle");
-		Player pelle = new Player("pelle");
 		kalle.addChips(5);
 		pelle.addChips(5);
 		Game newGame = new Game(4, 2, 4, kalle, pelle);
@@ -82,9 +82,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void initiateDealPhaseOneTest(){  //Påbörjad testfall. Behöver ett avslut.
-		Player kalle = new Player("kalle");
-		Player pelle = new Player("pelle");
+	public void initiateDealPhaseOneTest(){  //Pï¿½bï¿½rjad testfall. Behï¿½ver ett avslut.
 		kalle.addChips(5);
 		pelle.addChips(5);
 		Game newGame = new Game(4, 2, 4, kalle, pelle);
