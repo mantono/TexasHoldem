@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import texasholdem.Player;
+import texasholdem.Pot;
 import cards.Card;
 import cards.Colour;
 import cards.Rank;
@@ -66,16 +67,18 @@ public class PlayerTest {
 
 	@Test
 	public void addToPotTestSuccess() {
+		Pot p = new Pot();
 		Player player = new Player("kalle");
 		player.addChips(200);
-		assertTrue(player.addToPot(150));
+		assertTrue(player.addToPot(150,p));
 	}
 
 	@Test
 	public void addToPotTestFail() {
+		Pot p = new Pot();
 		Player player = new Player("kalle");
 		player.addChips(200);
-		assertFalse(player.addToPot(250));
+		assertFalse(player.addToPot(250,p));
 
 	}
 	
