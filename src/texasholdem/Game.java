@@ -12,6 +12,10 @@ public class Game{
 	
 	public Game(int bigBlind, double blindsRaisePercentage, Player... players){
 		this(players);
+		if(bigBlind < 1)
+			throw new IllegalArgumentException("Error: parameter bigBlind is less than 1.");
+		if(blindsRaisePercentage < 0)
+			throw new IllegalArgumentException("Error: parameter blindsRaisePercentage is less than 0.");
 		this.bigBlind = bigBlind;
 		this.blindsRaisePercentage = blindsRaisePercentage;
 	}

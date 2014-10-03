@@ -47,6 +47,10 @@ public class GameTest {
 		game.endRound();
 		assertEquals(7, game.getSmallBlind());		
 		assertEquals(15, game.getBigBlind());		
+		game = new Game(10, 0, kalle, pelle);
+		game.endRound();
+		assertEquals(5, game.getSmallBlind());		
+		assertEquals(10, game.getBigBlind());		
 	}
 	
 	@Test
@@ -62,7 +66,7 @@ public class GameTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void addingNegativeSmallBlindTest(){
+	public void addingNegativeBlindsRaiserPercentageTest(){
 		Game newGame = new Game(4, -0.2, kalle);
 	}
 	
@@ -72,7 +76,7 @@ public class GameTest {
 		newGame.initiateGame();
 		assertEquals(2, newGame.getSmallBlind());
 		assertEquals(4, newGame.getBigBlind());
-		assertTrue(0.3 == newGame.getBlindsRaisePercentage());
+		assertEquals(0.3, newGame.getBlindsRaisePercentage(), 0.0001);
 	}
 	
 	@Test
