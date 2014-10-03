@@ -24,11 +24,19 @@ public class Game{
 		playersInGame.addAll(Arrays.asList(players));
 	}
 	
+	public void newDeck(){
+		
+	}
+	
 	public void initiateRound(){
 		
 	}
 	
-	private void raiseBlinds(){
+	public void clearAllHands(){
+		
+	}
+	
+	public void raiseBlinds(){
 		int previousBigBlind = bigBlind;
 		bigBlind = (int) Math.round(bigBlind*(1+blindsRaisePercentage));
 		if(previousBigBlind == bigBlind && blindsRaisePercentage != 0)
@@ -42,6 +50,10 @@ public class Game{
 	
 	public void endRound(){
 		raiseBlinds();
+	}
+	
+	public void endGame(){
+		
 	}
 	
 	public void distrubuteChip(){
@@ -78,6 +90,10 @@ public class Game{
 
 	public double getBlindsRaisePercentage(){
 		return blindsRaisePercentage;
+	}
+	
+	public int getCurrentSmallBlindPosition(){
+		return currentSmallBlindPosition;
 	}
 	
 }
