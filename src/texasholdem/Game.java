@@ -6,7 +6,7 @@ public class Game{
 	Deck deck;
 	ArrayList<Player> playersInGame = new ArrayList<Player>();
 	List<Card> cardsOnTable = new ArrayList<Card>();
-	
+	int currentSmallBlindPosition = 0;
 	int bigBlind = 4;
 	double blindsRaisePercentage = 0.2;
 	
@@ -44,7 +44,7 @@ public class Game{
 		
 	}
 	
-	public void initiateGame(){ //Vad �r tanken med denna funktion nu igen? - Emil
+	public void initiateGame(){
 		
 	}
 	
@@ -52,7 +52,7 @@ public class Game{
 		
 	}
 
-	public ArrayList<Player> getAllPlayers(){ //Denna metod �r mest till f�r testfallen
+	public ArrayList<Player> getPlayersInGame(){
 		return playersInGame;
 	}
 	
