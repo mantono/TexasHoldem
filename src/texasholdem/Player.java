@@ -42,12 +42,12 @@ public class Player {
 		return chips += add;
 	}
 
-	public boolean addToPot(int i, Pot p) {
+	public boolean addToPot(int i, Pot pot) {
 		if(i > chips)
 			return false;
 		//Detta ska nog kontrolleras i game via getChips innan requesten ens kommer hit i slutprodukten.
 		chips =-i;
-		p.betToPot(i, this);
+		pot.betToPot(i, this);
 		return true;
 	}
 
