@@ -25,6 +25,21 @@ public class Pot {
 		return amount;
 	}
 
+	public boolean checkNull() {
+
+		for (Map.Entry<Player, Integer> me : betHistory.entrySet()) {
+			Player p = me.getKey();
+			Integer i = me.getValue();
+
+			if (p == null || i == null)
+
+				return true;
+
+		}
+		return false;
+
+	}
+
 	public void betToPot(int bet, Player p) {
 		int oldPlayerBet = 0;
 		if (bet < 1)
@@ -47,7 +62,7 @@ public class Pot {
 	}
 
 	public int getBetHistory(Player p) {
-		if(!betHistory.containsKey(p)){
+		if (!betHistory.containsKey(p)) {
 			return 0;
 		}
 		return betHistory.get(p);
