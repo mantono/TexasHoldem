@@ -21,6 +21,13 @@ public class PotTest {
 		assertEquals(0, newPot.getAmount());
 		
 	}
+	@Test (expected = NullPointerException.class)
+	public void NewPotNullTest(){
+		Pot nullPot = null;
+		assertTrue(null, nullPot.checkNull());
+		
+	}
+	
 
 	@Test
 	public void testPotSizeIfPositiveInt() {
