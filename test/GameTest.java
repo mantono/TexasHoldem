@@ -84,8 +84,8 @@ public class GameTest {
 		Game newGame = new Game(4, 0.3, kalle, pelle);
 		newGame.initiateRound();
 		assertTrue(newGame.getCurrentDeck() == null);
-		assertTrue(kalle.getChips() == 196);
-		assertTrue(pelle.getChips() == 198);
+		assertFalse(kalle.getChips() == 196);
+		assertFalse(pelle.getChips() == 198);
 		assertTrue(kent.getChips() == 200);
 	}
 	
