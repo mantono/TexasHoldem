@@ -10,14 +10,14 @@ public class Deck
 	
 	public Deck()
 	{
-		this(1);
+		this((byte) 1);
 	}
 	
-	public Deck(int numberOfSets)
+	public Deck(byte numberOfSets)
 	{
 		if(numberOfSets < 1)
 			throw new IllegalArgumentException("The deck must consist of at least one complete set.");
-		for(int i = 0; i < numberOfSets; i++)
+		for(byte i = 0; i < numberOfSets; i++)
 			generateCards();
 	}
 	

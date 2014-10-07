@@ -3,12 +3,12 @@ import java.util.*;
 
 import cards.*;
 public class Game{
-	Deck deck;
-	ArrayList<Player> playersInGame = new ArrayList<Player>();
-	List<Card> cardsOnTable = new ArrayList<Card>();
-	int currentSmallBlindPosition = 0;
-	int bigBlind = 4;
-	double blindsRaisePercentage = 0.2;
+	private Deck deck;
+	private ArrayList<Player> playersInGame = new ArrayList<Player>();
+	private List<Card> cardsOnTable = new ArrayList<Card>();
+	private int currentSmallBlindPosition = 0;
+	private int bigBlind = 4;
+	private double blindsRaisePercentage = 0.2;
 	
 	public Game(int bigBlind, double blindsRaisePercentage, Player... players){
 		this(players);
@@ -25,7 +25,11 @@ public class Game{
 	}
 	
 	public void newDeck(){
-		
+		deck = new Deck();
+	}
+	
+	public void newDeck(byte amoutOfSets){
+		deck = new Deck(amoutOfSets);
 	}
 	
 	public void initiateRound(){
@@ -60,11 +64,11 @@ public class Game{
 		
 	}
 	
-	public void initiateGame(){
+	public void initiateDeal(){
 		
 	}
 	
-	public void initiateDeal(){
+	public void restartGame(){
 		
 	}
 

@@ -24,13 +24,6 @@ public class GameTest {
 		Game newGame = new Game(kalle);
 		assertTrue(newGame.getPlayersInGame().contains(kalle));	
 	}
-		
-		@Test
-	public void addingOnePlayerTest(){ 
-		Game newGame = new Game(kalle, pelle);
-		assertTrue(newGame.getPlayersInGame().contains(kalle));
-		
-	}
 	
 	@Test
 	public void twoPlayersTest(){
@@ -38,22 +31,13 @@ public class GameTest {
 		assertTrue(newGame.getPlayersInGame().contains(kalle));
 		assertTrue(newGame.getPlayersInGame().contains(pelle));
 	}
-
-
+	
 	@Test
-	public void testRaiseOfBlinds(){
-		Game game = new Game(4, 1, kalle, pelle);
-		game.endRound();
-		assertEquals(4, game.getSmallBlind());		
-		assertEquals(8, game.getBigBlind());		
-		game = new Game(10, 0.5, kalle, pelle);
-		game.endRound();
-		assertEquals(7, game.getSmallBlind());		
-		assertEquals(15, game.getBigBlind());		
-		game = new Game(10, 0, kalle, pelle);
-		game.endRound();
-		assertEquals(5, game.getSmallBlind());		
-		assertEquals(10, game.getBigBlind());		
+	public void assertBlindsInNewGameTest(){
+		Game newGame = new Game(4, 0.3, kalle, pelle);
+		assertEquals(2, newGame.getSmallBlind());
+		assertEquals(4, newGame.getBigBlind());
+		assertEquals(0.3, newGame.getBlindsRaisePercentage(), 0.0001);
 	}
 	
 	@Test
@@ -80,20 +64,6 @@ public class GameTest {
 		game.raiseBlinds();
 		assertEquals(8, game.getBigBlind());
 		assertEquals(4, game.getSmallBlind());
-	}
-	
-	@Test
-	public void initiateGameTest(){
-		Game newGame = new Game(4, 0.3, kalle, pelle);
-		newGame.initiateGame();
-		assertEquals(2, newGame.getSmallBlind());
-		assertEquals(4, newGame.getBigBlind());
-		assertEquals(0.3, newGame.getBlindsRaisePercentage(), 0.0001);
-	}
-	
-	@Test
-	public void initiateMultipleGamesTest(){
-		
 	}
 	
 	@Test
@@ -128,7 +98,9 @@ public class GameTest {
 	public void newDeckTest(){
 		Game newGame = new Game(kalle);
 		newGame.newDeck();
-		assertFalse(newGame.getCurrentDeck() == null);	
+		assertEquals(52, newGame.getCurrentDeck().getSize());	
+		newGame.newDeck((byte) 2);
+		assertEquals(104, newGame.getCurrentDeck().getSize());	
 	}
 	
 	
