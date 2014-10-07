@@ -2,10 +2,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import cards.Card;
-import cards.Colour;
-import cards.Deck;
-import cards.Rank;
+import cards.*;
+
 
 
 public class DeckTest
