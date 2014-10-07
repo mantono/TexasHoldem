@@ -8,7 +8,7 @@ public class Player {
 	private final String name;
 	private int chips = 0;
 	private ArrayList<Card> hand = new ArrayList<Card>();
-	private Boolean inGame = false;
+	private boolean inGame = false;
 	
 	public Player(String name, int chips){
 	this.name = name;
@@ -46,8 +46,9 @@ public class Player {
 		if(i > chips)
 			return false;
 		//Detta ska nog kontrolleras i game via getChips innan requesten ens kommer hit i slutprodukten.
-		chips =-i;
+		chips -= i;
 		pot.betToPot(i, this);
+		assert chips >= 0 : "The amount of chips must not be negative";
 		return true;
 	}
 

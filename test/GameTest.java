@@ -30,6 +30,7 @@ public class GameTest {
 		Game newGame = new Game(kalle, pelle);
 		assertTrue(newGame.getPlayersInGame().contains(kalle));
 		assertTrue(newGame.getPlayersInGame().contains(pelle));
+		assertEquals(2, newGame.getPlayersInGame().size());
 	}
 	
 	@Test
@@ -71,17 +72,16 @@ public class GameTest {
 		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
 		newGame.initiateRound();
 		assertTrue(newGame.getCurrentDeck() == null);
-		assertTrue(kalle.getChips() == 196);
-		assertTrue(pelle.getChips() == 198);
-		assertTrue(kent.getChips() == 200);
+		assertEquals(198, kalle.getChips());
+		assertEquals(196, pelle.getChips());
+		assertEquals(200, kent.getChips());
 	}
 	
-	@Test (expected = IllegalThreadStateException.class)
+	@Test (expected = IllegalStateException.class)
 	public void initiateMultipleRoundTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
 		newGame.initiateRound();
 		newGame.initiateRound();
-
 	}
 	
 	@Test
@@ -105,33 +105,19 @@ public class GameTest {
 	
 	
 	@Test
-	public void initiateDealNoCardsOnStartTest(){
+	public void initiateDealTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
 		newGame.newDeck();
+		assertEquals(0, newGame.getCardsOnTable().size());
 		newGame.initiateDeal();
 		assertEquals(3, newGame.getCardsOnTable().size());
-	}
-	
-	@Test
-	public void initiateDealThreeCardsOnStartTest(){
-		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
-		newGame.newDeck();
-		newGame.initiateDeal();
 		newGame.initiateDeal();
 		assertEquals(4, newGame.getCardsOnTable().size());
+		newGame.initiateDeal();
+		assertEquals(5, newGame.getCardsOnTable().size());
 	}
 	
-	@Test
-	public void initiateDealFourCardsOnStartTest(){
-		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
-		newGame.newDeck();
-		newGame.initiateDeal();
-		newGame.initiateDeal();
-		newGame.initiateDeal();
-		assertEquals(4, newGame.getCardsOnTable().size());
-	}
-	
-	@Test (expected = IllegalThreadStateException.class)
+	@Test (expected = IllegalStateException.class)
 	public void initiateDealFiveCardsOnTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
 		newGame.newDeck();
@@ -159,7 +145,7 @@ public class GameTest {
 		assertEquals(0, game.getCardsOnTable().size());
 		assertEquals(8, game.getBigBlind());
 		assertEquals(4, game.getSmallBlind());
-		assertEquals(1, game.getCurrentSmallBlindPosition());
+		assertEquals(1, game.getSmallBlindPosition());
 	}
 	
 }

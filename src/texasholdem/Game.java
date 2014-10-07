@@ -6,7 +6,9 @@ public class Game{
 	private Deck deck;
 	private ArrayList<Player> playersInGame = new ArrayList<Player>();
 	private List<Card> cardsOnTable = new ArrayList<Card>();
-	private int currentSmallBlindPosition = 0;
+	private Pot pot = new Pot();
+	private boolean roundIsActive = false;;
+	private int smallBlindPosition = 0;
 	private int bigBlind = 4;
 	private double blindsRaisePercentage = 0.2;
 	
@@ -33,11 +35,29 @@ public class Game{
 	}
 	
 	public void initiateRound(){
-		
+		if(roundIsActive)
+			throw new IllegalStateException("A new round can not be initialized while a round is still active.");
+		roundIsActive = true;
+		placeBets();
+	}
+	
+	private void placeBets()
+	{
+		int bigBlindPosition = smallBlindPosition + 1;
+		if(bigBlindPosition >= playersInGame.size())
+			bigBlindPosition = 0;
+		for(int i = 0; i < playersInGame.size(); i++)
+		{
+			if(i == smallBlindPosition)
+				playersInGame.get(smallBlindPosition).addToPot(getSmallBlind(), pot);
+			else if(i == bigBlindPosition)
+				playersInGame.get(bigBlindPosition).addToPot(getBigBlind(), pot);
+		}
 	}
 	
 	public void clearAllHands(){
-		
+		for(Player p : playersInGame)
+			p.clearHand();
 	}
 	
 	public void raiseBlinds(){
@@ -54,18 +74,36 @@ public class Game{
 	
 	public void endRound(){
 		raiseBlinds();
+		moveSmallBlindPosition();
+		roundIsActive = false;
 	}
 	
 	public void endGame(){
 		
 	}
 	
-	public void distrubuteChip(){
+	public void distributeChip(){
 		
 	}
 	
 	public void initiateDeal(){
+		if(cardsOnTable.size() >= 5)
+			throw new IllegalStateException();
+		else if(cardsOnTable.size() == 0)
+			for(byte b = 0; b < 3; b++)
+				cardsOnTable.add(deck.drawCard());
+		else
+			cardsOnTable.add(deck.drawCard());
 		
+		assert cardsOnTable.size() >= 3 : "After the initiateDeal has been called, at least the flop (first three cards) must have been dealt.";
+	}
+	
+	private int moveSmallBlindPosition()
+	{
+		smallBlindPosition++;
+		if(smallBlindPosition > (playersInGame.size() - 1))
+			smallBlindPosition = 0;
+		return smallBlindPosition;
 	}
 	
 	public void restartGame(){
@@ -96,8 +134,8 @@ public class Game{
 		return blindsRaisePercentage;
 	}
 	
-	public int getCurrentSmallBlindPosition(){
-		return currentSmallBlindPosition;
+	public int getSmallBlindPosition(){
+		return smallBlindPosition;
 	}
 	
 }
