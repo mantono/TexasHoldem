@@ -1,11 +1,7 @@
 package texasholdem;
-import java.util.*;
 
 import cards.*;
-public class Game{
-	private Deck deck;
-	private ArrayList<Player> playersInGame = new ArrayList<Player>();
-	private List<Card> cardsOnTable = new ArrayList<Card>();
+public class Game extends CardGame{
 	private Pot pot = new Pot();
 	private boolean roundIsActive = false;;
 	private int smallBlindPosition = 0;
@@ -23,15 +19,7 @@ public class Game{
 	}
 	
 	public Game(Player... players){
-		playersInGame.addAll(Arrays.asList(players));
-	}
-	
-	public void newDeck(){
-		deck = new Deck();
-	}
-	
-	public void newDeck(byte amoutOfSets){
-		deck = new Deck(amoutOfSets);
+		super(players);
 	}
 	
 	public void initiateRound(){
@@ -44,20 +32,17 @@ public class Game{
 	private void placeBets()
 	{
 		int bigBlindPosition = smallBlindPosition + 1;
-		if(bigBlindPosition >= playersInGame.size())
+		if(bigBlindPosition >= getPlayersInGame().size())
 			bigBlindPosition = 0;
-		for(int i = 0; i < playersInGame.size(); i++)
+		for(int i = 0; i < getPlayersInGame().size(); i++)
 		{
 			if(i == smallBlindPosition)
-				playersInGame.get(smallBlindPosition).addToPot(getSmallBlind(), pot);
+				if(getPlayersInGame().get(smallBlindPosition).addToPot(getSmallBlind()))
+					pot.betToPot(getSmallBlind(), getPlayersInGame().get(smallBlindPosition));
 			else if(i == bigBlindPosition)
-				playersInGame.get(bigBlindPosition).addToPot(getBigBlind(), pot);
+				if(getPlayersInGame().get(bigBlindPosition).addToPot(getBigBlind()))
+					pot.betToPot(getBigBlind(), getPlayersInGame().get(bigBlindPosition));
 		}
-	}
-	
-	public void clearAllHands(){
-		for(Player p : playersInGame)
-			p.clearHand();
 	}
 	
 	public void raiseBlinds(){
@@ -87,39 +72,27 @@ public class Game{
 	}
 	
 	public void initiateDeal(){
-		if(cardsOnTable.size() >= 5)
+		if(getCardsOnTable().size() >= 5)
 			throw new IllegalStateException();
-		else if(cardsOnTable.size() == 0)
+		else if(getCardsOnTable().size() == 0)
 			for(byte b = 0; b < 3; b++)
-				cardsOnTable.add(deck.drawCard());
+				putCardOnTable();
 		else
-			cardsOnTable.add(deck.drawCard());
+			putCardOnTable();
 		
-		assert cardsOnTable.size() >= 3 : "After the initiateDeal has been called, at least the flop (first three cards) must have been dealt.";
+		assert getCardsOnTable().size() >= 3 : "After the initiateDeal has been called, at least the flop (first three cards) must have been dealt.";
 	}
 	
 	private int moveSmallBlindPosition()
 	{
 		smallBlindPosition++;
-		if(smallBlindPosition > (playersInGame.size() - 1))
+		if(smallBlindPosition > (getPlayersInGame().size() - 1))
 			smallBlindPosition = 0;
 		return smallBlindPosition;
 	}
 	
 	public void restartGame(){
 		
-	}
-
-	public ArrayList<Player> getPlayersInGame(){
-		return playersInGame;
-	}
-	
-	public List<Card> getCardsOnTable(){
-		return cardsOnTable;
-	}
-	
-	public Deck getCurrentDeck(){
-		return deck;
 	}
 
 	public int getBigBlind(){

@@ -3,6 +3,8 @@ package texasholdem;
 import java.util.HashMap;
 import java.util.Map;
 
+import cards.Player;
+
 public class Pot {
 
 	private int amount = 0;

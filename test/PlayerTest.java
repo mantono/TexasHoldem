@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import texasholdem.Player;
 import texasholdem.Pot;
 import cards.Card;
 import cards.Colour;
+import cards.Player;
 import cards.Rank;
 
 public class PlayerTest {
@@ -77,14 +77,14 @@ public class PlayerTest {
 	public void addToPotTestSuccess() {
 		Pot p = new Pot();
 		player.addChips(200);
-		assertTrue(player.addToPot(150, p));
+		assertTrue(player.addToPot(150));
 	}
 
 	@Test
 	public void addToPotTestFail() {
 		Pot p = new Pot();
 		player.addChips(200);
-		assertFalse(player.addToPot(250, p));
+		assertFalse(player.addToPot(250));
 
 	}
 

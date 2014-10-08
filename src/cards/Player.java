@@ -1,8 +1,7 @@
-package texasholdem;
+package cards;
 
 import java.util.ArrayList;
-
-import cards.Card;
+import java.util.Arrays;
 
 public class Player {
 	private final String name;
@@ -24,10 +23,13 @@ public class Player {
 		return chips;
 	}
 
-	public void newHand(Card card1, Card card2) {
+	public void newHand(Card... cards) {
 		hand.clear();
-		hand.add(card1);
-		hand.add(card2);
+		hand.addAll(Arrays.asList(cards));
+	}
+	
+	public void addToHand(Card... cards) {
+		hand.addAll(Arrays.asList(cards));
 	}
 
 	public void clearHand(){
@@ -42,12 +44,10 @@ public class Player {
 		return chips += add;
 	}
 
-	public boolean addToPot(int i, Pot pot) {
+	public boolean addToPot(int i) {
 		if(i > chips)
 			return false;
-		//Detta ska nog kontrolleras i game via getChips innan requesten ens kommer hit i slutprodukten.
 		chips -= i;
-		pot.betToPot(i, this);
 		assert chips >= 0 : "The amount of chips must not be negative";
 		return true;
 	}

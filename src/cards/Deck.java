@@ -38,6 +38,14 @@ public class Deck
 		return cards.remove(randomNumber.nextInt(getSize()));
 	}
 	
+	public Card[] drawCards(int amountOfCards)
+	{
+		Card[] cardsToPlayer = new Card[amountOfCards]; 
+		for(int i = 0; i < amountOfCards; i++)
+			cardsToPlayer[i] = cards.remove(randomNumber.nextInt(getSize()));
+		return cardsToPlayer;
+	}
+	
 	public int getSize()
 	{
 		return cards.size();
