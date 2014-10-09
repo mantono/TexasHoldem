@@ -8,14 +8,14 @@ public class Player {
 	private int chips = 0;
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private boolean inGame = false;
-	
-	public Player(String name, int chips){
-	this.name = name;
-	this.chips = chips;
-		
+
+	public Player(String name, int chips) {
+		this.name = name;
+		this.chips = chips;
+
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
 
@@ -27,15 +27,15 @@ public class Player {
 		hand.clear();
 		hand.addAll(Arrays.asList(cards));
 	}
-	
+
 	public void addToHand(Card... cards) {
 		hand.addAll(Arrays.asList(cards));
 	}
 
-	public void clearHand(){
+	public void clearHand() {
 		hand.clear();
 	}
-	
+
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
@@ -44,22 +44,21 @@ public class Player {
 		return chips += add;
 	}
 
-	public boolean addToPot(int i) {
-		if(i > chips)
+	public boolean addToPot(int bet) {
+		if (bet > chips)
 			return false;
-		chips -= i;
+		chips -= bet;
 		assert chips >= 0 : "The amount of chips must not be negative";
 		return true;
 	}
 
 	public void setInGame(boolean inGame) {
 		this.inGame = inGame;
-		
+
 	}
 
 	public boolean getInGame() {
 		return inGame;
 	}
 
-	
 }
