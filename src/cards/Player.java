@@ -8,14 +8,14 @@ public class Player {
 	private int chips = 0;
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private boolean inGame = false;
-	
-	public Player(String name, int chips){
-	this.name = name;
-	this.chips = chips;
-		
+
+	public Player(String name, int chips) {
+		this.name = name;
+		this.chips = chips;
+
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
 
@@ -27,15 +27,15 @@ public class Player {
 		hand.clear();
 		hand.addAll(Arrays.asList(cards));
 	}
-	
+
 	public void addToHand(Card... cards) {
 		hand.addAll(Arrays.asList(cards));
 	}
 
-	public void clearHand(){
+	public void clearHand() {
 		hand.clear();
 	}
-	
+
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
@@ -54,12 +54,11 @@ public class Player {
 
 	public void setInGame(boolean inGame) {
 		this.inGame = inGame;
-		
+
 	}
 
 	public boolean isInGame() {
 		return inGame;
 	}
 
-	
 }

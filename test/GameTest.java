@@ -29,10 +29,24 @@ public class GameTest {
 	}
 	
 	@Test
-	public void blindRotationTest(){
+
+	public void addingPlayersTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle);
 		assertTrue(newGame.getPlayersInGame().contains(kalle));
 		assertTrue(newGame.getPlayersInGame().contains(pelle));
+	}
+	
+	
+	@Test
+	public void addingOnePlayerTest(){
+		Game newGame = new Game(4, 0.3, kalle);
+		assertTrue(newGame.getPlayersInGame().contains(kalle));
+	}
+	
+	@Test
+	public void addingNoPlayerTest(){
+		Game newGame = new Game(4, 0.3);
+		assertEquals(0, newGame.getPlayersInGame().size());
 	}
 	
 	@Test

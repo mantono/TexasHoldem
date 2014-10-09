@@ -27,17 +27,13 @@ public class Pot {
 		return amount;
 	}
 
-	public void recieveBet(int bet, Player p) {
-		int oldPlayerBet = 0;
+	public void receiveBet(int bet, Player player) {
 		if (bet < 1)
 			throw new IllegalArgumentException(
 					"The Bet has to be larger than 0");
 		else {
 			amount += bet;
-			if (betHistory.containsKey(p)) {
-				oldPlayerBet = betHistory.get(p);
-			}
-			betHistory.put(p, oldPlayerBet + bet);
+			betHistory.put(player, this.getBetHistory(player) + bet);
 
 		}
 	}
