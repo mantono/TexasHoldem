@@ -79,6 +79,13 @@ public class PlayerTest {
 		player.addChips(200);
 		assertTrue(player.addToPot(150));
 	}
+	@Test
+	public void add0ChipsToPotTest() {
+		Pot p = new Pot();
+		player.addChips(200);
+		assertFalse(player.addToPot(0));
+
+	}
 
 	@Test
 	public void addToPotTestFail() {
