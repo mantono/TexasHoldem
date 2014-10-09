@@ -14,7 +14,7 @@ public abstract class CardGame
 	{
 		playersInGame.addAll(Arrays.asList(players));
 	}
-
+	
 	public void newDeck()
 	{
 		deck = new Deck();
