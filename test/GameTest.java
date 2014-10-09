@@ -30,7 +30,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void blindRotationTest(){
+	public void addingPlayerTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle);
 		assertTrue(newGame.getPlayersInGame().contains(kalle));
 		assertTrue(newGame.getPlayersInGame().contains(pelle));
