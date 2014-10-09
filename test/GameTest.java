@@ -10,6 +10,7 @@ import cards.*;
 public class GameTest {
 	
 	private Player kalle, pelle, kent;
+	private Game defaultGame;
 	
 	
 	@Before
@@ -17,22 +18,9 @@ public class GameTest {
 		kalle = new Player("kalle", 200);
 		pelle = new Player("pelle", 200);
 		kent = new Player("kent", 200);
+		defaultGame = new Game(kalle, pelle, kent);
 	}
 
-	@Test
-	public void onePlayerTest(){ 
-		Game newGame = new Game(kalle);
-		assertTrue(newGame.getPlayersInGame().contains(kalle));	
-	}
-	
-	@Test
-	public void twoPlayersTest(){
-		Game newGame = new Game(kalle, pelle);
-		assertTrue(newGame.getPlayersInGame().contains(kalle));
-		assertTrue(newGame.getPlayersInGame().contains(pelle));
-		assertEquals(2, newGame.getPlayersInGame().size());
-	}
-	
 	@Test
 	public void assertBlindsInNewGameTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle);
@@ -46,6 +34,12 @@ public class GameTest {
 		Game newGame = new Game(4, 0.3, kalle, pelle);
 		assertTrue(newGame.getPlayersInGame().contains(kalle));
 		assertTrue(newGame.getPlayersInGame().contains(pelle));
+	}
+	
+	@Test
+	public void playersWithBlindTest(){
+		assertEquals(kalle, defaultGame.getPlayerWithSmallBlind());
+		assertEquals(pelle, defaultGame.getPlayerWithBigBlind());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -83,26 +77,7 @@ public class GameTest {
 		newGame.initiateRound();
 		newGame.initiateRound();
 	}
-	
-	@Test
-	public void clearAllHandsTest(){
-		Game newGame = new Game(kalle, pelle);
-		kalle.newHand(new Card(Colour.CLUBS, Rank.THREE), new Card(Colour.CLUBS, Rank.FOUR));
-		kalle.newHand(new Card(Colour.CLUBS, Rank.SIX), new Card(Colour.CLUBS, Rank.FIVE));
-		newGame.clearAllHands();
-		assertEquals(0, kalle.getHand().size());
-		assertEquals(0, pelle.getHand().size());
-	}
-	
-	@Test
-	public void newDeckTest(){
-		Game newGame = new Game(kalle);
-		newGame.newDeck();
-		assertEquals(52, newGame.getCurrentDeck().getSize());	
-		newGame.newDeck((byte) 2);
-		assertEquals(104, newGame.getCurrentDeck().getSize());	
-	}
-	
+
 	
 	@Test
 	public void initiateDealTest(){

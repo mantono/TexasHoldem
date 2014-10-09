@@ -46,6 +46,11 @@ public abstract class CardGame
 	{
 		return playersInGame;
 	}
+	
+	public Player getPlayer(int index)
+	{
+		return playersInGame.get(index);
+	}
 
 	public List<Card> getCardsOnTable()
 	{

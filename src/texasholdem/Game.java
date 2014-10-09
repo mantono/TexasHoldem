@@ -29,24 +29,31 @@ public class Game extends CardGame{
 		placeBets();
 	}
 	
-	private void placeBets()
-	{
+	private void placeBets(){
 		int bigBlindPosition = smallBlindPosition + 1;
 		if(bigBlindPosition >= getPlayersInGame().size())
 			bigBlindPosition = 0;
-		for(int i = 0; i < getPlayersInGame().size(); i++)
-		{
-			if(i == smallBlindPosition)
-			{
-				if(getPlayersInGame().get(smallBlindPosition).addToPot(getSmallBlind()))
+		for(int i = 0; i < getPlayersInGame().size(); i++){
+			if(i == smallBlindPosition){
+				if(getPlayerWithSmallBlind().addToPot(getSmallBlind()))
 					pot.betToPot(getSmallBlind(), getPlayersInGame().get(smallBlindPosition));
 			}
-			else if(i == bigBlindPosition)
-			{
-				if(getPlayersInGame().get(bigBlindPosition).addToPot(getBigBlind()))
+			else if(i == bigBlindPosition){
+				if(getPlayerWithBigBlind().addToPot(getBigBlind()))
 					pot.betToPot(getBigBlind(), getPlayersInGame().get(bigBlindPosition));
 			}
 		}
+	}
+
+	public Player getPlayerWithSmallBlind(){
+		return getPlayer(smallBlindPosition);		
+	}
+	
+	public Player getPlayerWithBigBlind(){
+		int bigBlindPosition = smallBlindPosition + 1;
+		if(bigBlindPosition >= getPlayersInGame().size())
+			bigBlindPosition = 0;
+		return getPlayer(bigBlindPosition);
 	}
 	
 	public void raiseBlinds(){
