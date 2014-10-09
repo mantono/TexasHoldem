@@ -12,7 +12,6 @@ public class GameTest {
 	private Player kalle, pelle, kent;
 	private Game defaultGame;
 	
-	
 	@Before
 	public void setup(){
 		kalle = new Player("kalle", 200);
@@ -30,7 +29,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void addingPlayerTest(){
+	public void blindRotationTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle);
 		assertTrue(newGame.getPlayersInGame().contains(kalle));
 		assertTrue(newGame.getPlayersInGame().contains(pelle));

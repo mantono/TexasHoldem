@@ -60,10 +60,10 @@ public class CardTest
 		Card card2 = new Card(Colour.HEARTS, Rank.THREE);
 		Card card3 = new Card(Colour.DIAMONDS, Rank.FOUR);
 		Card card4 = new Card(Colour.CLUBS, Rank.FIVE);
-		assertEquals(2, card1.hashCode());
-		assertEquals(103, card2.hashCode());
-		assertEquals(204, card3.hashCode());
-		assertEquals(305, card4.hashCode());
+		assertEquals(302, card1.hashCode());
+		assertEquals(203, card2.hashCode());
+		assertEquals(104, card3.hashCode());
+		assertEquals(5, card4.hashCode());
 	}
 	
 	@Test

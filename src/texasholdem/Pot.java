@@ -8,12 +8,12 @@ import cards.Player;
 public class Pot {
 
 	private int amount = 0;
-	private Map<Player, Integer> betHistory = new HashMap<Player, Integer>();
+	private final Map<Player, Integer> betHistory = new HashMap<Player, Integer>();
 
 	public Pot(int amount) {
-		if (amount < 1)
+		if (amount < 0)
 			throw new IllegalArgumentException(
-					"The Pot has to be larger than 0");
+					"The Pot has to be at least 0");
 
 		this.amount = amount;
 	}
@@ -27,22 +27,7 @@ public class Pot {
 		return amount;
 	}
 
-	public boolean checkNull() {
-
-		for (Map.Entry<Player, Integer> me : betHistory.entrySet()) {
-			Player p = me.getKey();
-			Integer i = me.getValue();
-
-			if (p == null || i == null)
-
-				return true;
-
-		}
-		return false;
-
-	}
-
-	public void betToPot(int bet, Player p) {
+	public void recieveBet(int bet, Player p) {
 		int oldPlayerBet = 0;
 		if (bet < 1)
 			throw new IllegalArgumentException(

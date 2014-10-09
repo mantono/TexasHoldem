@@ -44,10 +44,10 @@ public class Player {
 		return chips += add;
 	}
 
-	public boolean addToPot(int i) {
-		if(i > chips)
+	public boolean betToPot(int bet) {
+		if(bet > chips || bet < 1)
 			return false;
-		chips -= i;
+		chips -= bet;
 		assert chips >= 0 : "The amount of chips must not be negative";
 		return true;
 	}
@@ -57,7 +57,7 @@ public class Player {
 		
 	}
 
-	public boolean getInGame() {
+	public boolean isInGame() {
 		return inGame;
 	}
 

@@ -8,17 +8,17 @@ public class Deck
 	private ArrayList<Card> cards = new ArrayList<Card>();
 	private final SecureRandom randomNumber = new SecureRandom();
 	
-	public Deck()
-	{
-		this((byte) 1);
-	}
-	
 	public Deck(byte numberOfSets)
 	{
 		if(numberOfSets < 1)
 			throw new IllegalArgumentException("The deck must consist of at least one complete set.");
 		for(byte i = 0; i < numberOfSets; i++)
 			generateCards();
+	}
+	
+	public Deck()
+	{
+		this((byte) 1);
 	}
 	
 	private void generateCards()

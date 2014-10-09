@@ -35,12 +35,12 @@ public class Game extends CardGame{
 			bigBlindPosition = 0;
 		for(int i = 0; i < getPlayersInGame().size(); i++){
 			if(i == smallBlindPosition){
-				if(getPlayerWithSmallBlind().addToPot(getSmallBlind()))
-					pot.betToPot(getSmallBlind(), getPlayersInGame().get(smallBlindPosition));
+				if(getPlayerWithSmallBlind().betToPot(getSmallBlind()))
+					pot.recieveBet(getSmallBlind(), getPlayersInGame().get(smallBlindPosition));
 			}
 			else if(i == bigBlindPosition){
-				if(getPlayerWithBigBlind().addToPot(getBigBlind()))
-					pot.betToPot(getBigBlind(), getPlayersInGame().get(bigBlindPosition));
+				if(getPlayerWithBigBlind().betToPot(getBigBlind()))
+					pot.recieveBet(getBigBlind(), getPlayersInGame().get(bigBlindPosition));
 			}
 		}
 	}

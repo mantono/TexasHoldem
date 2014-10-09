@@ -21,13 +21,6 @@ public class PotTest {
 		assertEquals(0, newPot.getAmount());
 		
 	}
-	@Test 
-	public void BetHistoryNullTest(){
-		Pot pot = new Pot();
-		assertFalse(pot.checkNull());
-		
-	}
-	
 
 	@Test
 	public void testPotSizeIfPositiveInt() {
@@ -46,7 +39,7 @@ public class PotTest {
 	public void betSizeTestFromEmptyPot(){
 		
 		Pot emptyPot = new Pot();
-		emptyPot.betToPot(300,player);
+		emptyPot.recieveBet(300,player);
 		assertEquals(300, emptyPot.getAmount());
 		
 	}
@@ -55,7 +48,7 @@ public class PotTest {
 	public void betSizeTestFromPositiveSize() {
 		
 		Pot positivePot = new Pot(1);
-		positivePot.betToPot(300,player);
+		positivePot.recieveBet(300,player);
 		assertEquals(301, positivePot.getAmount());
 
 
@@ -65,7 +58,7 @@ public class PotTest {
 	public void testForInvalidBet() {
 		
 		Pot invalidBet = new Pot(0);
-		invalidBet.betToPot(0,player);
+		invalidBet.recieveBet(0,player);
 		
 	}
 	
@@ -73,8 +66,8 @@ public class PotTest {
 	public void testForNewBetOverrideAndMultipleBets(){
 	
 		Pot newPot = new Pot();
-		newPot.betToPot(300,player);
-		newPot.betToPot(200,player);
+		newPot.recieveBet(300,player);
+		newPot.recieveBet(200,player);
 		assertEquals(500, newPot.getAmount());
 	}
 	
@@ -82,7 +75,7 @@ public class PotTest {
 	public void testBetHistoryMapAfterOneBet(){
 		
 		Pot newPot = new Pot();
-		newPot.betToPot(300,player);
+		newPot.recieveBet(300,player);
 		assertEquals(300,newPot.getBetHistory(player));
 	}
 	
@@ -90,8 +83,8 @@ public class PotTest {
 	public void testBetHistoryMapAfterMultipleBets(){
 		
 		Pot newPot = new Pot();
-		newPot.betToPot(300,player);
-		newPot.betToPot(300,player);
+		newPot.recieveBet(300,player);
+		newPot.recieveBet(300,player);
 		assertEquals(600,newPot.getBetHistory(player));
 	}
 	
@@ -99,7 +92,7 @@ public class PotTest {
 	public void resetPotTest(){
 		
 		Pot newPot = new Pot(500);
-		newPot.betToPot(200,player);
+		newPot.recieveBet(200,player);
 		newPot.resetPot();
 		assertEquals(0, newPot.getAmount());
 		assertEquals(0, newPot.getBetHistory(player));
