@@ -10,6 +10,7 @@ import org.junit.Test;
 import texasholdem.Pot;
 import cards.Card;
 import cards.Colour;
+import cards.Hand;
 import cards.Player;
 import cards.Rank;
 
@@ -41,9 +42,9 @@ public class PlayerTest {
 		Card card1 = new Card(Colour.HEARTS, Rank.EIGHT);
 		Card card2 = new Card(Colour.HEARTS, Rank.ACE);
 		player.newHand(card1, card2);
-		ArrayList<Card> player1Cards = player.getHand();
-		assertTrue(player1Cards.contains(card1));
-		assertTrue(player1Cards.contains(card2));
+		Hand clonedHand = player.getHand();
+		assertEquals(card2, clonedHand.dropCard(1));
+		assertEquals(card1, clonedHand.dropCard(0));
 
 	}
 
@@ -57,11 +58,11 @@ public class PlayerTest {
 		Card card3 = new Card(Colour.SPADES, Rank.EIGHT);
 		Card card4 = new Card(Colour.CLUBS, Rank.THREE);
 		player.newHand(card3, card4);
-		ArrayList<Card> player1Cards = player.getHand();
-		assertFalse(player1Cards.contains(card1));
-		assertFalse(player1Cards.contains(card2));
-		assertTrue(player1Cards.contains(card3));
-		assertTrue(player1Cards.contains(card4));
+		Hand player1Hand = player.getHand();
+		assertFalse(player1Hand.contains(card1));
+		assertFalse(player1Hand.contains(card2));
+		assertTrue(player1Hand.contains(card3));
+		assertTrue(player1Hand.contains(card4));
 
 	}
 
@@ -102,5 +103,4 @@ public class PlayerTest {
 		assertTrue(player.isInGame());
 
 	}
-
 }

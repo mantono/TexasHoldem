@@ -1,0 +1,12 @@
+UML diagram model cards texasholdem Card toString(): String compareTo():
+Integer getRank(): Rank getColour(): Colour Deck drawCard(): Card
+getSize(): Integer Player inGame: Boolean addToPot(Integer): Boolean
+getHand(): void getChips(): Integer newHand(): void Game
+initiateRound(): void requestPlayerAction(): Action endRound(): void
+distributeChip(): void initiateGame(): void initiateDeal(): void Pot
+addToPot(undefined): Boolean getPot(): Integer operation(): void «
+Enumeration » Colour « Enumeration » Rank « Enumeration » Action FOLD
+CALL RAISE ALL_IN « Enumeration » CardCombination PAIR STRAIGHT
+DOUBLE_PAIR deck 0..1 card * game 1 player * pot 1 player 1..* deck 0..1
+game 0..1 pot 0..1 game 0..1 « dependency » « dependency » « dependency
+» « dependency » 

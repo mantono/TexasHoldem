@@ -1,17 +1,17 @@
 ﻿Saker som ingår i projektet som vi måste ha gjort.
 
-Enhetstestramverk/JUnit		[]
+Enhetstestramverk/JUnit		[*]
 
 Byggscript			[]
 http://ant.apache.org/
 
-Testdriven utveckling		[]
+Testdriven utveckling		[*]
 
-Ekvivalensklassuppdelning	[]
+Ekvivalensklassuppdelning	[10-10]
 
 Tillståndsmaskiner		[]
 
-Granskning			[]
+Granskning			[10-08]
 
 Kodkritiksystem			[]
 http://findbugs.sourceforge.net/ 

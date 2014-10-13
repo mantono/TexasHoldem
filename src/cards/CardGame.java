@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class CardGame
 {
-	private Deck deck;
+	private Deck deck = new Deck();
 	private final ArrayList<Player> playersInGame = new ArrayList<Player>();
 	private final List<Card> cardsOnTable = new ArrayList<Card>();
 
@@ -30,11 +30,6 @@ public abstract class CardGame
 		for(Player player : playersInGame)
 			player.clearHand();
 	}
-	
-	public void clearTableOfCards()
-	{
-		cardsOnTable.clear();
-	}
 
 	public void dealCards(int amountOfCards)
 	{
@@ -52,18 +47,24 @@ public abstract class CardGame
 		return playersInGame.get(index);
 	}
 
-	public List<Card> getCardsOnTable()
+	public void clearTableOfCards()
 	{
-		return cardsOnTable;
+		cardsOnTable.clear();
 	}
-	
+
 	public void putCardOnTable()
 	{
 		cardsOnTable.add(deck.drawCard());
 	}
 	
-	public Deck getCurrentDeck()
+	public List<Card> getCardsOnTable()
 	{
-		return deck;
+		return cardsOnTable;
 	}
+	
+	public int getSizeOfDeck()
+	{
+		return deck.getSize();
+	}
+	
 }

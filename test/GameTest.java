@@ -78,7 +78,6 @@ public class GameTest {
 	public void initiateRoundTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
 		newGame.initiateRound();
-		assertTrue(newGame.getCurrentDeck() == null);
 		assertEquals(198, kalle.getChips());
 		assertEquals(196, pelle.getChips());
 		assertEquals(200, kent.getChips());
@@ -115,21 +114,14 @@ public class GameTest {
 		newGame.initiateDeal();
 	}
 	
-	@Test (expected = NullPointerException.class)
-	public void initiateDealWithNoDeckTest(){
-		Game newGame = new Game(kalle);
-		newGame.initiateDeal();
-	}
-	
 	@Test
 	public void endRoundTest(){
 		Game game = new Game(4, 1, kalle, pelle, kent);
 		game.initiateRound();
 		game.endRound();
-		assertEquals(null, game.getCurrentDeck());
-		assertEquals(0, kalle.getHand().size());
-		assertEquals(0, pelle.getHand().size());
-		assertEquals(0, kent.getHand().size());
+		assertEquals(0, kalle.getNumberOfCards());
+		assertEquals(0, pelle.getNumberOfCards());
+		assertEquals(0, kent.getNumberOfCards());
 		assertEquals(0, game.getCardsOnTable().size());
 		assertEquals(8, game.getBigBlind());
 		assertEquals(4, game.getSmallBlind());

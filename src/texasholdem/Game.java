@@ -1,9 +1,11 @@
 package texasholdem;
 
+import java.util.List;
+
 import cards.*;
 public class Game extends CardGame{
 	private Pot pot = new Pot();
-	private boolean roundIsActive = false;;
+	private boolean roundIsActive = false;
 	private int smallBlindPosition = 0;
 	private int bigBlind = 4;
 	private double blindsRaisePercentage = 0.2;
@@ -27,6 +29,7 @@ public class Game extends CardGame{
 			throw new IllegalStateException("A new round can not be initialized while a round is still active.");
 		roundIsActive = true;
 		placeBets();
+		dealCards(2);
 	}
 	
 	private void placeBets(){
@@ -121,5 +124,6 @@ public class Game extends CardGame{
 	public int getSmallBlindPosition(){
 		return smallBlindPosition;
 	}
+
 	
 }

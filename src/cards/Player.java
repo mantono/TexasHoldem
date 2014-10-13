@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Player {
 	private final String name;
 	private int chips = 0;
-	private ArrayList<Card> hand = new ArrayList<Card>();
+	private final Hand hand = new Hand();
 	private boolean inGame = false;
 
 	public Player(String name, int chips) {
@@ -22,24 +22,7 @@ public class Player {
 	public int getChips() {
 		return chips;
 	}
-
-	public void newHand(Card... cards) {
-		hand.clear();
-		hand.addAll(Arrays.asList(cards));
-	}
-
-	public void addToHand(Card... cards) {
-		hand.addAll(Arrays.asList(cards));
-	}
-
-	public void clearHand() {
-		hand.clear();
-	}
-
-	public ArrayList<Card> getHand() {
-		return hand;
-	}
-
+	
 	public int addChips(int add) {
 		return chips += add;
 	}
@@ -60,5 +43,27 @@ public class Player {
 	public boolean isInGame() {
 		return inGame;
 	}
+	
+	public void newHand(Card... cards){
+		hand.newHand(cards);
+	}
+	
+	public void addTohand(Card... cards){
+		hand.addToHand(cards);
+	}
+	
+	public int getNumberOfCards(){
+		return hand.getNumberOfCards();
+	}
+	
+	public void clearHand(){
+		hand.clearHand();
+	}
+	
+	public Hand getHand()
+	{
+		return (Hand) this.hand.clone();
+	}
+
 
 }

@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +14,7 @@ import cards.Rank;
 public class CardGameTest
 {
 	private Player kalle, pelle, kent;
+	private Game game;
 
 	@Before
 	public void setUp() throws Exception
@@ -19,6 +22,7 @@ public class CardGameTest
 		kalle = new Player("kalle", 200);
 		pelle = new Player("pelle", 200);
 		kent = new Player("kent", 200);
+		game = new Game();
 	}
 
 	@Test
@@ -44,8 +48,8 @@ public class CardGameTest
 		kalle.newHand(new Card(Colour.CLUBS, Rank.THREE), new Card(Colour.CLUBS, Rank.FOUR));
 		kalle.newHand(new Card(Colour.CLUBS, Rank.SIX), new Card(Colour.CLUBS, Rank.FIVE));
 		newGame.clearAllHands();
-		assertEquals(0, kalle.getHand().size());
-		assertEquals(0, pelle.getHand().size());
+		assertEquals(0, kalle.getNumberOfCards());
+		assertEquals(0, pelle.getNumberOfCards());
 	}
 
 	@Test
@@ -53,9 +57,9 @@ public class CardGameTest
 	{
 		Game newGame = new Game(kalle);
 		newGame.newDeck();
-		assertEquals(52, newGame.getCurrentDeck().getSize());
+		assertEquals(52, newGame.getSizeOfDeck());
 		newGame.newDeck((byte) 2);
-		assertEquals(104, newGame.getCurrentDeck().getSize());
+		assertEquals(104, newGame.getSizeOfDeck());
 	}
 
 	@Test
@@ -64,6 +68,37 @@ public class CardGameTest
 		Game game = new Game(kalle, pelle, kent);
 		assertEquals(kalle, game.getPlayer(0));
 		assertEquals(pelle, game.getPlayer(1));
+	}
+	
+	@Test
+	public void cardsOnTableTest()
+	{
+		assertEquals(52, game.getSizeOfDeck());
+		game.putCardOnTable();
+		game.putCardOnTable();
+		List<Card> tableCards = game.getCardsOnTable();
+		assertEquals(50, game.getSizeOfDeck());
+		assertEquals(2, tableCards.size());
+		game.clearTableOfCards();
+		tableCards = game.getCardsOnTable();
+		assertEquals(0, tableCards.size());	
+	}
+	
+	@Test
+	public void dealCardsTest()
+	{
+		game = new Game(pelle, kalle, kent);
+		game.dealCards(2);
+		assertEquals(2, pelle.getNumberOfCards());
+		assertEquals(2, kalle.getNumberOfCards());
+		assertEquals(2, kent.getNumberOfCards());
+	}
+	
+	@Test (expected = NegativeArraySizeException.class)
+	public void dealCardsNegativeSizeTest()
+	{
+		game = new Game(pelle, kalle, kent);
+		game.dealCards(-1);
 	}
 
 }
