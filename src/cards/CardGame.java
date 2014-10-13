@@ -7,12 +7,12 @@ import java.util.List;
 public abstract class CardGame
 {
 	private Deck deck = new Deck();
-	private final ArrayList<Player> playersInGame = new ArrayList<Player>();
+	private final ArrayList<Player> players = new ArrayList<Player>();
 	private final List<Card> cardsOnTable = new ArrayList<Card>();
 
 	public CardGame(Player... players)
 	{
-		playersInGame.addAll(Arrays.asList(players));
+		this.players.addAll(Arrays.asList(players));
 	}
 	
 	public void newDeck()
@@ -27,24 +27,24 @@ public abstract class CardGame
 
 	public void clearAllHands()
 	{
-		for(Player player : playersInGame)
+		for(Player player : players)
 			player.clearHand();
 	}
 
 	public void dealCards(int amountOfCards)
 	{
-		for(Player player : playersInGame)
+		for(Player player : players)
 			player.newHand(deck.drawCards(amountOfCards));
 	}
 
-	public ArrayList<Player> getPlayersInGame()
+	public ArrayList<Player> getPlayers()
 	{
-		return playersInGame;
+		return players;
 	}
 	
 	public Player getPlayer(int index)
 	{
-		return playersInGame.get(index);
+		return players.get(index);
 	}
 
 	public void clearTableOfCards()

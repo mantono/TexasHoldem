@@ -29,16 +29,16 @@ public class CardGameTest
 	public void onePlayerTest()
 	{
 		Game newGame = new Game(kalle);
-		assertTrue(newGame.getPlayersInGame().contains(kalle));
+		assertTrue(newGame.getPlayers().contains(kalle));
 	}
 
 	@Test
 	public void twoPlayersTest()
 	{
 		Game newGame = new Game(kalle, pelle);
-		assertTrue(newGame.getPlayersInGame().contains(kalle));
-		assertTrue(newGame.getPlayersInGame().contains(pelle));
-		assertEquals(2, newGame.getPlayersInGame().size());
+		assertTrue(newGame.getPlayers().contains(kalle));
+		assertTrue(newGame.getPlayers().contains(pelle));
+		assertEquals(2, newGame.getPlayers().size());
 	}
 
 	@Test

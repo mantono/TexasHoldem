@@ -34,16 +34,16 @@ public class Game extends CardGame{
 	
 	private void placeBets(){
 		int bigBlindPosition = smallBlindPosition + 1;
-		if(bigBlindPosition >= getPlayersInGame().size())
+		if(bigBlindPosition >= getPlayers().size())
 			bigBlindPosition = 0;
-		for(int i = 0; i < getPlayersInGame().size(); i++){
+		for(int i = 0; i < getPlayers().size(); i++){
 			if(i == smallBlindPosition){
 				if(getPlayerWithSmallBlind().betToPot(getSmallBlind()))
-					pot.receiveBet(getSmallBlind(), getPlayersInGame().get(smallBlindPosition));
+					pot.receiveBet(getSmallBlind(), getPlayers().get(smallBlindPosition));
 			}
 			else if(i == bigBlindPosition){
 				if(getPlayerWithBigBlind().betToPot(getBigBlind()))
-					pot.receiveBet(getBigBlind(), getPlayersInGame().get(bigBlindPosition));
+					pot.receiveBet(getBigBlind(), getPlayers().get(bigBlindPosition));
 			}
 		}
 	}
@@ -54,7 +54,7 @@ public class Game extends CardGame{
 	
 	public Player getPlayerWithBigBlind(){
 		int bigBlindPosition = smallBlindPosition + 1;
-		if(bigBlindPosition >= getPlayersInGame().size())
+		if(bigBlindPosition >= getPlayers().size())
 			bigBlindPosition = 0;
 		return getPlayer(bigBlindPosition);
 	}
@@ -67,13 +67,18 @@ public class Game extends CardGame{
 	}
 
 	
-	public Action requestPlayerAction(){
-		return Action.FOLD;		
+	public boolean playerAction(Player player, Action action){
+		return false;
+	}
+	
+	public boolean playerAction(Player player, Action action, int raiseBy){
+		return false;
 	}
 	
 	public void endRound(){
 		raiseBlinds();
 		moveSmallBlindPosition();
+		clearAllHands();
 		roundIsActive = false;
 	}
 	
@@ -100,7 +105,7 @@ public class Game extends CardGame{
 	private int moveSmallBlindPosition()
 	{
 		smallBlindPosition++;
-		if(smallBlindPosition > (getPlayersInGame().size() - 1))
+		if(smallBlindPosition > (getPlayers().size() - 1))
 			smallBlindPosition = 0;
 		return smallBlindPosition;
 	}

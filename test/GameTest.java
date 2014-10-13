@@ -32,21 +32,21 @@ public class GameTest {
 
 	public void addingPlayersTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle);
-		assertTrue(newGame.getPlayersInGame().contains(kalle));
-		assertTrue(newGame.getPlayersInGame().contains(pelle));
+		assertTrue(newGame.getPlayers().contains(kalle));
+		assertTrue(newGame.getPlayers().contains(pelle));
 	}
 	
 	
 	@Test
 	public void addingOnePlayerTest(){
 		Game newGame = new Game(4, 0.3, kalle);
-		assertTrue(newGame.getPlayersInGame().contains(kalle));
+		assertTrue(newGame.getPlayers().contains(kalle));
 	}
 	
 	@Test
 	public void addingNoPlayerTest(){
 		Game newGame = new Game(4, 0.3);
-		assertEquals(0, newGame.getPlayersInGame().size());
+		assertEquals(0, newGame.getPlayers().size());
 	}
 	
 	@Test
