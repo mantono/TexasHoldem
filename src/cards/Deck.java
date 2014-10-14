@@ -40,6 +40,9 @@ public class Deck
 	
 	public Card[] drawCards(int amountOfCards)
 	{
+		if(amountOfCards > cards.size())
+			throw new IllegalArgumentException("The requested amount of cards to be drawn is greater "
+					+ "than the amount left in the deck.");
 		Card[] cardsToPlayer = new Card[amountOfCards]; 
 		for(int i = 0; i < amountOfCards; i++)
 			cardsToPlayer[i] = cards.remove(randomNumber.nextInt(getSize()));
