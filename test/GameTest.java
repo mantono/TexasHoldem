@@ -72,15 +72,44 @@ public class GameTest {
 		game.raiseBlinds();
 		assertEquals(8, game.getBigBlind());
 		assertEquals(4, game.getSmallBlind());
+		Game gameWithSmallRaise = new Game(5, 0.05, kalle, pelle);
+		gameWithSmallRaise.raiseBlinds();
+		assertEquals(6, gameWithSmallRaise.getBigBlind());
+		assertEquals(3, gameWithSmallRaise.getSmallBlind());
+		
+		Game gameWithNoRaise = new Game(8, 0, kalle, pelle);
+		gameWithNoRaise.raiseBlinds();
+		assertEquals(8, gameWithNoRaise.getBigBlind());
+		assertEquals(4, gameWithNoRaise.getSmallBlind());
+		
 	}
 	
 	@Test
-	public void initiateRoundTest(){
+	public void initiateRoundAndPlaceBlindsTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
 		newGame.initiateRound();
-		assertEquals(198, kalle.getChips());
-		assertEquals(196, pelle.getChips());
+		assertEquals(4, newGame.getBigBlind());
+		assertEquals(2, newGame.getSmallBlind());
+		assertEquals(198, kalle.getChips());//Small blind
+		assertEquals(196, pelle.getChips());//Big blind
 		assertEquals(200, kent.getChips());
+		newGame.endRound();
+		
+		newGame.initiateRound();
+		assertEquals(5, newGame.getBigBlind());
+		assertEquals(2, newGame.getSmallBlind());
+		assertEquals(198, kalle.getChips());
+		assertEquals(194, pelle.getChips());//Small blind
+		assertEquals(195, kent.getChips());//Big blind
+		newGame.endRound();
+		
+		newGame.initiateRound();
+		assertEquals(7, newGame.getBigBlind());
+		assertEquals(3, newGame.getSmallBlind());
+		assertEquals(191, kalle.getChips());//Big blind
+		assertEquals(194, pelle.getChips());
+		assertEquals(192, kent.getChips());//Small blind
+		newGame.endRound();
 	}
 	
 	@Test (expected = IllegalStateException.class)

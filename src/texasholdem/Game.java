@@ -28,11 +28,11 @@ public class Game extends CardGame{
 		if(roundIsActive)
 			throw new IllegalStateException("A new round can not be initialized while a round is still active.");
 		roundIsActive = true;
-		placeBets();
+		placeBlinds();
 		dealCards(2);
 	}
 	
-	private void placeBets(){
+	private void placeBlinds(){
 		int bigBlindPosition = smallBlindPosition + 1;
 		if(bigBlindPosition >= getPlayers().size())
 			bigBlindPosition = 0;
