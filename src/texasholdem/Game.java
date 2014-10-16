@@ -3,6 +3,8 @@ package texasholdem;
 import java.util.List;
 
 import cards.*;
+
+
 public class Game extends CardGame{
 	private Pot pot = new Pot();
 	private boolean roundIsActive = false;
@@ -85,6 +87,12 @@ public class Game extends CardGame{
 	}
 	
 	public void endGame(){
+		
+		clearAllHands();
+		
+		assert getPlayers().size() == 1 : "Only one player can be the winner.";
+			
+		this.pot.resetPot();
 		
 	}
 	
