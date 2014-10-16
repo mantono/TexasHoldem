@@ -62,7 +62,7 @@ public class Pot {
 					else{
 						chipsToBeHandedOut += ((participant.getValue() / playersWon) + 1);
 						System.out.println("chips" +chipsToBeHandedOut + " 64");
-						betHistory.put(participant.getKey(), getBetHistory(participant.getKey()) - (getBetHistory(participant.getKey()) / playersWon) + 1);
+						betHistory.put(participant.getKey(), getBetHistory(participant.getKey()) - (getBetHistory(participant.getKey()) / playersWon) - 1);
 						System.out.println("Newparticipant" + getBetHistory(participant.getKey()) + " 66");
 					}
 					assert(getBetHistory(participant.getKey()) > 0);

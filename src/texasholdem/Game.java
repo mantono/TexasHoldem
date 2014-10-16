@@ -1,5 +1,6 @@
 package texasholdem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cards.*;
@@ -49,16 +50,16 @@ public class Game extends CardGame{
 			bigBlindPosition = 0;
 		for(int i = 0; i < getPlayers().size(); i++){
 			if(i == smallBlindPosition){
-				if(getPlayerWithSmallBlind().betToPot(getSmallBlind()))
+				if(getPlayerWithSmallBlind().subtractChips(getSmallBlind()))
 					pot.receiveBet(getSmallBlind(), getPlayers().get(smallBlindPosition));
 			}
 			else if(i == bigBlindPosition){
-				if(getPlayerWithBigBlind().betToPot(getBigBlind()))
+				if(getPlayerWithBigBlind().subtractChips(getBigBlind()))
 					pot.receiveBet(getBigBlind(), getPlayers().get(bigBlindPosition));
 			}
 		}
 	}
-
+	
 	public Player getPlayerWithSmallBlind(){
 		return getPlayer(smallBlindPosition);		
 	}
@@ -103,8 +104,36 @@ public class Game extends CardGame{
 		
 	}
 	
-	public void distributeChip(){
-		
+	public void distributeChip(ArrayList<ArrayList<Player>> victoryOrder){
+		for(ArrayList<Player> victoryPosition : victoryOrder){
+			int amountOfWinners = victoryPosition.size();
+			int leftoverFromchipsWonCalculation = (pot.getBetHistory(victoryPosition.get(0)) % amountOfWinners);
+			int chipsWon;
+			boolean isThereLeftOvers = false;
+			if(leftoverFromchipsWonCalculation != 0){
+				chipsWon = (pot.getBetHistory(victoryPosition.get(0)) / amountOfWinners) + 1;
+				isThereLeftOvers = true;
+			}
+			else{
+				chipsWon = (pot.getBetHistory(victoryPosition.get(0)) / amountOfWinners);
+			}
+			for(Player winner : victoryPosition){
+				pot.handOutChips(winner, chipsWon, amountOfWinners);
+				if(isThereLeftOvers){
+					if(victoryPosition.get(0) != winner){
+						int amountOfErrors = victoryPosition.size() - 1;
+						winner.addChips(1);
+						victoryPosition.get(0).subtractChips(1);
+						
+					}
+				}
+				
+			}
+		}
+	}
+	
+	public void receiveBet(int bet, Player player){
+		pot.receiveBet(bet, player);
 	}
 	
 	public void initiateDeal(){

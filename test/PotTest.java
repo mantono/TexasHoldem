@@ -106,10 +106,10 @@ public class PotTest {
 		newPot.receiveBet(15, player2);		
 		newPot.receiveBet(200, player3);
 		newPot.receiveBet(50, player4);
-		player1.betToPot(50);
-		player2.betToPot(15);
-		player3.betToPot(200);
-		player4.betToPot(50);
+		player1.subtractChips(50);
+		player2.subtractChips(15);
+		player3.subtractChips(200);
+		player4.subtractChips(50);
 		newPot.handOutChips(player1, 50, 2);
 		newPot.handOutChips(player4, 50, 1);
 		assertEquals(100, newPot.getAmount());

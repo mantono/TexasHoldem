@@ -78,13 +78,13 @@ public class PlayerTest {
 	public void addToPotTestSuccess() {
 		Pot p = new Pot();
 		player.addChips(200);
-		assertTrue(player.betToPot(150));
+		assertTrue(player.subtractChips(150));
 	}
 	@Test
 	public void add0ChipsToPotTest() {
 		Pot p = new Pot();
 		player.addChips(200);
-		assertFalse(player.betToPot(0));
+		assertFalse(player.subtractChips(0));
 
 	}
 
@@ -92,7 +92,7 @@ public class PlayerTest {
 	public void addToPotTestFail() {
 		Pot p = new Pot();
 		player.addChips(200);
-		assertFalse(player.betToPot(250));
+		assertFalse(player.subtractChips(250));
 
 	}
 
@@ -102,5 +102,10 @@ public class PlayerTest {
 		player.setInGame(true);
 		assertTrue(player.isInGame());
 
+	}
+	
+	@Test
+	public void subtractChipsTest(){
+		
 	}
 }

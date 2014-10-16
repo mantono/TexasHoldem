@@ -1,4 +1,7 @@
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import texasholdem.*;
 
 import org.junit.Before;
@@ -9,7 +12,7 @@ import cards.*;
 
 public class GameTest {
 	
-	private Player kalle, pelle, kent;
+	private Player kalle, pelle, kent, joe, quinn, martin, jim;
 	private Game defaultGame;
 	
 	@Before
@@ -17,7 +20,11 @@ public class GameTest {
 		kalle = new Player("kalle", 200);
 		pelle = new Player("pelle", 200);
 		kent = new Player("kent", 200);
-		defaultGame = new Game(kalle, pelle, kent);
+		joe = new Player("görgen", 200);
+		quinn = new Player("håkan", 200);
+		martin = new Player("martin", 200);
+		jim = new Player("jim", 200);
+		defaultGame = new Game(kalle, pelle, kent, joe, quinn, martin, jim);
 	}
 
 	@Test
@@ -178,6 +185,38 @@ public class GameTest {
 		assertTrue(kalle.isInGame());
 		assertTrue(pelle.isInGame());
 		assertTrue(kent.isInGame());
+	}
+	
+	public void distributeChipsTest(){
+		defaultGame.receiveBet(10, kalle);
+		kalle.setAllIn(true);
+		kalle.setInGame(true);
+		defaultGame.receiveBet(20, pelle);		
+		pelle.setAllIn(true);
+		pelle.setInGame(true);
+		defaultGame.receiveBet(41, kent);
+		kent.setInGame(true);
+		defaultGame.receiveBet(41, quinn);
+		quinn.setInGame(true);
+		defaultGame.receiveBet(41, joe);
+		defaultGame.receiveBet(35, martin);
+		defaultGame.receiveBet(5, jim);
+		ArrayList<ArrayList<Player>> victoryOrder = new ArrayList<ArrayList<Player>>();
+		victoryOrder.add(new ArrayList<Player>());
+		victoryOrder.get(0).add(kalle);
+		victoryOrder.add(new ArrayList<Player>());
+		victoryOrder.get(1).add(pelle);
+		victoryOrder.add(new ArrayList<Player>());
+		victoryOrder.get(2).add(kent);
+		victoryOrder.get(2).add(quinn);
+		defaultGame.distributeChip(victoryOrder);
+		assertEquals(255, kalle.getChips());
+		assertEquals(270, pelle.getChips());
+		assertEquals(179, kent.getChips());
+		assertEquals(178, quinn.getChips());
+		assertEquals(159, joe.getChips());
+		assertEquals(165, martin.getChips());
+		assertEquals(195, jim.getChips());
 	}
 	
 }

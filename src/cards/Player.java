@@ -5,6 +5,7 @@ public class Player {
 	private int chips = 0;
 	private final Hand hand = new Hand();
 	private boolean inGame = false;
+	private boolean allIn = false;
 
 	public Player(String name, int chips) {
 		this.name = name;
@@ -20,11 +21,19 @@ public class Player {
 		return chips;
 	}
 	
+	public void setAllIn(boolean allIn){
+		this.allIn = allIn;
+	}
+	
+	public boolean isAllIn(){
+		return allIn;
+	}
+	
 	public int addChips(int add) {
 		return chips += add;
 	}
 
-	public boolean betToPot(int bet) {
+	public boolean subtractChips(int bet) {
 		if(bet > chips || bet < 1)
 			return false;
 		chips -= bet;
