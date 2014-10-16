@@ -28,6 +28,22 @@ public class HandTest
 	}
 	
 	@Test
+	public void testGetNumberOfRank(){
+		
+		Hand hand1 = new Hand (cards);
+		assertEquals(1,hand1.getNumberOfRank(Rank.EIGHT));
+		
+	}
+	
+	@Test
+	public void testGetNumberOfColour(){
+		
+		Hand hand1 = new Hand (cards);
+		assertEquals(2,hand1.getNumberOfColour(Colour.HEARTS));
+		
+	}
+	
+	@Test
 	public void testConstructor()
 	{
 		Hand hand1 = new Hand(cards);
