@@ -71,7 +71,7 @@ public final class Hand implements Cloneable
 		return cards.size();
 	}
 	
-	private List<Card> copyOfAllCards()
+	public List<Card> copyOfAllCards()
 	{
 		final List<Card> copyOfCards = new ArrayList<Card>();
 		copyOfCards.addAll(cards);
@@ -110,5 +110,16 @@ public final class Hand implements Cloneable
 			sumOfCards += card.hashCode();
 		}
 		return sumOfCards;
+	}
+	
+	public int getNumberOfRank(Rank rank)
+	{
+		int i = 0;
+		for(Card card : cards)
+		{
+			if(card.getRank() == rank)
+				i++;
+		}
+		return i;
 	}
 }

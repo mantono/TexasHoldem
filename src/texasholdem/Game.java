@@ -28,6 +28,8 @@ public class Game extends CardGame{
 		if(roundIsActive)
 			throw new IllegalStateException("A new round can not be initialized while a round is still active.");
 		roundIsActive = true;
+		newDeck();
+		assert (getSizeOfDeck() == 52) : "A new deck must be generated before a new round.";
 		placeBlinds();
 		dealCards(2);
 	}
@@ -76,10 +78,10 @@ public class Game extends CardGame{
 	}
 	
 	public void endRound(){
+		roundIsActive = false;
 		raiseBlinds();
 		moveSmallBlindPosition();
 		clearAllHands();
-		roundIsActive = false;
 	}
 	
 	public void endGame(){
@@ -108,10 +110,6 @@ public class Game extends CardGame{
 		if(smallBlindPosition > (getPlayers().size() - 1))
 			smallBlindPosition = 0;
 		return smallBlindPosition;
-	}
-	
-	public void restartGame(){
-		
 	}
 
 	public int getBigBlind(){

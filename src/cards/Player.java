@@ -1,8 +1,5 @@
 package cards;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Player {
 	private final String name;
 	private int chips = 0;
