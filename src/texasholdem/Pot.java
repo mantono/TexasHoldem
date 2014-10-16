@@ -51,19 +51,14 @@ public class Pot {
 			while(iterator.hasNext()){
 				Map.Entry<Player, Integer> participant = iterator.next();
 				if((participant.getValue() <= (chipsWon*playersWon))){
-					System.out.println("participant" + participant.getValue() + " 54");
 					int leftovers = (participant.getValue() % playersWon);
-					System.out.println("leftover" + participant.getValue() % playersWon + " 56");
 					if(leftovers < 1){
 						chipsToBeHandedOut += (participant.getValue() / playersWon);
-						System.out.println("chips" +chipsToBeHandedOut + " 59");
 						betHistory.put(participant.getKey(), (getBetHistory(participant.getKey()) - (getBetHistory(participant.getKey()) / playersWon)) + leftovers);
 					}
 					else{
 						chipsToBeHandedOut += ((participant.getValue() / playersWon) + 1);
-						System.out.println("chips" +chipsToBeHandedOut + " 64");
 						betHistory.put(participant.getKey(), getBetHistory(participant.getKey()) - (getBetHistory(participant.getKey()) / playersWon) - 1);
-						System.out.println("Newparticipant" + getBetHistory(participant.getKey()) + " 66");
 					}
 					assert(getBetHistory(participant.getKey()) > 0);
 					if(getBetHistory(participant.getKey()) == 0  && (participant.getKey() != player)){
@@ -73,15 +68,11 @@ public class Pot {
 					
 				}
 				else{
-					System.out.println("participant" + participant.getValue() + " 75");
 					chipsToBeHandedOut += chipsWon;
 					betHistory.put(participant.getKey(), (participant.getValue() - chipsWon));	
-					System.out.println("chips" +chipsToBeHandedOut + " 77");
-					
 				}
 			}
 		amount -= chipsToBeHandedOut;
-		System.out.println("chips" +chipsToBeHandedOut + " 82" + " sista");
 		player.addChips(chipsToBeHandedOut);
 		assert(getBetHistory(player) > 0);
 		if(getBetHistory(player) == 0){
