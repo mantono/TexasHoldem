@@ -115,7 +115,12 @@ public class TexasRules implements Rules
 
 	private boolean hasFlush(Hand hand)
 	{
-		// TODO Auto-generated method stub
+		for(Card card  : hand.copyOfAllCards())
+		{
+			if(hand.getNumberOfColour(card.getColour()) == 5)
+				return true;
+					
+		}
 		return false;
 	}
 
@@ -144,6 +149,20 @@ public class TexasRules implements Rules
 				return true;
 					
 		}
+		return false;
+	}
+	
+	private boolean hasTwoPair(Hand hand)
+	{
+		int counter = 0;
+		for(Card card  : hand.copyOfAllCards())
+		{
+			if(hand.getNumberOfRank(card.getRank()) == 2)
+				counter++;
+					
+		}
+		if(counter >= 4)
+			return true;
 		return false;
 	}
 }
