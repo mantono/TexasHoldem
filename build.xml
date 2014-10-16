@@ -1,17 +1,49 @@
 <?xml version="1.0"?>
-	<project name="texas" default="texas" basedir=".">
+	<project name="texas" default="buildTest" basedir=".">
+		<property name="build.dir" location="bin" />
 		<property name="srcCards.dir" value="src/cards" />
 		<property name="srcTexasHoldem.dir" value="src/texasholdem" />
-		<property name="build.dir" value="bin"/>
+		<property name="srcTest.dir" value="test" />
 
-		<target name="cards" description="Build package cards">
-			<javac destdir="${build.dir}" source="1.7" target="1.7">
+		<property name="test.report.dir" location="testreports" />
+		
+		<path id="junit.class.path">
+			<pathelement location="${eclipse}/plugins/org.junit*/*junit.jar" />
+			<pathelement location="/home/anton/dokument/eclipse/plugins/org.junit_4.11.0.v201303080030/junit.jar" />
+			<pathelement location="${eclipse}/plugins/*org.hamcrest.*.jar" />
+			<pathelement location="${build.dir}" />
+		</path>
+
+		<target name="buildCards" description="Build package cards">
+			<mkdir dir="${build.dir}" />
+			<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
 				<src path="${srcCards.dir}"/>
 			</javac>
 		</target>
-		<target name="texas" description="Build package texas" depends="cards">
-			<javac destdir="${build.dir}" source="1.7" target="1.7">
+		
+		<target name="buildTexas" description="Build package texas" depends="buildCards">
+			<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
 				<src path="${srcTexasHoldem.dir}"/>
 			</javac>
+		</target>
+		
+		<target name="buildTest" description="Build test cases" depends="buildTexas">
+			<mkdir dir="${build.dir}/test" />
+			<javac includeantruntime="false" destdir="${build.dir}/test" source="1.7" target="1.7">
+				<classpath refid="junit.class.path" />
+				<src path="${srcTest.dir}"/>
+			</javac>
+		</target>
+		
+		<target name="runTestCases" description="Run test cases" depends="buildTest">
+			<junit printsummary="yes" fork="yes" haltonfailure="no">
+				<classpath refid="junit.class.path" />
+				<formatter type="plain" />
+				<batchtest todir="${test.report.dir}">
+					<fileset dir="${srcTest.dir}">
+						<include name="*Test*.java" />
+					</fileset>
+				</batchtest>
+			</junit>
 		</target>
 	</project>
