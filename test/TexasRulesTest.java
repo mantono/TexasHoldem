@@ -13,13 +13,15 @@ import cards.Rank;
 public class TexasRulesTest
 {
 	private Hand goodHand, badHand;
-	private Card flop, turn, river;
+	private Card flop1, flop2, flop3, turn, river;
 	private TexasRules rules = new TexasRules();
 
 	@Before
 	public void setup() throws Exception
 	{
-		flop = new Card(Colour.CLUBS, Rank.TWO);
+		flop1 = new Card(Colour.CLUBS, Rank.TWO);
+		flop2 = new Card(Colour.DIAMONDS, Rank.SEVEN);
+		flop3 = new Card(Colour.CLUBS, Rank.NINE);
 		turn = new Card(Colour.CLUBS, Rank.JACK);
 		river = new Card(Colour.HEARTS, Rank.SIX);
 		
@@ -30,9 +32,9 @@ public class TexasRulesTest
 		Card card4 = new Card(Colour.CLUBS, Rank.ACE);
 				
 		badHand = new Hand(card1, card2);
-		badHand.addToHand(flop, turn, river);
+		badHand.addToHand(flop1, flop2, flop3, turn, river);
 		goodHand = new Hand(card3, card4);
-		goodHand.addToHand(flop, turn, river);
+		goodHand.addToHand(flop1, flop2, flop3, turn, river);
 	}
 
 	@Test
