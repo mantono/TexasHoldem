@@ -51,6 +51,8 @@ public class TexasRules implements Rules
 		}
 		if(bestCombinationHand1 == 0)
 			bestCombinationHand1 = getHighestCard(hand1);
+		if(bestCombinationHand2 == 0)
+			bestCombinationHand2 = getHighestCard(hand2);
 		return bestCombinationHand1 - bestCombinationHand2;
 	}
 	
@@ -60,7 +62,7 @@ public class TexasRules implements Rules
 		{
 			case PAIR: if(hasPair(hand))
 				return true;
-			case TWO_PAIR: if(hasPair(hand))
+			case TWO_PAIR: if(hasTwoPair(hand))
 				return true;
 			case THREE_OF_A_KIND: if(hasThreeOfAKind(hand))
 				return true;
