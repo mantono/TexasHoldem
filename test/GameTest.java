@@ -156,6 +156,15 @@ public class GameTest {
 		assertEquals(4, game.getSmallBlind());
 		assertEquals(1, game.getSmallBlindPosition());
 	}
+	@Test
+	public void endGameTest(){
+		Game game = new Game(4, 1, kalle, pelle, kent);
+		game.initiateRound();
+		game.endGame();
+		assertEquals(0, kalle.getNumberOfCards());
+		assertEquals(0, pelle.getNumberOfCards());
+		assertEquals(0, kent.getNumberOfCards());
+	}
 	
 	@Test
 	public void testPlayersSetInGame(){
