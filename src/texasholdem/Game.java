@@ -92,7 +92,7 @@ public class Game extends CardGame{
 		
 		assert getPlayers().size() == 1 : "Only one player can be the winner.";
 			
-		this.pot.resetPot();
+		pot.resetPot();
 		
 	}
 	
