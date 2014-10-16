@@ -157,4 +157,18 @@ public class GameTest {
 		assertEquals(1, game.getSmallBlindPosition());
 	}
 	
+	@Test
+	public void testPlayersSetInGame(){
+		kalle.setInGame(false);
+		pelle.setInGame(false);
+		kent.setInGame(false);
+		assertFalse(kalle.isInGame());
+		assertFalse(pelle.isInGame());
+		assertFalse(kent.isInGame());
+		defaultGame.initiateRound();
+		assertTrue(kalle.isInGame());
+		assertTrue(pelle.isInGame());
+		assertTrue(kent.isInGame());
+	}
+	
 }

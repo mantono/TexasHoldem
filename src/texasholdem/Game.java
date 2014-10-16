@@ -28,11 +28,18 @@ public class Game extends CardGame{
 		if(roundIsActive)
 			throw new IllegalStateException("A new round can not be initialized while a round is still active.");
 		roundIsActive = true;
+		setAllPlayersInGame();
 		newDeck();
 		assert (getSizeOfDeck() == 52) : "A new deck must be generated before a new round.";
 		placeBlinds();
 		dealCards(2);
 	}
+	
+	private void setAllPlayersInGame(){
+		for(Player player : getPlayers())
+			player.setInGame(true);
+	}
+	
 	
 	private void placeBlinds(){
 		int bigBlindPosition = smallBlindPosition + 1;
