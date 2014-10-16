@@ -38,6 +38,15 @@ public class TexasRulesTest
 	}
 
 	@Test
+	public void testHasStraight()
+	{
+		Hand straightHand = new Hand(new Card(Colour.DIAMONDS, Rank.TEN),new Card(Colour.DIAMONDS, Rank.EIGHT));
+		straightHand.addToHand(flop1,flop2,flop3,turn,river);
+		assertEquals(3, rules.compare(straightHand, badHand));
+		// detta ska bli 3 då straighthand har straight(18) och badHand har pair(15)
+	}
+	
+	@Test
 	public void testCompare()
 	{
 		assertEquals(-12, rules.compare(badHand, goodHand));

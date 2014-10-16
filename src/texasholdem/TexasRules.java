@@ -32,8 +32,7 @@ public class TexasRules implements Rules
 	}
 
 	@Override
-	public int hashCode()
-	{
+	public int hashCode(){
 		return -1;
 	}
 
@@ -42,8 +41,7 @@ public class TexasRules implements Rules
 	{
 		int bestCombinationHand1 = 0;
 		int bestCombinationHand2 = 0;
-		for(CardCombination combination : CardCombination.values())
-		{
+		for(CardCombination combination : CardCombination.values()){
 			if(hasCombination(hand1, combination))
 				bestCombinationHand1 = combination.getValue();
 			if(hasCombination(hand2, combination))
@@ -55,115 +53,124 @@ public class TexasRules implements Rules
 			bestCombinationHand2 = getHighestCard(hand2);
 		return bestCombinationHand1 - bestCombinationHand2;
 	}
-	
-	private boolean hasCombination(Hand hand, CardCombination combination)
-	{
-		switch(combination)
-		{
-			case PAIR: if(hasPair(hand))
+
+	private boolean hasCombination(Hand hand, CardCombination combination) {
+		switch (combination) {
+		case PAIR:
+			if (hasPair(hand))
 				return true;
-			case TWO_PAIR: if(hasTwoPair(hand))
+		case TWO_PAIR:
+			if (hasTwoPair(hand))
+
 				return true;
-			case THREE_OF_A_KIND: if(hasThreeOfAKind(hand))
+		case THREE_OF_A_KIND:
+			if (hasThreeOfAKind(hand))
 				return true;
-			case STRAIGHT: if(hasStraight(hand))
+		case STRAIGHT:
+			if (hasStraight(hand))
 				return true;
-			case FLUSH: if(hasFlush(hand))
+		case FLUSH:
+			if (hasFlush(hand))
 				return true;
-			case FULL_HOUSE: if(hasFullHouse(hand))
+		case FULL_HOUSE:
+			if (hasFullHouse(hand))
 				return true;
-			case FOUR_OF_A_KIND: if(hasFourOfAkind(hand))
+		case FOUR_OF_A_KIND:
+			if (hasFourOfAkind(hand))
 				return true;
-			case STRAIGHT_FLUSH: if(hasStraightFlush(hand))
+		case STRAIGHT_FLUSH:
+			if (hasStraightFlush(hand))
 				return true;
-			default: return false;
+		default:
+			return false;
 		}
 	}
-	
-	private int getHighestCard(Hand hand)
-	{
+
+	private int getHighestCard(Hand hand) {
 		Rank bestRankOnHand = Rank.TWO;
-		for(Card card  : hand.copyOfAllCards())
-		{
-			if(card.getRank().compareTo(bestRankOnHand) < 0)
+		for (Card card : hand.copyOfAllCards()) {
+			if (card.getRank().compareTo(bestRankOnHand) < 0)
 				bestRankOnHand = card.getRank();
-					
+
 		}
 		return bestRankOnHand.getValue();
 	}
 
-	private boolean hasStraightFlush(Hand hand)
-	{
+	private boolean hasStraightFlush(Hand hand) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	private boolean hasFourOfAkind(Hand hand)
-	{
-		for(Card card  : hand.copyOfAllCards())
-		{
-			if(hand.getNumberOfRank(card.getRank()) == 4)
+	private boolean hasFourOfAkind(Hand hand) {
+		for (Card card : hand.copyOfAllCards()) {
+			if (hand.getNumberOfRank(card.getRank()) == 4)
 				return true;
-					
+
 		}
 		return false;
 	}
 
-	private boolean hasFullHouse(Hand hand)
-	{
-		// TODO Auto-generated method stub
+	private boolean hasFullHouse(Hand hand) {
+		if (hasThreeOfAKind(hand) & hasPair(hand))
+			return true;
 		return false;
 	}
 
-	private boolean hasFlush(Hand hand)
-	{
-		for(Card card  : hand.copyOfAllCards())
-		{
-			if(hand.getNumberOfColour(card.getColour()) == 5)
+	private boolean hasFlush(Hand hand) {
+		for (Card card : hand.copyOfAllCards()) {
+			if (hand.getNumberOfColour(card.getColour()) == 5)
 				return true;
-					
+
 		}
 		return false;
 	}
 
-	private boolean hasStraight(Hand hand)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private boolean hasThreeOfAKind(Hand hand)
-	{
-		for(Card card  : hand.copyOfAllCards())
-		{
-			if(hand.getNumberOfRank(card.getRank()) == 3)
-				return true;
-					
-		}
-		return false;
-	}
-
-	private boolean hasPair(Hand hand)
-	{
-		for(Card card  : hand.copyOfAllCards())
-		{
-			if(hand.getNumberOfRank(card.getRank()) == 2)
-				return true;
-					
-		}
-		return false;
-	}
-	
-	private boolean hasTwoPair(Hand hand)
-	{
+	private boolean hasStraight(Hand hand) {
+		hand.sort();
 		int counter = 0;
-		for(Card card  : hand.copyOfAllCards())
-		{
-			if(hand.getNumberOfRank(card.getRank()) == 2)
+		int previousCard = 0;
+		for (Card card : hand.copyOfAllCards()) {
+			if(previousCard == 0 || (card.getRank().getValue()-previousCard)<=1){
 				counter++;
-					
+				previousCard = card.getRank().getValue();
+			}else{
+				counter = 0;
+			}
+			if(counter == 5)
+				return true;
+				
 		}
-		if(counter >= 4)
+
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean hasThreeOfAKind(Hand hand) {
+		for (Card card : hand.copyOfAllCards()) {
+			if (hand.getNumberOfRank(card.getRank()) == 3)
+				return true;
+
+		}
+		return false;
+	}
+
+	private boolean hasPair(Hand hand) {
+		for (Card card : hand.copyOfAllCards()) {
+			if (hand.getNumberOfRank(card.getRank()) == 2)
+				return true;
+
+		}
+		return false;
+	}
+
+	private boolean hasTwoPair(Hand hand) {
+		int counter = 0;
+		for (Card card : hand.copyOfAllCards()) {
+			if (hand.getNumberOfRank(card.getRank()) == 2)
+				counter++;
+
+		}
+		if (counter >= 4)
 			return true;
 		return false;
 	}
