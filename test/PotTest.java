@@ -8,11 +8,14 @@ import texasholdem.Pot;
 
 public class PotTest {
 	
-	private Player player;
+	private Player player1, player2, player3, player4;
 
 	@Before
 	public void setup() {
-		player = new Player("kalle", 0);
+		player1 = new Player("kalle", 0);
+		player2 = new Player("pelle", 0);
+		player3 = new Player("kent", 0);
+		player4 = new Player("karl", 0);
 	}
 	
 	@Test
@@ -38,29 +41,29 @@ public class PotTest {
 	@Test
 	public void betSizeTestFromEmptyPot(){		
 		Pot emptyPot = new Pot();
-		emptyPot.receiveBet(300,player);
+		emptyPot.receiveBet(300,player1);
 		assertEquals(300, emptyPot.getAmount());		
 	}
 	
 	@Test
 	public void betSizeTestFromPositiveSize() {
 		Pot positivePot = new Pot(1);
-		positivePot.receiveBet(300,player);
+		positivePot.receiveBet(300,player1);
 		assertEquals(301, positivePot.getAmount());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testForInvalidBet() {	
 		Pot invalidBet = new Pot(0);
-		invalidBet.receiveBet(0,player);	
+		invalidBet.receiveBet(0,player1);	
 	}
 	
 	@Test
 	public void testForNewBetOverrideAndMultipleBets(){
 	
 		Pot newPot = new Pot();
-		newPot.receiveBet(300,player);
-		newPot.receiveBet(200,player);
+		newPot.receiveBet(300,player1);
+		newPot.receiveBet(200,player1);
 		assertEquals(500, newPot.getAmount());
 	}
 	
@@ -68,27 +71,51 @@ public class PotTest {
 	public void testBetHistoryMapAfterOneBet(){
 		
 		Pot newPot = new Pot();
-		newPot.receiveBet(300,player);
-		assertEquals(300,newPot.getBetHistory(player));
+		newPot.receiveBet(300,player1);
+		assertEquals(300,newPot.getBetHistory(player1));
 	}
 	
 	@Test
 	public void testBetHistoryMapAfterMultipleBets(){
 		
 		Pot newPot = new Pot();
-		newPot.receiveBet(300,player);
-		newPot.receiveBet(300,player);
-		assertEquals(600,newPot.getBetHistory(player));
+		newPot.receiveBet(300,player1);
+		newPot.receiveBet(300,player1);
+		assertEquals(600,newPot.getBetHistory(player1));
 	}
 	
 	@Test
 	public void resetPotTest(){
 		
 		Pot newPot = new Pot(500);
-		newPot.receiveBet(200,player);
+		newPot.receiveBet(200,player1);
 		newPot.resetPot();
 		assertEquals(0, newPot.getAmount());
-		assertEquals(0, newPot.getBetHistory(player));
+		assertEquals(0, newPot.getBetHistory(player1));
 
+	}
+	
+	@Test
+	public void handOutChipsTest(){
+		Pot newPot = new Pot(0);
+		player1.addChips(200);
+		player2.addChips(200);
+		player3.addChips(200);
+		player4.addChips(200);
+		newPot.receiveBet(50, player1);
+		newPot.receiveBet(15, player2);		
+		newPot.receiveBet(200, player3);
+		newPot.receiveBet(50, player4);
+		player1.betToPot(50);
+		player2.betToPot(15);
+		player3.betToPot(200);
+		player4.betToPot(50);
+		newPot.handOutChips(player1, 50, 2);
+		newPot.handOutChips(player4, 50, 1);
+		assertEquals(100, newPot.getAmount());
+		assertEquals(258, player1.getChips());
+		assertEquals(257, player4.getChips());
+		assertEquals(0, newPot.getBetHistory(player2));
+		assertEquals(100, newPot.getBetHistory(player3));
 	}
 }
