@@ -122,4 +122,15 @@ public final class Hand implements Cloneable
 		}
 		return i;
 	}
+	
+	public int getNumberOfColour(Colour colour)
+	{
+		int i = 0;
+		for(Card card : cards)
+		{
+			if(card.getColour() == colour)
+				i++;
+		}
+		return i;
+	}
 }
