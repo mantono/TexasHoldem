@@ -163,14 +163,28 @@ public class GameTest {
 		assertEquals(4, game.getSmallBlind());
 		assertEquals(1, game.getSmallBlindPosition());
 	}
+	
 	@Test
 	public void endGameTest(){
-		Game game = new Game(4, 1, kalle, pelle, kent);
+		Game game = new Game(4, 1, joe);
 		game.initiateRound();
 		game.endGame();
-		assertEquals(0, kalle.getNumberOfCards());
-		assertEquals(0, pelle.getNumberOfCards());
-		assertEquals(0, kent.getNumberOfCards());
+		assertEquals(0, joe.getNumberOfCards());
+		assertEquals(0, game.getCardsOnTable().size());
+				
+		assertEquals(2, game.getSmallBlind());
+		assertEquals(0, game.getSmallBlindPosition());		
+		assertFalse(game.getRoundIsActive());
+		assertEquals(1, game.getPlayers().size());
+		assertEquals(4, game.getBigBlind());
+		
+		
+	}
+	@Test(expected = IllegalStateException.class)
+	public void endGameTestInvalid(){
+		Game game = new Game(4, 1, joe, kalle);
+		game.endGame();
+		
 	}
 	
 	@Test
