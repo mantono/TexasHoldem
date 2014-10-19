@@ -100,5 +100,17 @@ public class CardGameTest
 		game = new Game(pelle, kalle, kent);
 		game.dealCards(-1);
 	}
+	
+	@Test
+	public void getNumberOfPlayersInGameTest()
+	{
+		game.addPlayer(kalle);
+		game.addPlayer(pelle);
+		assertEquals(0, game.getNumberOfPlayersInGame());
+		kalle.setInGame(true);
+		pelle.setInGame(true);
+		assertEquals(2, game.getNumberOfPlayersInGame());
+		
+	}
 
 }

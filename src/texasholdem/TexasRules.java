@@ -47,6 +47,10 @@ public class TexasRules implements Rules
 			if(hasCombination(hand2, combination))
 				bestCombinationHand2 = combination.getValue();
 		}
+		boolean tieOnCombination = bestCombinationHand1 == bestCombinationHand2 && bestCombinationHand1 > 14;
+		if(tieOnCombination){
+			bestCombinationHand1 = bestCombinationHand2 = 0; //Vi måste bara ta bort alla kort förutom de som ingår i den bästa kombinationen så fungerar detta! 
+		}
 		if(bestCombinationHand1 == 0)
 			bestCombinationHand1 = getHighestCard(hand1);
 		if(bestCombinationHand2 == 0)
@@ -56,37 +60,21 @@ public class TexasRules implements Rules
 
 	private boolean hasCombination(Hand hand, CardCombination combination) {
 		switch (combination) {
-		case PAIR:
-			if (hasPair(hand))
-				return true;
-		case TWO_PAIR:
-			if (hasTwoPair(hand))
-
-				return true;
-		case THREE_OF_A_KIND:
-			if (hasThreeOfAKind(hand))
-				return true;
-		case STRAIGHT:
-			if (hasStraight(hand))
-				return true;
-		case FLUSH:
-			if (hasFlush(hand))
-				return true;
-		case FULL_HOUSE:
-			if (hasFullHouse(hand))
-				return true;
-		case FOUR_OF_A_KIND:
-			if (hasFourOfAkind(hand))
-				return true;
-		case STRAIGHT_FLUSH:
-			if (hasStraightFlush(hand))
-				return true;
-		default:
-			return false;
+		case PAIR: return (hasPair(hand));
+		case TWO_PAIR: return (hasTwoPair(hand));
+		case THREE_OF_A_KIND: return (hasThreeOfAKind(hand));
+		case STRAIGHT: return (hasStraight(hand));
+		case FLUSH:	return (hasFlush(hand));
+		case FULL_HOUSE: return (hasFullHouse(hand));
+		case FOUR_OF_A_KIND: return (hasFourOfAkind(hand));
+		case STRAIGHT_FLUSH: return (hasStraightFlush(hand));
+		default: return false;
 		}
 	}
 
 	private int getHighestCard(Hand hand) {
+		if(hand.getNumberOfCards() == 0)
+			return 0;
 		Rank bestRankOnHand = Rank.TWO;
 		for (Card card : hand.copyOfAllCards()) {
 			if (card.getRank().compareTo(bestRankOnHand) < 0)
@@ -97,7 +85,20 @@ public class TexasRules implements Rules
 	}
 
 	private boolean hasStraightFlush(Hand hand) {
-		// TODO Auto-generated method stub
+		hand.sort();
+		int counter = 0;
+		int previousCard = 0;
+		Colour previousColour = null;
+		for (Card card : hand.copyOfAllCards()) {
+			if(previousCard == 0 || ((card.getRank().getValue()-previousCard)<=1 && previousColour == card.getColour()))
+				counter++;
+			else
+				counter = 0;
+			if(counter == 5)
+				return true;
+			previousCard = card.getRank().getValue();
+			previousColour = card.getColour();
+		}
 		return false;
 	}
 
@@ -130,18 +131,14 @@ public class TexasRules implements Rules
 		int counter = 0;
 		int previousCard = 0;
 		for (Card card : hand.copyOfAllCards()) {
-			if(previousCard == 0 || (card.getRank().getValue()-previousCard)<=1){
+			if(previousCard == 0 || (card.getRank().getValue()-previousCard)<=1)
 				counter++;
-				previousCard = card.getRank().getValue();
-			}else{
+			else
 				counter = 0;
-			}
 			if(counter == 5)
 				return true;
-				
+			previousCard = card.getRank().getValue();
 		}
-
-		// TODO Auto-generated method stub
 		return false;
 	}
 

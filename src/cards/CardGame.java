@@ -24,6 +24,11 @@ public abstract class CardGame
 	{
 		deck = new Deck(amoutOfSets);
 	}
+	
+	public void addPlayer(Player player)
+	{
+		players.add(player);
+	}
 
 	public void clearAllHands()
 	{
@@ -45,6 +50,15 @@ public abstract class CardGame
 	public Player getPlayer(int index)
 	{
 		return players.get(index);
+	}
+	
+	public int getNumberOfPlayersInGame()
+	{
+		int numberOfPlayers = 0;
+		for(Player player : players)
+			if(player.isInGame())
+				numberOfPlayers++;
+		return numberOfPlayers;
 	}
 
 	public void clearTableOfCards()
