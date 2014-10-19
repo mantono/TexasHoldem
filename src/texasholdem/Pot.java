@@ -60,7 +60,6 @@ public class Pot {
 						chipsToBeHandedOut += ((participant.getValue() / playersWon) + 1);
 						betHistory.put(participant.getKey(), getBetHistory(participant.getKey()) - (getBetHistory(participant.getKey()) / playersWon) - 1);
 					}
-					assert(getBetHistory(participant.getKey()) > 0);
 					if(getBetHistory(participant.getKey()) == 0  && (participant.getKey() != player)){
 						iterator.remove();	
 					}
