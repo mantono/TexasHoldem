@@ -40,12 +40,14 @@ public class TexasRules implements Rules
 	@Override
 	public int compare(Hand hand1, Hand hand2)
 	{
+		Hand hand1local = new Hand(hand1.copyOfAllCards());
+		Hand hand2local = new Hand(hand2.copyOfAllCards());
 		int bestCombinationHand1 = 0;
 		int bestCombinationHand2 = 0;
 		for(CardCombination combination : CardCombination.values()){
-			if(hasCombination(hand1, combination) && bestCombinationHand1 == 0)
+			if(hasCombination(hand1local, combination) && bestCombinationHand1 == 0)
 				bestCombinationHand1 = combination.getValue();
-			if(hasCombination(hand2, combination) && bestCombinationHand2 == 0)
+			if(hasCombination(hand2local, combination) && bestCombinationHand2 == 0)
 				bestCombinationHand2 = combination.getValue();
 		}
 		boolean tieOnCombination = bestCombinationHand1 == bestCombinationHand2 && bestCombinationHand1 > 14;
@@ -53,9 +55,9 @@ public class TexasRules implements Rules
 			bestCombinationHand1 = bestCombinationHand2 = 0; //Vi måste bara ta bort alla kort förutom de som ingår i den bästa kombinationen så fungerar detta! 
 		}
 		if(bestCombinationHand1 == 0)
-			bestCombinationHand1 = getHighestCard(hand1);
+			bestCombinationHand1 = getHighestCard(hand1local);
 		if(bestCombinationHand2 == 0)
-			bestCombinationHand2 = getHighestCard(hand2);
+			bestCombinationHand2 = getHighestCard(hand2local);
 		return bestCombinationHand1 - bestCombinationHand2;
 	}
 
@@ -141,6 +143,12 @@ public class TexasRules implements Rules
 		hand.sort();
 		int counter = 0;
 		int previousCard = 0;
+		for (Card card : hand.copyOfAllCards()){
+			if(card.getRank().getValue() == 14){
+				counter = 1;
+				previousCard = 1;
+			}
+		}
 		for (Card card : hand.copyOfAllCards()) {
 			if(previousCard == 0 || (card.getRank().getValue()-previousCard)<=1){
 				if(previousCard == 0 || (card.getRank().getValue()-previousCard)==1){
