@@ -140,6 +140,7 @@ public class TexasRules implements Rules
 	}
 
 	private boolean hasStraight(Hand hand) {
+		ArrayList<Card> tempCards = new ArrayList<Card>();
 		hand.sort();
 		int counter = 0;
 		int previousCard = 0;
@@ -154,14 +155,14 @@ public class TexasRules implements Rules
 				if(previousCard == 0 || (card.getRank().getValue()-previousCard)==1){
 				counter++;
 				}
-				//Lägg till "card" i listan med kort
+				tempCards.add(card);
 			}
 			else{
 				counter = 0;
-				//Rensa listan med kort
+				tempCards.clear();
 			}
 			if(counter == 5){
-				//hand.newHand(korten);
+				hand.newHand(tempCards);
 				return true;
 			}
 			previousCard = card.getRank().getValue();
