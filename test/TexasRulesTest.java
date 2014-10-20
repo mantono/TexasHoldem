@@ -65,6 +65,26 @@ public class TexasRulesTest
 	}
 	
 	@Test
+	public void testTieOnFourOfAKind()
+	{
+		Card card1 = new Card(Colour.SPADES, Rank.TWO);
+		Card card2 = new Card(Colour.HEARTS, Rank.TWO);
+		Card card3 = new Card(Colour.CLUBS, Rank.TWO);
+		Card card4 = new Card(Colour.DIAMONDS, Rank.TWO);
+		Card card5 = new Card(Colour.SPADES, Rank.THREE);
+		Card card6 = new Card(Colour.HEARTS, Rank.THREE);
+		Card card7 = new Card(Colour.CLUBS, Rank.THREE);
+		Card card8 = new Card(Colour.DIAMONDS, Rank.THREE);
+		Card card9 = new Card(Colour.DIAMONDS, Rank.KING);
+		
+		Hand lowFourOfAKind = new Hand(card1, card2, card3, card4,card9);
+		Hand highFourOfAKind = new Hand(card5,card6,card7,card8);
+		Hand emptyHand = new Hand();
+		
+		assertEquals(1, rules.compare(highFourOfAKind, lowFourOfAKind));
+	}
+	
+	@Test
 	public void testCompareTwoPairsOfDifferentRank()
 	{
 		assertEquals(-12, rules.compare(pairOfTwosHand, pairOfAcesHand));
