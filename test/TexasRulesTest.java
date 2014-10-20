@@ -47,6 +47,8 @@ public class TexasRulesTest
 		// detta ska bli 3 då straighthand har straight(18) och badHand har pair(15)
 	}
 	
+	
+	
 	@Test
 	public void testHasStraightFlush()
 	{
