@@ -162,9 +162,19 @@ public class TexasRules implements Rules
 	}
 
 	private boolean hasThreeOfAKind(Hand hand) {
+		ArrayList<Card> tempCards = new ArrayList<Card>();
 		for (Card card : hand.copyOfAllCards()) {
-			if (hand.getNumberOfRank(card.getRank()) == 3)
+			if (hand.getNumberOfRank(card.getRank()) == 3){
+				for (Card innerCard : hand.copyOfAllCards()) {
+					if(innerCard.getRank() == card.getRank()){
+						tempCards.add(innerCard);
+					}
+						
+				}
+				hand.newHand(tempCards);
 				return true;
+				
+			}
 
 		}
 		return false;
