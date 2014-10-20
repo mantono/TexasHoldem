@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import texasholdem.TexasRules;
@@ -12,7 +13,7 @@ import cards.Rank;
 
 public class TexasRulesTest
 {
-	private Hand pairOfAcesHand, pairOfTwosHand;
+	private Hand pairOfAcesHand, pairOfTwosHand, emptyHand;
 	private Card flop1, flop2, flop3, turn, river;
 	private TexasRules rules = new TexasRules();
 
@@ -35,6 +36,8 @@ public class TexasRulesTest
 		pairOfTwosHand.addToHand(flop1, flop2, flop3, turn, river);
 		pairOfAcesHand = new Hand(card3, card4);
 		pairOfAcesHand.addToHand(flop1, flop2, flop3, turn, river);
+		
+		emptyHand = new Hand();
 	}
 
 	@Test
@@ -84,6 +87,7 @@ public class TexasRulesTest
 		assertEquals(1, rules.compare(highFourOfAKind, lowFourOfAKind));
 	}
 	
+	@Ignore
 	@Test
 	public void testAceAsOneInStraight()
 	{
@@ -98,6 +102,15 @@ public class TexasRulesTest
 		assertEquals(18, rules.compare(straightHand,emptyHand));
 	}
 	
+	@Ignore
+	@Test
+	public void testCompareThreeOfAKind()
+	{
+		Hand threeOfAKindHand = new Hand();
+		assertEquals(17, rules.compare(threeOfAKindHand, emptyHand));
+	}
+	
+	@Ignore
 	@Test
 	public void testCompareTwoPairsOfDifferentRank()
 	{
@@ -110,28 +123,31 @@ public class TexasRulesTest
 		assertEquals(-11, rules.compare(pairOfTwosHand, pairOfKingsHand));
 	}
 
+	@Ignore
 	@Test
 	public void testDeclareWinner()
 	{
 		fail("Not yet implemented");
 	}
 
+	@Ignore
 	@Test
 	public void testIsDraw()
 	{
 		fail("Not yet implemented");
 	}
 
+	@Ignore
 	@Test
 	public void testHashCode()
 	{
 		fail("Not yet implemented");
 	}
 
+	@Ignore
 	@Test
 	public void testEquals()
 	{
 		fail("Not yet implemented");
 	}
-
 }
