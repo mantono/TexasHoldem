@@ -48,7 +48,7 @@ public class TexasRulesTest
 	}
 	
 	@Test
-	public void testHasStraigtFlush()
+	public void testHasStraightFlush()
 	{
 		Card card1 = new Card(Colour.SPADES, Rank.TWO);
 		Card card2 = new Card(Colour.SPADES, Rank.THREE);
@@ -82,6 +82,20 @@ public class TexasRulesTest
 		Hand emptyHand = new Hand();
 		
 		assertEquals(1, rules.compare(highFourOfAKind, lowFourOfAKind));
+	}
+	
+	@Test
+	public void testAceAsOneInStraight()
+	{
+		Card card1 = new Card(Colour.DIAMONDS, Rank.TWO);
+		Card card2 = new Card(Colour.SPADES, Rank.THREE);
+		Card card3 = new Card(Colour.SPADES, Rank.FOUR);
+		Card card4 = new Card(Colour.SPADES, Rank.FIVE);
+		Card card5 = new Card(Colour.SPADES, Rank.ACE);
+		Hand straightHand = new Hand(card1, card2, card3, card4, card5);
+		Hand emptyHand = new Hand();
+		
+		assertEquals(18, rules.compare(straightHand,emptyHand));
 	}
 	
 	@Test

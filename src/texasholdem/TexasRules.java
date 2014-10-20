@@ -67,7 +67,7 @@ public class TexasRules implements Rules
 		case STRAIGHT: return (hasStraight(hand));
 		case FLUSH:	return (hasFlush(hand));
 		case FULL_HOUSE: return (hasFullHouse(hand));
-		case FOUR_OF_A_KIND: return (hasFourOfAkind(hand));
+		case FOUR_OF_A_KIND: return (hasFourOfAKind(hand));
 		case STRAIGHT_FLUSH: return (hasStraightFlush(hand));
 		default: return false;
 		}
@@ -103,7 +103,7 @@ public class TexasRules implements Rules
 		return false;
 	}
 
-	private boolean hasFourOfAkind(Hand hand) {
+	private boolean hasFourOfAKind(Hand hand) {
 		ArrayList<Card> tempCards = new ArrayList<Card>();
 		for (Card card : hand.copyOfAllCards()) {
 			if (hand.getNumberOfRank(card.getRank()) == 4){
@@ -143,7 +143,9 @@ public class TexasRules implements Rules
 		int previousCard = 0;
 		for (Card card : hand.copyOfAllCards()) {
 			if(previousCard == 0 || (card.getRank().getValue()-previousCard)<=1){
+				if(previousCard == 0 || (card.getRank().getValue()-previousCard)==1){
 				counter++;
+				}
 				//Lägg till "card" i listan med kort
 			}
 			else{
