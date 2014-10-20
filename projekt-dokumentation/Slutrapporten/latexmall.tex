@@ -1,0 +1,47 @@
+\documentclass[a5paper,10pt,oneside,landscape]{article}
+
+\usepackage[swedish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc} % Denna måste ändras till rätt teckenkodning för er
+
+\usepackage{graphicx}
+\usepackage{url}
+%\usepackage{ifthen}
+\usepackage[a5paper,margin=1.5cm,noheadfoot]{geometry}
+
+\usepackage{listings}
+\lstset{language=Java,numbers=left,frame=L,floatplacement=hbtp}
+\def \lstlistingname {Kodexempel}
+
+\usepackage{ifpdf}
+\ifpdf
+	\usepackage[hidelinks]{hyperref}
+\else
+	\usepackage{url}
+\fi
+\newcommand{\avsnitt}[1]{\newpage\section*{#1}}
+
+\begin{document}
+
+%%%%%%%%%%%%% Framsidan %%%%%%%%%%%%%%
+
+\title{Projektnamn}
+\author{Adam Alfa\\adal1234 \and Beatrice Beta\\bebe5678 \and Caesar Gamma\\caga9012 \and Diana Delta\\dide3456}
+\maketitle
+
+%%%%%%%%%%%%% Rapportens delar %%%%%%%%%%%%%%%
+
+\input{introduktion}
+\input{design}
+\input{tdd}
+\input{ekvivalens}
+\input{tillstand}
+\input{verktyg}
+
+% Om ni vill får ni lägga till ett avsnitt där ni tar upp övrigt av relevans för bedömningen av ert arbete. Detta ska i så fall stå sist
+
+% Nedanstående del ska bort i den inlämnade versionen
+\input{mallelement}
+
+
+\end{document}

@@ -50,6 +50,8 @@ public class TexasRulesTest
 		// detta ska bli 3 då straighthand har straight(18) och badHand har pair(15)
 	}
 	
+	
+	
 	@Test
 	public void testHasStraightFlush()
 	{
@@ -88,6 +90,24 @@ public class TexasRulesTest
 	}
 	
 	@Ignore
+	@Test
+	public void testTieOnHasStraight()
+	{
+		Card card1 = new Card(Colour.SPADES, Rank.ACE);
+		Card card2 = new Card(Colour.HEARTS, Rank.TWO);
+		Card card3 = new Card(Colour.CLUBS, Rank.THREE);
+		Card card4 = new Card(Colour.DIAMONDS, Rank.FOUR);
+		Card card5 = new Card(Colour.SPADES, Rank.FIVE);
+		Card card6 = new Card(Colour.HEARTS, Rank.SIX);
+		
+		
+		Hand lowStraight = new Hand(card1, card2, card3, card4,card5);
+		Hand highStraight = new Hand(card2,card3,card4,card5,card6);
+		Hand emptyHand = new Hand();
+		
+		assertEquals(1, rules.compare(highStraight, lowStraight));
+	}
+	
 	@Test
 	public void testAceAsOneInStraight()
 	{
