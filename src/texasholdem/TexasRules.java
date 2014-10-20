@@ -42,9 +42,9 @@ public class TexasRules implements Rules
 		int bestCombinationHand1 = 0;
 		int bestCombinationHand2 = 0;
 		for(CardCombination combination : CardCombination.values()){
-			if(hasCombination(hand1, combination))
+			if(hasCombination(hand1, combination) && bestCombinationHand1 == 0)
 				bestCombinationHand1 = combination.getValue();
-			if(hasCombination(hand2, combination))
+			if(hasCombination(hand2, combination) && bestCombinationHand2 == 0)
 				bestCombinationHand2 = combination.getValue();
 		}
 		boolean tieOnCombination = bestCombinationHand1 == bestCombinationHand2 && bestCombinationHand1 > 14;
@@ -131,12 +131,18 @@ public class TexasRules implements Rules
 		int counter = 0;
 		int previousCard = 0;
 		for (Card card : hand.copyOfAllCards()) {
-			if(previousCard == 0 || (card.getRank().getValue()-previousCard)<=1)
+			if(previousCard == 0 || (card.getRank().getValue()-previousCard)<=1){
 				counter++;
-			else
+				//Lägg till "card" i listan med kort
+			}
+			else{
 				counter = 0;
-			if(counter == 5)
+				//Rensa listan med kort
+			}
+			if(counter == 5){
+				//hand.newHand(korten);
 				return true;
+			}
 			previousCard = card.getRank().getValue();
 		}
 		return false;
