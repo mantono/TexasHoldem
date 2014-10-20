@@ -1,5 +1,6 @@
 package texasholdem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cards.Card;
@@ -103,9 +104,19 @@ public class TexasRules implements Rules
 	}
 
 	private boolean hasFourOfAKind(Hand hand) {
+		ArrayList<Card> tempCards = new ArrayList<Card>();
 		for (Card card : hand.copyOfAllCards()) {
-			if (hand.getNumberOfRank(card.getRank()) == 4)
+			if (hand.getNumberOfRank(card.getRank()) == 4){
+				for (Card innerCard : hand.copyOfAllCards()) {
+					if(innerCard.getRank() == card.getRank()){
+						tempCards.add(innerCard);
+					}
+						
+				}
+				hand.newHand(tempCards);
 				return true;
+				
+			}
 
 		}
 		return false;
@@ -132,7 +143,9 @@ public class TexasRules implements Rules
 		int previousCard = 0;
 		for (Card card : hand.copyOfAllCards()) {
 			if(previousCard == 0 || (card.getRank().getValue()-previousCard)<=1){
+				if(previousCard == 0 || (card.getRank().getValue()-previousCard)==1){
 				counter++;
+				}
 				//Lägg till "card" i listan med kort
 			}
 			else{
