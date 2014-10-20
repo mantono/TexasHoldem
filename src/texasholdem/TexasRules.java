@@ -77,7 +77,7 @@ public class TexasRules implements Rules
 			return 0;
 		Rank bestRankOnHand = Rank.TWO;
 		for (Card card : hand.copyOfAllCards()) {
-			if (card.getRank().compareTo(bestRankOnHand) < 0)
+			if (card.getRank().getValue() > bestRankOnHand.getValue())
 				bestRankOnHand = card.getRank();
 
 		}
@@ -159,7 +159,13 @@ public class TexasRules implements Rules
 
 	private boolean hasPair(Hand hand) {
 		for (Card card : hand.copyOfAllCards()) {
-			if (hand.getNumberOfRank(card.getRank()) == 2)
+			if (hand.getNumberOfRank(card.getRank()) == 2){
+				Rank keepRank = card.getRank();
+				for (Card innerCard : hand.copyOfAllCards()){
+					if (innerCard.getRank() != keepRank)
+						hand.dropCard(innerCard);
+				}
+			}
 				return true;
 
 		}
