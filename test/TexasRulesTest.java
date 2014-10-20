@@ -68,6 +68,12 @@ public class TexasRulesTest
 	public void testCompareTwoPairsOfDifferentRank()
 	{
 		assertEquals(-12, rules.compare(pairOfTwosHand, pairOfAcesHand));
+		
+		pairOfTwosHand.newHand(new Card(Colour.SPADES, Rank.TWO), new Card(Colour.DIAMONDS, Rank.ACE));
+		Hand pairOfKingsHand = new Hand(new Card(Colour.CLUBS, Rank.KING), new Card(Colour.DIAMONDS, Rank.KING));
+		pairOfTwosHand.addToHand(flop1, flop2, flop3, turn, river);
+		pairOfKingsHand.addToHand(flop1, flop2, flop3, turn, river);
+		assertEquals(-11, rules.compare(pairOfTwosHand, pairOfKingsHand));
 	}
 
 	@Test
