@@ -42,7 +42,7 @@ public class Game extends CardGame {
 
 	private void setAllPlayersInGame() {
 		for (Player player : getPlayers())
-			player.setInGame(true);
+			player.setInRound(true);
 	}
 
 	private void placeBlinds() {
@@ -118,8 +118,7 @@ public class Game extends CardGame {
 	public void distributeChip(ArrayList<ArrayList<Player>> victoryOrder) {
 		for (ArrayList<Player> victoryPosition : victoryOrder) {
 			int amountOfWinners = victoryPosition.size();
-			int leftoverFromchipsWonCalculation = (pot
-					.getBetHistory(victoryPosition.get(0)) % amountOfWinners);
+			int leftoverFromchipsWonCalculation = (pot.getBetHistory(victoryPosition.get(0)) % amountOfWinners);
 			int chipsWon;
 			boolean isThereLeftOvers = false;
 			if (leftoverFromchipsWonCalculation != 0) {

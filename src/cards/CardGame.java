@@ -56,7 +56,7 @@ public abstract class CardGame
 	{
 		int numberOfPlayers = 0;
 		for(Player player : players)
-			if(player.isInGame())
+			if(player.isInRound())
 				numberOfPlayers++;
 		return numberOfPlayers;
 	}

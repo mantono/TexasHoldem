@@ -4,8 +4,7 @@ public class Player {
 	private final String name;
 	private int chips = 0;
 	private final Hand hand = new Hand();
-	private boolean inGame = false;
-	private boolean allIn = false;
+	private boolean inRound = false;
 
 	public Player(String name, int chips) {
 		this.name = name;
@@ -20,15 +19,7 @@ public class Player {
 	public int getChips() {
 		return chips;
 	}
-	
-	public void setAllIn(boolean allIn){
-		this.allIn = allIn;
-	}
-	
-	public boolean isAllIn(){
-		return allIn;
-	}
-	
+
 	public int addChips(int add) {
 		return chips += add;
 	}
@@ -41,13 +32,13 @@ public class Player {
 		return true;
 	}
 
-	public void setInGame(boolean inGame) {
-		this.inGame = inGame;
+	public void setInRound(boolean inGame) {
+		this.inRound = inGame;
 
 	}
 
-	public boolean isInGame() {
-		return inGame;
+	public boolean isInRound() {
+		return inRound;
 	}
 	
 	public void newHand(Card... cards){

@@ -189,29 +189,27 @@ public class GameTest {
 	
 	@Test
 	public void testPlayersSetInGame(){
-		kalle.setInGame(false);
-		pelle.setInGame(false);
-		kent.setInGame(false);
-		assertFalse(kalle.isInGame());
-		assertFalse(pelle.isInGame());
-		assertFalse(kent.isInGame());
+		kalle.setInRound(false);
+		pelle.setInRound(false);
+		kent.setInRound(false);
+		assertFalse(kalle.isInRound());
+		assertFalse(pelle.isInRound());
+		assertFalse(kent.isInRound());
 		defaultGame.initiateRound();
-		assertTrue(kalle.isInGame());
-		assertTrue(pelle.isInGame());
-		assertTrue(kent.isInGame());
+		assertTrue(kalle.isInRound());
+		assertTrue(pelle.isInRound());
+		assertTrue(kent.isInRound());
 	}
 	
 	public void distributeChipsTest(){
 		defaultGame.receiveBet(10, kalle);
-		kalle.setAllIn(true);
-		kalle.setInGame(true);
+		kalle.setInRound(true);
 		defaultGame.receiveBet(20, pelle);		
-		pelle.setAllIn(true);
-		pelle.setInGame(true);
+		pelle.setInRound(true);
 		defaultGame.receiveBet(41, kent);
-		kent.setInGame(true);
+		kent.setInRound(true);
 		defaultGame.receiveBet(41, quinn);
-		quinn.setInGame(true);
+		quinn.setInRound(true);
 		defaultGame.receiveBet(41, joe);
 		defaultGame.receiveBet(35, martin);
 		defaultGame.receiveBet(5, jim);

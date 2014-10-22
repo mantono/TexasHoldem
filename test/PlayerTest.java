@@ -97,10 +97,10 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void setInGameTest() {
+	public void setInRoundTest() {
 
-		player.setInGame(true);
-		assertTrue(player.isInGame());
+		player.setInRound(true);
+		assertTrue(player.isInRound());
 
 	}
 	

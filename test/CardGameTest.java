@@ -107,8 +107,8 @@ public class CardGameTest
 		game.addPlayer(kalle);
 		game.addPlayer(pelle);
 		assertEquals(0, game.getNumberOfPlayersInGame());
-		kalle.setInGame(true);
-		pelle.setInGame(true);
+		kalle.setInRound(true);
+		pelle.setInRound(true);
 		assertEquals(2, game.getNumberOfPlayersInGame());
 		
 	}
