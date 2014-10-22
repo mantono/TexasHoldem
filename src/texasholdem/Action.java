@@ -2,5 +2,5 @@ package texasholdem;
 
 enum Action
 {
-	FOLD, CALL, RAISE, ALL_IN;
+	FOLD, CALL, CHECK, RAISE, ALL_IN;
 }

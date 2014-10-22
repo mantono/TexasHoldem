@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 6.4.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>140.0</x>
+			<y>186.0</y>
+			<label>Not in round</label>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>408.0</x>
+			<y>228.0</y>
+			<label>In round</label>
+		</state>
+		<state id="2" name="q2">
+			<x>151.0</x>
+			<y>4.0</y>
+			<label>Illegal state</label>
+			<final/>
+		</state>
+		<state id="3" name="q3">
+			<x>518.0</x>
+			<y>25.0</y>
+			<label>Zero chips</label>
+		</state>
+		<state id="4" name="q4">
+			<x>632.0</x>
+			<y>233.0</y>
+			<label>Out of game</label>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>3</from>
+			<to>2</to>
+			<read>Check</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>Check</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>All in</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>Raise</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>0</to>
+			<read>Round over</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>2</to>
+			<read>Raise</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>Call</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>2</to>
+			<read>Call</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>Fold</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>3</to>
+			<read>All in</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>0</to>
+			<read>Round over (win)</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>Enter round</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>0</to>
+			<read>Fold</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>Check</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>2</to>
+			<read>All in</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>2</to>
+			<read>Fold</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>Call</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>4</to>
+			<read>Round over (lose) </read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>Raise</read>
+		</transition>
+	</automaton>
+</structure>
