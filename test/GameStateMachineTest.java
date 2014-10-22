@@ -84,7 +84,7 @@ public class GameStateMachineTest
 	}
 	
 	@Test
-	public void inRoundToNotInRound_CallTest()
+	public void inRoundToInRound_CallTest()
 	{
 		game.initiateRound();
 		game.initiateDeal();
@@ -94,12 +94,33 @@ public class GameStateMachineTest
 	}
 	
 	@Test
-	public void inRoundToNotInRound_CheckTest()
+	public void inRoundToInRound_CheckTest()
 	{
 		game.initiateRound();
 		game.initiateDeal();
-		assertTrue(rasmus.isInRound());
-		assertTrue(game.playerAction(rasmus, Action.CALL));
-		assertTrue(rasmus.isInRound());
+		assertTrue(elliot.isInRound());
+		assertTrue(game.playerAction(elliot, Action.CHECK));
+		assertTrue(elliot.isInRound());
+	}
+	
+	@Test
+	public void inRoundToInRound_RaiseTest()
+	{
+		game.initiateRound();
+		game.initiateDeal();
+		assertTrue(elliot.isInRound());
+		assertTrue(game.playerAction(elliot, Action.RAISE));
+		assertTrue(elliot.isInRound());
+	}
+	
+	@Test
+	public void inRoundToZeroChips_AllInTest()
+	{
+		game.initiateRound();
+		game.initiateDeal();
+		assertTrue(elliot.isInRound());
+		assertTrue(game.playerAction(elliot, Action.ALL_IN));
+		assertTrue(elliot.isInRound());
+		assertEquals(0, elliot.getChips());
 	}
 }

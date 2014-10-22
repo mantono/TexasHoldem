@@ -10,6 +10,7 @@ public class Game extends CardGame {
 	private boolean roundIsActive = false;
 	private int smallBlindPosition = 0;
 	private int bigBlind = 4;
+	private int raiseBy = bigBlind; 
 	private double blindsRaisePercentage = 0.2;
 
 	public Game(int bigBlind, double blindsRaisePercentage, Player... players) {
@@ -81,8 +82,11 @@ public class Game extends CardGame {
 	}
 	
 
-	public boolean playerAction(Player player, Action action, int raiseBy) {
-		return false;
+	public void setRaiseBy(int raise)
+	{
+		if(raise < 1)
+			throw new IllegalArgumentException("Lowest raise is by one chip");
+		raiseBy = raise;
 	}
 
 	public boolean playerAction(Player player, Action action) {
@@ -100,7 +104,8 @@ public class Game extends CardGame {
 	}
 	
 	private boolean allIn(Player player){
-		return false;
+		nextPlayer();
+		return bet(player.getChips(), player);
 	}
 	
 	private boolean call(Player player){
@@ -110,17 +115,24 @@ public class Game extends CardGame {
 		 * Kolla hur mycket player har satsat innan
 		 * Satsa mellanskillnaden
 		*/
+		nextPlayer();
 		return true;
 	}
 	private boolean check(Player player){
-		return false;
+		nextPlayer();
+		return true;
 	}
 	private boolean fold(Player player){
 		player.setInRound(false);
+		nextPlayer();
 		return true;
 	}
 	private boolean raise(Player player){
-		return false;
+		if(!bet(raiseBy, player))
+			return false;
+		raiseBy = bigBlind;
+		nextPlayer();
+		return true;
 	}
 
 	public void endRound() {
@@ -168,8 +180,13 @@ public class Game extends CardGame {
 		}
 	}
 
-	public void receiveBet(int bet, Player player) {
-		pot.receiveBet(bet, player);
+	public boolean bet(int bet, Player player) {
+		if(player.subtractChips(bet))
+		{
+			pot.receiveBet(bet, player);
+			return true;
+		}
+		return false;
 	}
 
 	public void initiateDeal() {

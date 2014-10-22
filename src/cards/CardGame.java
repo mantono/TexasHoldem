@@ -9,6 +9,7 @@ public abstract class CardGame
 	private Deck deck = new Deck();
 	private final ArrayList<Player> players = new ArrayList<Player>();
 	private final List<Card> cardsOnTable = new ArrayList<Card>();
+	private int currentPlayer = 0;
 
 	public CardGame(Player... players)
 	{
@@ -25,9 +26,14 @@ public abstract class CardGame
 		deck = new Deck(amoutOfSets);
 	}
 	
-	public void addPlayer(Player player)
+	public boolean addPlayer(Player player)
 	{
-		players.add(player);
+		return players.add(player);
+	}
+	
+	public boolean removePlayer(Player player)
+	{
+		return players.remove(player);
 	}
 
 	public void clearAllHands()
@@ -50,6 +56,19 @@ public abstract class CardGame
 	public Player getPlayer(int index)
 	{
 		return players.get(index);
+	}
+	
+	public Player currentPlayer()
+	{
+		return players.get(currentPlayer);
+	}
+	
+	public int nextPlayer()
+	{
+		currentPlayer++;
+		if(currentPlayer >= players.size())
+			currentPlayer = 0;
+		return currentPlayer;
 	}
 	
 	public int getNumberOfPlayersInGame()

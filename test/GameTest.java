@@ -202,17 +202,17 @@ public class GameTest {
 	}
 	
 	public void distributeChipsTest(){
-		defaultGame.receiveBet(10, kalle);
+		defaultGame.bet(10, kalle);
 		kalle.setInRound(true);
-		defaultGame.receiveBet(20, pelle);		
+		defaultGame.bet(20, pelle);		
 		pelle.setInRound(true);
-		defaultGame.receiveBet(41, kent);
+		defaultGame.bet(41, kent);
 		kent.setInRound(true);
-		defaultGame.receiveBet(41, quinn);
+		defaultGame.bet(41, quinn);
 		quinn.setInRound(true);
-		defaultGame.receiveBet(41, joe);
-		defaultGame.receiveBet(35, martin);
-		defaultGame.receiveBet(5, jim);
+		defaultGame.bet(41, joe);
+		defaultGame.bet(35, martin);
+		defaultGame.bet(5, jim);
 		ArrayList<ArrayList<Player>> victoryOrder = new ArrayList<ArrayList<Player>>();
 		victoryOrder.add(new ArrayList<Player>());
 		victoryOrder.get(0).add(kalle);
