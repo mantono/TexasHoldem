@@ -33,16 +33,16 @@ public class Game extends CardGame {
 			throw new IllegalStateException(
 					"A new round can not be initialized while a round is still active.");
 		roundIsActive = true;
-		setAllPlayersInGame();
+		setAllPlayersInGame(true);
 		newDeck();
 		assert (getSizeOfDeck() == 52) : "A new deck must be generated before a new round.";
 		placeBlinds();
 		dealCards(2);
 	}
 
-	private void setAllPlayersInGame() {
+	private void setAllPlayersInGame(boolean inGame) {
 		for (Player player : getPlayers())
-			player.setInRound(true);
+			player.setInRound(inGame);
 	}
 
 	private void placeBlinds() {
@@ -79,40 +79,66 @@ public class Game extends CardGame {
 		if (previousBigBlind == bigBlind && blindsRaisePercentage != 0)
 			bigBlind++;
 	}
-
-	public boolean playerAction(Player player, Action action) {
-		return false;
-	}
+	
 
 	public boolean playerAction(Player player, Action action, int raiseBy) {
 		return false;
 	}
 
+	public boolean playerAction(Player player, Action action) {
+		if(!player.isInRound() || !roundIsActive)
+			throw new IllegalStateException("Player may not " + action + " while not in a round.");
+		
+		switch(action){
+			case ALL_IN: return allIn(player);
+			case CALL: return call(player);
+			case CHECK: return check(player);
+			case FOLD: return fold(player);
+			case RAISE: return raise(player);
+			default: return false;
+		}
+	}
+	
+	private boolean allIn(Player player){
+		return false;
+	}
+	
+	private boolean call(Player player){
+		// TODO 
+		/*
+		 * Ta reda på senaste höjningen
+		 * Kolla hur mycket player har satsat innan
+		 * Satsa mellanskillnaden
+		*/
+		return true;
+	}
+	private boolean check(Player player){
+		return false;
+	}
+	private boolean fold(Player player){
+		player.setInRound(false);
+		return true;
+	}
+	private boolean raise(Player player){
+		return false;
+	}
+
 	public void endRound() {
 		roundIsActive = false;
+		setAllPlayersInGame(false);
 		raiseBlinds();
 		moveSmallBlindPosition();
 		clearAllHands();
+		clearTableOfCards();
+		pot.resetPot();
 	}
 
 	public void endGame() {
-		
-		if(getPlayers().size() != 1){
-			throw new IllegalStateException("Error: Only one player can be the winner.");
-		}
-		
-		
+		if(roundIsActive)
+			endRound();
 		blindsRaisePercentage = 0.2;
 		bigBlind = 4;
 		smallBlindPosition = 0;
-		roundIsActive = false;
-		
-		assert getPlayers().size() == 1 : "Only one player can be the winner.";
-		
-		clearAllHands();
-		clearTableOfCards();
-		pot.resetPot();
-
 	}
 
 	public void distributeChip(ArrayList<ArrayList<Player>> victoryOrder) {

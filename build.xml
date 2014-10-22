@@ -27,7 +27,7 @@
 			</javac>
 		</target>
 
-		<target name="compileTexas" description="Compile package texas" depends="compileCards">
+		<target name="compileTexas" description="Compile package texasholdem" depends="compileCards">
 			<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
 				<src path="${texasHoldem.src.dir}"/>
 			</javac>

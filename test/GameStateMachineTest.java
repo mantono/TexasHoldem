@@ -21,33 +21,85 @@ public class GameStateMachineTest
 		game = new Game(emil, rasmus, elliot);
 	}
 	
+	// Not in round
+	
 	@Test(expected=IllegalStateException.class)
-	public void notInRoundToIllegalStateTest_Check()
+	public void notInRoundToIllegalState_CheckTest()
 	{
 		game.playerAction(emil, Action.CHECK);
 	}
 	
 	@Test(expected=IllegalStateException.class)
-	public void notInRoundToIllegalStateTest_AllIn()
+	public void notInRoundToIllegalState_AllInTest()
 	{
 		game.playerAction(emil, Action.ALL_IN);
 	}
 	
 	@Test(expected=IllegalStateException.class)
-	public void notInRoundToIllegalStateTest_Raise()
+	public void notInRoundToIllegalState_RaiseTest()
 	{
 		game.playerAction(emil, Action.RAISE);
 	}
 	
 	@Test(expected=IllegalStateException.class)
-	public void notInRoundToIllegalStateTest_Call()
+	public void notInRoundToIllegalState_CallTest()
 	{
 		game.playerAction(emil, Action.CALL);
 	}
 	
 	@Test(expected=IllegalStateException.class)
-	public void notInRoundToIllegalStateTest_Fold()
+	public void notInRoundToIllegalState_FoldTest()
 	{
 		game.playerAction(emil, Action.FOLD);
+	}
+	
+	@Test
+	public void notInRoundToInRound_EnterRoundTest()
+	{
+		assertFalse(emil.isInRound());
+		game.initiateRound();
+		assertTrue(emil.isInRound());
+	}
+	
+	// In round
+	
+	@Test
+	public void inRoundToNotInRound_FoldTest()
+	{
+		game.initiateRound();
+		game.initiateDeal();
+		assertTrue(game.playerAction(rasmus, Action.FOLD));
+		assertFalse(rasmus.isInRound());
+	}
+	
+	@Test
+	public void inRoundToNotInRound_RoundOverTest()
+	{
+		game.initiateRound();
+		game.initiateDeal();
+		game.initiateDeal();
+		game.initiateDeal();
+		game.endRound();
+		assertFalse(rasmus.isInRound());
+	}
+	
+	@Test
+	public void inRoundToNotInRound_CallTest()
+	{
+		game.initiateRound();
+		game.initiateDeal();
+		assertTrue(rasmus.isInRound());
+		assertTrue(game.playerAction(rasmus, Action.CALL));
+		assertTrue(rasmus.isInRound());
+	}
+	
+	@Test
+	public void inRoundToNotInRound_CheckTest()
+	{
+		game.initiateRound();
+		game.initiateDeal();
+		assertTrue(rasmus.isInRound());
+		assertTrue(game.playerAction(rasmus, Action.CALL));
+		assertTrue(rasmus.isInRound());
 	}
 }
