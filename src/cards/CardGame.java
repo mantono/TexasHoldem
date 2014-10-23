@@ -92,8 +92,9 @@ public abstract class CardGame
 	
 	public void putSpecificCardOnTable(Card card)
 	{
-		cardsOnTable.add(card);
-		deck.removeSpecificCard(card);
+		if(deck.removeSpecificCard(card)){
+			cardsOnTable.add(card);
+		}
 	}
 	
 	public List<Card> getCardsOnTable()
