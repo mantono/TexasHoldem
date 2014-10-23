@@ -38,6 +38,13 @@ public class Deck
 		return cards.remove(randomNumber.nextInt(getSize()));
 	}
 	
+	public void removeSpecificCard(Card card){
+		if(!cards.contains(card)){
+			throw new IllegalArgumentException("This card does not exist in the deck");
+		}
+		cards.remove(card);
+	}
+	
 	public Card[] drawCards(int amountOfCards)
 	{
 		if(amountOfCards > cards.size())
@@ -52,6 +59,10 @@ public class Deck
 	public int getSize()
 	{
 		return cards.size();
+	}
+	
+	public boolean deckContains(Card card){
+		return cards.contains(card);
 	}
 	
 	@Override

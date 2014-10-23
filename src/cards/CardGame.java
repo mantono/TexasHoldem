@@ -90,6 +90,12 @@ public abstract class CardGame
 		cardsOnTable.add(deck.drawCard());
 	}
 	
+	public void putSpecificCardOnTable(Card card)
+	{
+		cardsOnTable.add(card);
+		deck.removeSpecificCard(card);
+	}
+	
 	public List<Card> getCardsOnTable()
 	{
 		return cardsOnTable;

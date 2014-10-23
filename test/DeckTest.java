@@ -66,6 +66,22 @@ public class DeckTest
 		deck.drawCards(-1);
 	}
 	
+	@Test
+	public void removeSpecificCardTest()
+	{
+		Card card = new Card(Colour.SPADES, Rank.ACE);
+		deck.removeSpecificCard(card);
+		assertTrue(deck.deckContains(card));
+	}
+	
+	@Test(expected=IllegalAccessException.class)
+	public void removeNonExistingSpecificCardTest()
+	{
+		Card card = deck.drawCard();
+		deck.removeSpecificCard(card);
+
+	}
+	
 	@Test(expected=IllegalArgumentException.class)
 	public void testDrawMultipleCardsTooMany()
 	{

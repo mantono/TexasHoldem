@@ -135,7 +135,10 @@ public class Game extends CardGame {
 		return true;
 	}
 
-	public void endRound() {
+	public void endRound() { 
+		// TODO
+		//Behöver calculera vem som vann
+		
 		roundIsActive = false;
 		setAllPlayersInGame(false);
 		raiseBlinds();

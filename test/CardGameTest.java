@@ -8,6 +8,7 @@ import org.junit.Test;
 import texasholdem.Game;
 import cards.Card;
 import cards.Colour;
+import cards.Deck;
 import cards.Player;
 import cards.Rank;
 
@@ -82,6 +83,14 @@ public class CardGameTest
 		game.clearTableOfCards();
 		tableCards = game.getCardsOnTable();
 		assertEquals(0, tableCards.size());	
+	}
+	
+	@Test
+	public void putSpecificCardOnTableTest()
+	{
+		Card card = new Card(Colour.DIAMONDS, Rank.EIGHT);
+		game.putSpecificCardOnTable(card);
+		assertTrue(game.getCardsOnTable().contains(card));
 	}
 	
 	@Test

@@ -123,4 +123,79 @@ public class GameStateMachineTest
 		assertTrue(elliot.isInRound());
 		assertEquals(0, elliot.getChips());
 	}
+	
+	//zero chips
+	@Test(expected=IllegalStateException.class)
+	public void zeroChipsToIllegalState_call(){
+		game.initiateRound();
+		game.initiateDeal();
+		game.playerAction(elliot, Action.ALL_IN);
+		game.playerAction(elliot, Action.CALL);
+	}
+	
+	
+	@Test(expected=IllegalStateException.class)
+	public void zeroChipsToIllegalState_allIn(){
+		game.initiateRound();
+		game.initiateDeal();
+		game.playerAction(elliot, Action.ALL_IN);
+		game.playerAction(elliot, Action.ALL_IN);
+	}
+	
+	@Test(expected=IllegalStateException.class)
+	public void zeroChipsToIllegalState_fold(){
+		game.initiateRound();
+		game.initiateDeal();
+		game.playerAction(elliot, Action.ALL_IN);
+		game.playerAction(elliot, Action.FOLD);
+	}
+	
+	@Test(expected=IllegalStateException.class)
+	public void zeroChipsToIllegalState_raise(){
+		game.initiateRound();
+		game.initiateDeal();
+		game.playerAction(elliot, Action.ALL_IN);
+		game.playerAction(elliot, Action.RAISE);
+	}
+	
+	@Test(expected=IllegalStateException.class)
+	public void zeroChipsToIllegalState_check(){
+		game.initiateRound();
+		game.initiateDeal();
+		game.playerAction(elliot, Action.ALL_IN);
+		game.playerAction(elliot, Action.CHECK);
+	}
+	
+	@Test
+	public void zeroChipsToNotInRound_wonRound(){
+		game.initiateRound();
+		game.initiateDeal();
+		game.playerAction(elliot, Action.ALL_IN);
+		game.playerAction(emil, Action.FOLD);
+		game.playerAction(rasmus, Action.FOLD);
+		game.endRound();
+		assertFalse(elliot.isInRound());
+	}
+	
+	@Test
+	public void zeroChipsToNotInGame_lostRound(){
+		game.initiateRound();
+		game.initiateDeal();
+		game.playerAction(elliot, Action.ALL_IN);
+		game.playerAction(emil, Action.ALL_IN);
+		game.playerAction(rasmus, Action.FOLD);
+		elliot.clearHand();
+		emil.clearHand();
+		elliot.newHand(new Card(Colour.CLUBS, Rank.FIVE), new Card(Colour.SPADES, Rank.EIGHT));
+		emil.newHand(new Card(Colour.DIAMONDS, Rank.FIVE), new Card(Colour.DIAMONDS, Rank.ACE));
+		game.putSpecificCardOnTable(new Card(Colour.DIAMONDS, Rank.ACE));
+		game.putSpecificCardOnTable(new Card(Colour.DIAMONDS, Rank.KING));
+		game.putSpecificCardOnTable(new Card(Colour.DIAMONDS, Rank.FOUR));
+		game.putSpecificCardOnTable(new Card(Colour.CLUBS, Rank.ACE));
+		game.putSpecificCardOnTable(new Card(Colour.SPADES, Rank.ACE));
+		game.endRound();
+		assertFalse(game.getPlayers().contains(elliot));
+	}
+	
+	
 }
