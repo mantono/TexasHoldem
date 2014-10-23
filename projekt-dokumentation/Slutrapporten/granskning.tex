@@ -6,6 +6,24 @@ En kort presentation av den del av koden ni valt ut för att göra en formell gran
 
 En lista över de påträffade felen och hur pass allvarliga ni bedömer dem.
 
+Fel i paketet cards:
+
+Funderingar över hur vi ska lösa hantering av att Rank.ACE kan vara 1 i enum-klassen Rank.java. Detta sågs inte vara något allvarligt och löstes sedan direkt där det behövdes, t ex vid uträkning av kombinationen CardCombination.STRAIGHT.
+
+Detta ska in och renskrivas /*
+Value och rank missförstånd mellan variablerna 
+
+getValue() säkerhet på metoden ?
+
+kolla om det finns någon given ordning i färger ? om inte så är fallet kolla på säkerheten i Colour.getValue(), även namngivning. Eventuellt ta bort int i enum Colour.
+
+Deck konstruktorer byta plats ?
+*/
+
+Fel i paketet TexasHoldem (endast klassen Pot granskad(eller?)):
+
+
+
 \chapter{Granskning -- erfarenheter}
 
 En diskussion om vilka era erfarenheter ni dragit av att tillämpa granskning. Det finns inget rätt eller fel här. Enda sättet att bli underkända är att bara fuska över punkten och bara säga något pliktskyldigt. Ni förväntas förhålla er till såväl kursboken som utdelat material och IEEE Std 1028.
