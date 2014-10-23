@@ -6,6 +6,8 @@ En presentation av de problem som hittats med hjälp av verktyg för statisk analy
 
 En presentation och diskussion kring ett antal lämpliga statiska mått på koden. Att vi inte specificerar exakt vilka mått som ska tas upp beror på att olika verktyg har olika uppsättningar, men vi förväntar oss fler och mer intressanta mått än bara rena storleksmått som LOC, \#klasser, \#metoder, etc. Även här är det viktigt att förhållas sig till måtten, inte bara lista dem.
 
+Pizza metric index: 1.
+
 \avsnitt{Täckningsgrad}
 
 En översikt över vilken täckningsgrad era testfall uppnått. Denna kan antagligen tas rakt av från verktyget ni använt för att mäta den. Om ni inte uppnått fullständig täckning så ska detta förklaras och motiveras.
@@ -17,3 +19,126 @@ En kort presentation av hur ni gått tillväga för att testa koden med en profiler
 \avsnitt{Byggscript}
 
 Byggscriptets första (seriösa) version, och den slutliga.
+
+I den första versionen av byggscriptet vad ambitionen främst att det skulle göra ungefär samma sak som den standard-byggscripten som eclipse skapar för ett projekt. Med andra ord, kompilera alla klasser och dess beroenden. Det gick ganska bra fram till dess att testfallen inkluderades, då det krävdes externa bibliotek (JUnit) för att kompilera dessa. Så småningom fick vi även det att fungera.
+
+ \lstset{
+	language=XML,
+	basicstyle=\ttfamily\scriptsize,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	showspaces=false,
+	breaklines=true
+ }
+
+\begin{lstlisting}[float,caption={build.xml, första versionen},label=lst]
+<?xml version="1.0"?>
+<project name="texas" default="buildTest" basedir=".">
+<property name="build.dir" location="bin" />
+<property name="srcCards.dir" value="src/cards" />
+<property name="srcTexasHoldem.dir" value="src/texasholdem" />
+<property name="srcTest.dir" value="test" />
+
+<property name="test.report.dir" location="testreports" />
+
+<path id="junit.class.path">
+	<pathelement location="${eclipse}/plugins/org.junit*/*junit.jar" />
+	<pathelement location="/home/anton/dokument/eclipse/plugins/org.junit_4.11.0.v201303080030/junit.jar" />
+	<pathelement location="${eclipse}/plugins/*org.hamcrest.*.jar" />
+	<pathelement location="${build.dir}" />
+</path>
+
+<target name="buildCards" description="Build package cards">
+	<mkdir dir="${build.dir}" />
+	<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
+		<src path="${srcCards.dir}"/>
+	</javac>
+</target>
+
+<target name="buildTexas" description="Build package texas" depends="buildCards">
+	<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
+		<src path="${srcTexasHoldem.dir}"/>
+	</javac>
+</target>
+
+<target name="buildTest" description="Build test cases" depends="buildTexas">
+	<mkdir dir="${build.dir}/test" />
+	<javac includeantruntime="false" destdir="${build.dir}/test" source="1.7" target="1.7">
+		<classpath refid="junit.class.path" />
+		<src path="${srcTest.dir}"/>
+	</javac>
+</target>
+</project>
+\end{lstlisting}
+
+I den färdiga versionen så körs även testfallen, och om desa går igenom skapas även en jar-fil för respektive paket.
+
+\begin{lstlisting}[float,caption={build.xml, slutgiltliga versionen (1/2)},label=lst]
+<?xml version="1.0"?>
+<project name="texas" default="buildJarFiles" basedir=".">
+<property name="build.dir" location="bin" />
+<property name="cards.src.dir" location="src/cards" />
+<property name="texasHoldem.src.dir" location="src/texasholdem" />
+<property name="test.src.dir" location="test" />
+<property name="test.report.dir" location="testreports" />
+<property name="jar.dir" location="jar" />
+<property name="eclipse" location="/home/anton/dokument/eclipse" />
+
+<path id="junit.class.path">
+	<fileset dir="${eclipse}/plugins" includes="org.junit*/*junit.jar" />
+	<fileset dir="${eclipse}/plugins" includes="org.hamcrest*/*junit.jar" />
+	<fileset dir="${eclipse}/plugins" includes="org.hamcrest.core*.jar" />
+	<pathelement location="${build.dir}" />
+</path>
+
+<target name="clean" description="Delete previous jar and class files">
+	<delete includeemptydirs="true" dir="jar" />
+	<delete includeemptydirs="true" dir="bin" />
+</target>
+
+<target name="compileCards" description="Compile package cards" depends="clean">
+	<mkdir dir="${build.dir}" />
+	<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
+		<src path="${cards.src.dir}"/>
+	</javac>
+</target>
+
+<target name="compileTexas" description="Compile package texasholdem" depends="compileCards">
+	<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
+		<src path="${texasHoldem.src.dir}"/>
+	</javac>
+</target>
+\end{lstlisting}
+
+\begin{lstlisting}[float,caption={build.xml, slutgiltliga versionen (2/2)},label=lst]
+<target name="compileTest" description="Compile test cases" depends="compileTexas, compileCards">
+	<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
+		<classpath refid="junit.class.path" />
+		<src path="${test.src.dir}"/>
+	</javac>
+</target>
+
+<target name="runTestCases" description="Run test cases" depends="compileTest">
+	<junit showoutput="true" printsummary="true" fork="yes" haltonfailure="yes">
+		<classpath refid="junit.class.path" />
+		<classpath>
+			<pathelement location="${build.dir}"/>
+		</classpath>
+		<formatter type="plain" usefile="false" />
+		<batchtest todir="${test.report.dir}">
+			<fileset dir="${build.dir}">
+				<include name="*Test.class" />
+			</fileset>
+		</batchtest>
+	</junit>
+</target>
+
+<target name="buildJarFiles" description="Build .jar-files" depends="compileCards, compileTexas, compileTest, runTestCases">
+	<mkdir dir="${jar.dir}" />
+	<jar destfile="${jar.dir}/cards.jar" basedir="${build.dir}/cards" includes="*.class" />
+	<jar destfile="${jar.dir}/texasholdem.jar" basedir="${build.dir}/texasholdem" includes="*.class" />
+</target>
+
+</project>
+\end{lstlisting}
+
