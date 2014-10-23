@@ -7,20 +7,49 @@ En kort presentation av den del av koden ni valt ut för att göra en formell gran
 En lista över de påträffade felen och hur pass allvarliga ni bedömer dem.
 
 Fel i paketet cards:
+ /* Value och rank missförstånd mellan variablerna */
 
-Funderingar över hur vi ska lösa hantering av att Rank.ACE kan vara 1 i enum-klassen Rank.java. Detta sågs inte vara något allvarligt och löstes sedan direkt där det behövdes, t ex vid uträkning av kombinationen CardCombination.STRAIGHT.
 
-Detta ska in och renskrivas /*
-Value och rank missförstånd mellan variablerna 
+Funderingar över hur vi ska lösa hantering av att Rank.ACE kan vara 1 i enum-klassen Rank.java. Detta sågs inte vara något allvarligt och bestämdes att det skulle lösas direkt där det behövdes, t ex vid uträkning av kombinationen CardCombination.STRAIGHT.
 
-getValue() säkerhet på metoden ?
+Enum-klassen Colour går nu att använda en getValue metod på även fast vi är osäkra på hur ranking mellan olika färger går till i Texas Hold Em och andra kortspel. Detta Anses ganska allvarligt då det kan leda till felaktiga uträkningar i vinnande händer osv.
 
-kolla om det finns någon given ordning i färger ? om inte så är fallet kolla på säkerheten i Colour.getValue(), även namngivning. Eventuellt ta bort int i enum Colour.
+getValue-metoden har skyddsnivån public i enum-klassen Colour men protected i enum-klassen Rank vilket, den borde ha samma skyddsnivå i båda klasserna vilket är något som ska korrigeras. 
 
-Deck konstruktorer byta plats ?
-*/
+Byta plats på konstruktorerna i klassen Deck för bättre läsbarhet.
 
-Fel i paketet TexasHoldem (endast klassen Pot granskad(eller?)):
+
+Fel i paketet TexasHoldem (endast klassen Pot & Player granskad):
+
+/*
+Implemention av clearhand() i Game-klassen 
+Returtyp på addChips() ?
+Bet >= big blind
+addToPot returtyp, kanske ett exception på i>chips
+ */
+
+Fel i klassen Pot:
+
+If-satsen i konstruktorn som tar emot en parameter för klassen Pot måste ändras så att du kan skapa en pot med 0 chips i, för tillfället så får man ett exception då vilket inte är meningen. Detta ses som relativt allvarligt då inget ska hindra dig från att skapa en pot med 0 chips i.
+
+betHistory i Pot borde sättas till final då det inte ska skapas flera av den utan bara tömma den redan skapade mapen.
+
+Metoden checkNull i Pot visar sig vara överflödig och ska tas bort.
+
+betToPot-metoden borde byta namn till någon som bättre representerar dess funktion, t ex recieveBet.
+
+
+Fel i klassen Player:
+
+Metoden getInGame i klassen Player borde borde byta namn till isInGame för att bättre representera sin funktion.
+
+addToPot-metoden borde byta namn för att bättre representera sin funktion eller göras om så att mer av denna funktionalitet ligger i Game-klassen och det enda som görs i den här metoden är att ta bort de chipsen som spelare bettar.
+Byte av varibelnamn i metoden addToPot från i till bet för att öka läsbarheten.
+
+
+
+
+
 
 
 
