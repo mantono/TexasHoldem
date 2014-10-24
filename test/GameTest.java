@@ -180,12 +180,7 @@ public class GameTest {
 		
 		
 	}
-	@Test(expected = IllegalStateException.class)
-	public void endGameTestInvalid(){
-		Game game = new Game(4, 1, joe, kalle);
-		game.endGame();
-		
-	}
+
 	
 	@Test
 	public void testPlayersSetInGame(){

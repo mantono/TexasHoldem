@@ -150,9 +150,11 @@ public class Game extends CardGame {
 	public void endGame() {
 		if(roundIsActive)
 			endRound();
+		//Utse en vinnare av spelet och sedan restart
 		blindsRaisePercentage = 0.2;
 		bigBlind = 4;
 		smallBlindPosition = 0;
+		
 	}
 
 	public void distributeChip(ArrayList<ArrayList<Player>> victoryOrder) {
