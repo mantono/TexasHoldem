@@ -71,7 +71,7 @@ public class DeckTest
 	{
 		Card card = new Card(Colour.SPADES, Rank.ACE);
 		deck.removeSpecificCard(card);
-		assertTrue(deck.deckContains(card));
+		assertFalse(deck.deckContains(card));
 	}
 	
 	@Test(expected=IllegalAccessException.class)
