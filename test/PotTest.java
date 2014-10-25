@@ -118,4 +118,18 @@ public class PotTest {
 		assertEquals(0, newPot.getBetHistory(player2));
 		assertEquals(100, newPot.getBetHistory(player3));
 	}
+	@Test(expected=IllegalArgumentException.class)
+	public void handOutChipsPlayerHaveNotBetAnythingTest(){
+		Pot newPot = new Pot(0);
+		newPot.handOutChips(player1, 2, 1);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void handOutChipsNoWinnersTest(){
+		Pot newPot = new Pot(0);
+		player1.addChips(2);
+		newPot.receiveBet(2, player1);
+		newPot.handOutChips(player1, 2, 0);
+	}
+	
 }
