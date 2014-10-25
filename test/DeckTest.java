@@ -67,18 +67,18 @@ public class DeckTest
 	}
 	
 	@Test
-	public void removeSpecificCardTest()
+	public void removeCardTest()
 	{
 		Card card = new Card(Colour.SPADES, Rank.ACE);
-		deck.removeSpecificCard(card);
+		deck.removeCard(card);
 		assertFalse(deck.deckContains(card));
 	}
 	
 	@Test(expected=IllegalAccessException.class)
-	public void removeNonExistingSpecificCardTest()
+	public void removeNonExistingCardTest()
 	{
 		Card card = deck.drawCard();
-		deck.removeSpecificCard(card);
+		deck.removeCard(card);
 
 	}
 	

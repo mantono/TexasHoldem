@@ -188,11 +188,11 @@ public class GameStateMachineTest
 		emil.clearHand();
 		elliot.newHand(new Card(Colour.CLUBS, Rank.FIVE), new Card(Colour.SPADES, Rank.EIGHT));
 		emil.newHand(new Card(Colour.DIAMONDS, Rank.FIVE), new Card(Colour.DIAMONDS, Rank.ACE));
-		game.putSpecificCardOnTable(new Card(Colour.DIAMONDS, Rank.ACE));
-		game.putSpecificCardOnTable(new Card(Colour.DIAMONDS, Rank.KING));
-		game.putSpecificCardOnTable(new Card(Colour.DIAMONDS, Rank.FOUR));
-		game.putSpecificCardOnTable(new Card(Colour.CLUBS, Rank.ACE));
-		game.putSpecificCardOnTable(new Card(Colour.SPADES, Rank.ACE));
+		game.putCardOnTable(new Card(Colour.DIAMONDS, Rank.ACE));
+		game.putCardOnTable(new Card(Colour.DIAMONDS, Rank.KING));
+		game.putCardOnTable(new Card(Colour.DIAMONDS, Rank.FOUR));
+		game.putCardOnTable(new Card(Colour.CLUBS, Rank.ACE));
+		game.putCardOnTable(new Card(Colour.SPADES, Rank.ACE));
 		game.endRound();
 		assertFalse(game.getPlayers().contains(elliot));
 	}

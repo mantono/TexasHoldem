@@ -38,10 +38,9 @@ public class Deck
 		return cards.remove(randomNumber.nextInt(getSize()));
 	}
 	
-	public boolean removeSpecificCard(Card card){
-		if(!cards.contains(card)){
+	public boolean removeCard(Card card){
+		if(!cards.contains(card))
 			throw new IllegalArgumentException("This card does not exist in the deck");
-		}
 		cards.remove(card);
 		return true;
 	}

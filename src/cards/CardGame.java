@@ -62,7 +62,7 @@ public abstract class CardGame
 		return players.get(index);
 	}
 	
-	public Player currentPlayer()
+	public Player getCurrentPlayer()
 	{
 		return players.get(currentPlayer);
 	}
@@ -89,16 +89,15 @@ public abstract class CardGame
 		cardsOnTable.clear();
 	}
 
-	public void putCardOnTable()
+	public void putRandomCardOnTable()
 	{
 		cardsOnTable.add(deck.drawCard());
 	}
 	
-	public void putSpecificCardOnTable(Card card)
+	public void putCardOnTable(Card card)
 	{
-		if(deck.removeSpecificCard(card)){
+		if(deck.removeCard(card))
 			cardsOnTable.add(card);
-		}
 	}
 	
 	public List<Card> getCardsOnTable()

@@ -201,6 +201,7 @@ public class GameTest {
 		assertTrue(kent.isInRound());
 	}
 	
+	@Test
 	public void distributeChipsTest(){
 		defaultGame.bet(10, kalle);
 		kalle.setInRound(true);
@@ -232,11 +233,30 @@ public class GameTest {
 	}
 	
 	@Test(expected = NullPointerException.class)
-	public void nullPlayerTest()
-	{
+	public void nullPlayerConstructorTest(){
+		Player nullPlayer = null;
+		Game game = new Game(nullPlayer);
+	}	
+
+	@Test(expected = NullPointerException.class)
+	public void nullPlayerTest(){
 		Game game = new Game();
 		Player nullPlayer = null;
 		game.addPlayer(nullPlayer);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void illegalRaiseTest(){
+		defaultGame.setRaiseBy(0);
+	}
+	
+	@Test
+	public void validRaiseTest(){
+		defaultGame.setRaiseBy(10);
+		defaultGame.initiateRound();
+		assertEquals(198, kalle.getChips());
+		defaultGame.playerAction(kalle, Action.RAISE);
+		assertEquals(188, kalle.getChips());
 	}
 	
 }

@@ -75,8 +75,8 @@ public class CardGameTest
 	public void cardsOnTableTest()
 	{
 		assertEquals(52, game.getSizeOfDeck());
-		game.putCardOnTable();
-		game.putCardOnTable();
+		game.putRandomCardOnTable();
+		game.putRandomCardOnTable();
 		List<Card> tableCards = game.getCardsOnTable();
 		assertEquals(50, game.getSizeOfDeck());
 		assertEquals(2, tableCards.size());
@@ -86,11 +86,20 @@ public class CardGameTest
 	}
 	
 	@Test
-	public void putSpecificCardOnTableTest()
+	public void putExistingCardOnTableTest()
 	{
 		Card card = new Card(Colour.DIAMONDS, Rank.EIGHT);
-		game.putSpecificCardOnTable(card);
+		game.putCardOnTable(card);
 		assertTrue(game.getCardsOnTable().contains(card));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void putNonExistingCardOnTableTest()
+	{
+		Card card = new Card(Colour.DIAMONDS, Rank.EIGHT);
+		game.putCardOnTable(card);
+		game.putCardOnTable(card);
+		assertFalse(game.getCardsOnTable().contains(card));
 	}
 	
 	@Test
@@ -120,6 +129,35 @@ public class CardGameTest
 		pelle.setInRound(true);
 		assertEquals(2, game.getNumberOfPlayersInGame());
 		
+	}
+	
+	@Test
+	public void getCurrentPlayerWithPlayersTest()
+	{
+		game.addPlayer(kalle);
+		game.addPlayer(pelle);
+		game.addPlayer(kent);
+		assertEquals(kalle, game.getCurrentPlayer());
+	}
+	
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void getCurrentPlayerWithNoPLayersTest()
+	{
+		assertEquals(kalle, game.getCurrentPlayer());
+	}
+	
+	@Test
+	public void removeValidPlayerTest()
+	{
+		assertTrue(game.addPlayer(pelle));
+		assertTrue(game.removePlayer(pelle));
+		assertEquals(0, game.getNumberOfPlayersInGame());
+	}
+	
+	@Test
+	public void removeInvalidPlayerTest()
+	{
+		assertFalse(game.removePlayer(pelle));
 	}
 
 }

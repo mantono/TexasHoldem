@@ -110,4 +110,12 @@ public class PlayerTest {
 		int chips = (Integer) null;
 		player.subtractChips(chips);
 	}
+	
+	@Test
+	public void addToHandTest()
+	{
+		assertEquals(0, player.getNumberOfCards());
+		player.addTohand(new Card(Colour.DIAMONDS, Rank.JACK));
+		assertEquals(1, player.getNumberOfCards());
+	}
 }

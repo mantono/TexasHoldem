@@ -96,10 +96,9 @@ public class Game extends CardGame {
 		switch(action){
 			case ALL_IN: return allIn(player);
 			case CALL: return call(player);
-			case CHECK: return check(player);
 			case FOLD: return fold(player);
 			case RAISE: return raise(player);
-			default: return false;
+			default: return check(player);
 		}
 	}
 	
@@ -197,9 +196,9 @@ public class Game extends CardGame {
 			throw new IllegalStateException();
 		else if (getCardsOnTable().size() == 0)
 			for (byte b = 0; b < 3; b++)
-				putCardOnTable();
+				putRandomCardOnTable();
 		else
-			putCardOnTable();
+			putRandomCardOnTable();
 
 		assert getCardsOnTable().size() >= 3 : "After the initiateDeal has been called, at least the flop (first three cards) must have been dealt.";
 	}
