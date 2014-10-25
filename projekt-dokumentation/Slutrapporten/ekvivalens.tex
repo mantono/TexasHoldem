@@ -9,12 +9,9 @@ Samtliga ekvivalensklasser för denna del presenterade på ett tydligt sätt.\\ pub
 \begin{table}[h]
 \begin{tabular}{|l|l|l|l|}
 \hline
-\textbf{Invalida interval} &					& \textbf{Valida interval}	&							\\ \hline
-int bet                    & $<=1$				& int bet					& $0<bet<=chips$			\\ \hline
-int bet                    & $>chips$			&							&							\\ \hline
-                           &					&							&							\\ \hline
-                           &					&							&							\\ \hline
-                           &					&							&							\\ \hline
+\textbf{Invalida interval} \cellcolor{red!15}	& \cellcolor{red!15}			& \textbf{Valida interval} \cellcolor{green!15}	& \cellcolor{green!15}					\\ \hline
+int bet \cellcolor{red!15}						& $<=1$ \cellcolor{red!15}		& int bet \cellcolor{green!15}					& $0<bet<=chips$ \cellcolor{green!15}	\\ \hline
+int bet	\cellcolor{red!15}						& $>chips$ \cellcolor{red!15}	& \cellcolor{green!15}							& \cellcolor{green!15}					\\ \hline
 \end{tabular}
 \end{table}
 
@@ -39,11 +36,10 @@ Samtliga ekvivalensklasser för denna del presenterade på ett tydligt sätt.
 \begin{table}[h]
 \begin{tabular}{|l|l|l|l|}
 \hline
-\textbf{Invalida interval}	&					& \textbf{Valida interval}		&							\\ \hline
-int bigblind				& $<=0$				& int bigBlind					& $0<$						\\ \hline
-double blindsRaisePercentage& $<0$				& double blindsRaisePercentage	& $0<=$						\\ \hline
-							&					& Players... players			& *							\\ \hline
-							&					&								&							\\ \hline
+\cellcolor{red!15} \textbf{Invalida interval}	& \cellcolor{red!15}					& \cellcolor{green!15} \textbf{Valida interval}		& \cellcolor{green!15}		\\ \hline
+\cellcolor{red!15} int bigblind					& \cellcolor{red!15} $<=0$				& \cellcolor{green!15} int bigBlind					& \cellcolor{green!15} $>0$	\\ \hline
+\cellcolor{red!15} double blindsRaisePercentage & \cellcolor{red!15} $<0$				& \cellcolor{green!15} double blindsRaisePercentage	& \cellcolor{green!15} $>=0$\\ \hline
+\cellcolor{red!15} Players... players			& \cellcolor{red!15} null				& \cellcolor{green!15} Players... players			& \cellcolor{green!15}*		\\ \hline
 \end{tabular}
 \end{table}
 

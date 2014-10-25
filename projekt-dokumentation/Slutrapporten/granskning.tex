@@ -1,10 +1,10 @@
 \chapter{Granskning}
 
-En kort presentation av den del av koden ni valt ut för att göra en formell granskning av och processen ni använt er av inklusive eventuella checklistor, scenarier, edyl. Ni ska kort motivera valen, och ge tillräckligt med information för att det ska gå att bedöma er. 
+En kort presentation av den del av koden ni valt ut för att göra en formell granskning av och processen ni använt er av inklusive eventuella checklistor, scenarier, edyl. Ni ska kort motivera valen, och ge tillräckligt med information för att det ska gå att bedöma er.
 
 Vi valde att göra en granskning på vårat projekt i ett relativt tidigt stadie för att underlätta fortsatt arbete och undvika att vi missar stora fel och missförstånd. När vi genomförde vår granskning så gjorde vi det på hela paketet cards som då innehöll klasserna Deck,Colour,Rank och Card samt klasserna Pot och Player i paketet texasholdem. Då klassen game var väldig tom och inte i närheten av färdig kände vi att det inte var någon mening med att granska den ännu vilket är varför vi lämnade den utanför granskningen.
 
-När vi genomförde granskningen valde vi att alla personer räknades som rollen reviewer då vi alla hade åsikter och fel vi hittat i koden men vi delade samtidigt upp oss i olika roller utöver det. Rasmus var sekreterare som skrev ner alla fel/punkter vi tog upp medan Emil var moderatorn i granskningen. Vi jobbade sedan på de sättet att vi tog en klass i taget där Emil läste koden rad för rad och när någon hade ett fel eller något annat att ta upp så gjorde man det och vi diskuterade då om det är något som ska ändras och isåfall vad vi skulle kunna göra. Vissa fel kom vi på vad som skulle ändras direkt och skrev upp det medanandra punkter lämnade vi öppna för diskussion när vi sedan skulle ”rätta” felen efter att granskningen var klar.
+När vi genomförde granskningen valde vi att alla personer räknades som rollen reviewer då vi alla hade åsikter och fel vi hittat i koden men vi delade samtidigt upp oss i olika roller utöver det. Rasmus var sekreterare som skrev ner alla fel/punkter vi tog upp medan Emil var moderatorn i granskningen. Vi jobbade sedan på de sättet att vi tog en klass i taget där Emil läste koden rad för rad och när någon hade ett fel eller något annat att ta upp så gjorde man det och vi diskuterade då om det är något som ska ändras och isåfall vad vi skulle kunna göra. Vissa fel kom vi på vad som skulle ändras direkt och skrev upp det medanandra punkter lämnade vi öppna för diskussion när vi sedan skulle \emph{rätta} felen efter att granskningen var klar.
 
 \chapter{Granskningsrapport}
 
@@ -18,7 +18,7 @@ Funderingar över hur vi ska lösa hantering av att Rank.ACE kan vara 1 i enum-kla
 
 Enum-klassen Colour går nu att använda en getValue metod på även fast vi är osäkra på hur ranking mellan olika färger går till i Texas Hold Em och andra kortspel. Detta Anses ganska allvarligt då det kan leda till felaktiga uträkningar i vinnande händer osv.
 
-getValue-metoden har skyddsnivån public i enum-klassen Colour men protected i enum-klassen Rank vilket, den borde ha samma skyddsnivå i båda klasserna vilket är något som ska korrigeras. 
+getValue-metoden har skyddsnivån public i enum-klassen Colour men protected i enum-klassen Rank vilket, den borde ha samma skyddsnivå i båda klasserna vilket är något som ska korrigeras.
 
 Byta plats på konstruktorerna i klassen Deck för bättre läsbarhet.
 
@@ -26,7 +26,7 @@ Byta plats på konstruktorerna i klassen Deck för bättre läsbarhet.
 Fel i paketet TexasHoldem (endast klassen Pot & Player granskad):
 
 /*
-Implemention av clearhand() i Game-klassen 
+Implemention av clearhand() i Game-klassen
 Returtyp på addChips() ?
 Bet >= big blind
 addToPot returtyp, kanske ett exception på i>chips

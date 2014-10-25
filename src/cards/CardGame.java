@@ -14,6 +14,8 @@ public abstract class CardGame
 	public CardGame(Player... players)
 	{
 		this.players.addAll(Arrays.asList(players));
+		if(this.players.contains(null))
+			throw new NullPointerException("A player variable is pointing to null.");
 	}
 	
 	public void newDeck()
@@ -28,6 +30,8 @@ public abstract class CardGame
 	
 	public boolean addPlayer(Player player)
 	{
+		if(player == null)
+			throw new NullPointerException("A player variable is pointing to null.");
 		return players.add(player);
 	}
 	

@@ -104,8 +104,10 @@ public class PlayerTest {
 
 	}
 	
-	@Test
-	public void subtractChipsTest(){
-		
+	@Test(expected = NullPointerException.class)
+	public void subtractNullChipsTest(){
+		@SuppressWarnings("null")
+		int chips = (Integer) null;
+		player.subtractChips(chips);
 	}
 }

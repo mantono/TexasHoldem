@@ -231,4 +231,12 @@ public class GameTest {
 		assertEquals(195, jim.getChips());
 	}
 	
+	@Test(expected = NullPointerException.class)
+	public void nullPlayerTest()
+	{
+		Game game = new Game();
+		Player nullPlayer = null;
+		game.addPlayer(nullPlayer);
+	}
+	
 }
