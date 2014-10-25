@@ -1,6 +1,14 @@
 \avsnitt{Kodkritiksystem}
 
+
 En presentation av de problem som hittats med hjälp av verktyg för statisk analys och en diskussion av dem enligt anvisningarna. Det räcker alltså inte med att bara lista problemen, ni måste förhålla er till dem också. Tänk också på att ni ska göra detta både på koden som den såg ut före granskningen och på koden efter att ni rättat det som kommit fram under granskningen.
+
+Vi körde FindBugs vid ett flertal tillfällen under utvecklingen med olika resultat men den slutsatsen vi ändå kunde dra av detta var att FindBugs var en av de minst användbara verktygen vi testat oss på,
+när den användes för första gången precis innan den första granskningen så hittade den inte ett enda fel, även när känsligheten drogs upp på max och vi bad den rapportera allt den möjligen kunde hitta.
+Det fanns dock inga större fel vid denna punkt men vi hittade ändå rätt mycket saker som vi behövde ändra när vi körde vår formella granskning som FindBugs ej hade hittat. Många av de felen vi hittade
+hade dock med namngivning och liknande att göra vilket är omöjligt för ett program att hitta. Vi körde också den efter vi gjort korrigeringar efter granskningen men hittade då heller inga fel. 
+Vi körde däremot FindBugs mot slutet av projektet också och då hittade den faktist några intressanta fel som hjälpte oss:
+/*sätt in fel som hittas nu i koden*/
 
 \avsnitt{Statiska mått}
 
