@@ -6,7 +6,7 @@
 		<property name="test.src.dir" location="test" />
 		<property name="test.report.dir" location="testreports" />
 		<property name="jar.dir" location="jar" />
-		<property name="eclipse" location="/home/anton/dokument/eclipse" />
+		<property name="eclipse" location="C:\Users\svampen\Documents\eclipse" />
 
 		<path id="junit.class.path">
 			<fileset dir="${eclipse}/plugins" includes="org.junit*/*junit.jar" />
@@ -22,7 +22,7 @@
 
 		<target name="compileCards" description="Compile package cards" depends="clean">
 			<mkdir dir="${build.dir}" />
-			<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
+			<javac  includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
 				<src path="${cards.src.dir}"/>
 			</javac>
 		</target>
@@ -34,7 +34,7 @@
 		</target>
 
 		<target name="compileTest" description="Compile test cases" depends="compileTexas, compileCards">
-			<javac includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
+			<javac  includeantruntime="false" destdir="${build.dir}" source="1.7" target="1.7">
 				<classpath refid="junit.class.path" />
 				<src path="${test.src.dir}"/>
 			</javac>

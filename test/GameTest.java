@@ -20,8 +20,8 @@ public class GameTest {
 		kalle = new Player("kalle", 200);
 		pelle = new Player("pelle", 200);
 		kent = new Player("kent", 200);
-		joe = new Player("görgen", 200);
-		quinn = new Player("håkan", 200);
+		joe = new Player("joe", 200);
+		quinn = new Player("quinn", 200);
 		martin = new Player("martin", 200);
 		jim = new Player("jim", 200);
 		defaultGame = new Game(kalle, pelle, kent, joe, quinn, martin, jim);
@@ -180,12 +180,7 @@ public class GameTest {
 		
 		
 	}
-	@Test(expected = IllegalStateException.class)
-	public void endGameTestInvalid(){
-		Game game = new Game(4, 1, joe, kalle);
-		game.endGame();
-		
-	}
+
 	
 	@Test
 	public void testPlayersSetInGame(){
