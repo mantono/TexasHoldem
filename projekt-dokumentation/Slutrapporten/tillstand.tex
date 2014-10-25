@@ -1,26 +1,34 @@
 \avsnitt{Tillståndsbaserad testning}
 
-En kort presentation av vad ni valt ut för att tillämpa tillståndsbaserad testning på och 
-vilket täckningskriterium ni valt att använda er av. 
-Ni ska kort motivera valen, och ge tillräckligt med information för att det ska gå att bedöma er. 
+En kort presentation av vad ni valt ut för att tillämpa tillståndsbaserad testning på och
+vilket täckningskriterium ni valt att använda er av.
+Ni ska kort motivera valen, och ge tillräckligt med information för att det ska gå att bedöma er.
 Glöm inte att ta med själva modellen.
 
+------------
+
+\DeclareGraphicsExtensions{.png}
+\includegraphics[natwidth=12559, natheight=592, scale=0.6, angle=0, trim = 35mm 2mm 0mm 0mm, clip]{bilder/diagram/state_machine}\\
+
+
 Vi valde att tillämpa tillståndsbaserad testning på vår Player-klass eftersom den hanterar de tillstånd som en spelare kommer att förflyttas emellan under hela spelets gång.
-Statement coverage är det täckningskriterium som vi valde att använda oss av eftersom det kollar varje programsats genom programmet och kan se till att det har en hög täckningsgad. 
-Här velade vi lite mellan om vi skulle statement och branch coverage, vi ansåg att det inte skulle spela någon större roll och 
+Statement coverage är det täckningskriterium som vi valde att använda oss av eftersom det kollar varje programsats genom programmet och kan se till att det har en hög täckningsgad.
+Här velade vi lite mellan om vi skulle statement och branch coverage, vi ansåg att det inte skulle spela någon större roll och
 vi ville se att täckningsgraden håller en så pass hög grad som möjligt i funktionerna och bestämde oss för att använda statement coverage.
 Modellen som vi designade visar på hur klassen hanterar en spelare i vårt system och vilka tillstånd denne spelare kan befinna sig i.
 
 
 \avsnitt{Testfall för tillståndsbaserad testning}
 
-Testfallen som ni fått fram från tillståndsmaskinen. Observera att vi inte vill ha någon kod här, 
-utan bara en tydlig presentation av testfallen i någon lämplig tabellform. 
+Testfallen som ni fått fram från tillståndsmaskinen. Observera att vi inte vill ha någon kod här,
+utan bara en tydlig presentation av testfallen i någon lämplig tabellform.
 Det ska enkelt gå att mappa testfallen till tillståndsmaskinen.
+
+---------
 
 Testfallen vi skrev gjordes efter det att modellen hade gjorts och därmed tillämpade vi inte testdriven utveckling under denna del av projektet
 då vi inte kändes oss helt säkra på hur mycket vi skulle ha med i modellen från början.
-Under tiden då modellen designades så diskuterades det runt andra möjliga tillstånd som man komma till eftersom koden runt dessa tillstånd vi redan hade inte var kompletta, 
-vi bestämde oss för att göra klart modellen efter det vi hade i koden just då och designa testfallen efter tillstånden vi redan hade. 
+Under tiden då modellen designades så diskuterades det runt andra möjliga tillstånd som man komma till eftersom koden runt dessa tillstånd vi redan hade inte var kompletta,
+vi bestämde oss för att göra klart modellen efter det vi hade i koden just då och designa testfallen efter tillstånden vi redan hade.
 
 testfallen i någon lämplig tabellform

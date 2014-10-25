@@ -9,7 +9,6 @@ public class Player {
 	public Player(String name, int chips) {
 		this.name = name;
 		this.chips = chips;
-
 	}
 
 	public String getName() {
@@ -61,6 +60,4 @@ public class Player {
 	{
 		return (Hand) this.hand.clone();
 	}
-
-
 }

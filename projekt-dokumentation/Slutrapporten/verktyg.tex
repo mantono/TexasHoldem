@@ -3,10 +3,12 @@
 
 En presentation av de problem som hittats med hjälp av verktyg för statisk analys och en diskussion av dem enligt anvisningarna. Det räcker alltså inte med att bara lista problemen, ni måste förhålla er till dem också. Tänk också på att ni ska göra detta både på koden som den såg ut före granskningen och på koden efter att ni rättat det som kommit fram under granskningen.
 
+-----------------
+
 Vi körde FindBugs vid ett flertal tillfällen under utvecklingen med olika resultat men den slutsatsen vi ändå kunde dra av detta var att FindBugs var en av de minst användbara verktygen vi testat oss på,
 när den användes för första gången precis innan den första granskningen så hittade den inte ett enda fel, även när känsligheten drogs upp på max och vi bad den rapportera allt den möjligen kunde hitta.
 Det fanns dock inga större fel vid denna punkt men vi hittade ändå rätt mycket saker som vi behövde ändra när vi körde vår formella granskning som FindBugs ej hade hittat. Många av de felen vi hittade
-hade dock med namngivning och liknande att göra vilket är omöjligt för ett program att hitta. Vi körde också den efter vi gjort korrigeringar efter granskningen men hittade då heller inga fel. 
+hade dock med namngivning och liknande att göra vilket är svårare för ett program att hitta. Vi körde också FindBugs efter vi gjort korrigeringar efter granskningen men hittade då heller inga fel.
 Vi körde däremot FindBugs mot slutet av projektet också och då hittade den faktist några intressanta fel som hjälpte oss:
 /*sätt in fel som hittas nu i koden*/
 
@@ -27,7 +29,7 @@ En presentation och diskussion kring ett antal lämpliga statiska mått på koden. 
 	\item cards: 398 (19,7\%)
 \end{enumerate}
 
-Det som kan vara intressant med resultaten för \emph{Number of Classes} och \emph{Total Lines of Code} är det faktum att paketet texasholdem har färre klasser än cards, men fler antal rader. Man bör kanske fundera på varför det har blivit så, och fråga sig om det verkligen är bra. Detta är något som i sin tur står i korrelation till de metrics som följer.
+Det som kan vara intressant med resultaten för \emph{Number of Classes} och \emph{Total Lines of Code} är det faktum att paketet texasholdem har färre klasser än cards, men fler antal rader kod. Man bör kanske fundera på varför det har blivit så, och fråga sig om det verkligen är bra. Detta är något som i sin tur står i korrelation till de metrics som följer.
 
 \textbf{Lack of Cohesion (mean)}:  0,403
 \begin{enumerate}
@@ -35,6 +37,10 @@ Det som kan vara intressant med resultaten för \emph{Number of Classes} och \emp
 	\item Player: 0,795
 	\item CardGame: 0,717
 \end{enumerate}
+
+Kanske inte helt oväntat så är den största klassen, Game, den som har högst avsaknad av coheshion. Intresasnt är att i ett tidigare skede så var Game och CardGame en och samma klass, och trots denna uppdelning så har båda dessa vuxit på ett sätt som kanske inte är önksvärt. Både Game och CardGame börjar få lite \emph{God-klass}-tendenser och bör ses över.  Vi har sagt att om vi väljer att fortsätta att utveckla vårt bibliotek så kommer en ytterliggare uppdelning av någon (eller alla) av de tre klasserna vara aktuellt. Player sticker ut lite som är en ganska liten klass jämfört med de andra två (ca 60 LoC jämfört med 230 respektive 110) men trots det så har den rätt stor avsaknad av cohesion. De flesta av klassens metoder arbetar antingen på variablen \emph{chips} eller objektet \emph{hand}, men ingen av klassens metoder arbetar på båda dessa. Resultat är med andra ord inte så förvånande.
+
+Eftersom att hantering av chips inte är en funktion som är generell för alla kortspel, så bör vi kanske överväga att avlägsna chips-hanteringen från den generella klassen Player och lägga in i en separat klass, möjligen en subklass.\\
 
 \textbf{MacCabe Cyclomatic Complexity (mean)}: 1,632
 \begin{enumerate}
@@ -44,18 +50,39 @@ Det som kan vara intressant med resultaten för \emph{Number of Classes} och \emp
 	\item Game:playerAction() - 7
 \end{enumerate}
 
+Den relativt sett höga komplexiteten på några av de metoder som finns ger kanske en fingervisning om att det finns utrymme för förbättring. Metoderna handOutChips och placeBlinds skulle förmodligen kunna refaktoriseras och delas upp i flera mindre metoder för att minska komplexiteten något, även om komplexiteten i sig gör det svårare. Metoderna hasCombination och playerAction har lika hög komplexitet som de nyss nämnda, men detta främst till följd av att de har switch-satser, varför de kan vara en än större utmaning att dela upp dem i flera mindre metoder.\\
+
+
 \textbf{Number of Parameters (mean)}: 0,667
 \begin{enumerate}
-	\item Pot:handOutChips() - 3
-	\item Game:Game() - 3
+	\item Pot:handOutChips(Player player, int chipsWon, int playersWon) - 3
+	\item Game:Game(int bigBlind, double blindsRaisePercentage, Player... players) - 3
 \end{enumerate}
 
+Vi har överlag lyckats hålla nere antalet parametrar för metoderna i vårt bibliotek. Kontruktorn ovan behöver dessutom bara två av de tre argumenten då den sista är en varargs som inte är obligatorisk.
 
-\textbf{Pizza metric index}: 1
+\textbf{Method Lines of Code (mean)}: 4.313
+\begin{enumerate}
+	\item Pot:handOutChips() - 34
+	\item Game:distributeChip() - 22
+	\item Game:placeBlinds() - 14
+\end{enumerate}
+
+Som man kanske hade kunnat gissa så kan man se ett samband mellan \emph{MacCabe Cyclomatic Complexity} och \emph{Method Lines of Code} där en mer komplex metod kan utgöra ett motstånd för att bryta upp den i flera mindre metoder.
+
+Dessa statiska mått är var och för sig, av ganska begränsad nytta, men tillsammans ger de en ganska god bild av vilka förbättringar som köras på projektet som helhet och enskilda klasser och metoder.
+
+
+\textbf{Pizza metric index}: 1\\
+Vi har inte råd att äta mer pizza.
 
 \avsnitt{Täckningsgrad}
 
 En översikt över vilken täckningsgrad era testfall uppnått. Denna kan antagligen tas rakt av från verktyget ni använt för att mäta den. Om ni inte uppnått fullständig täckning så ska detta förklaras och motiveras.
+
+\DeclareGraphicsExtensions{.png}
+\includegraphics[natwidth=350, natheight=258, scale=0.9, angle=0, trim = 0mm 0mm 0mm 0mm, clip]{bilder/coverage}\\
+
 
 \avsnitt{Profiler}
 
