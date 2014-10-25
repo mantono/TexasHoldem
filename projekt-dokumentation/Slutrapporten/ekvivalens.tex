@@ -20,7 +20,27 @@ int bet	\cellcolor{red!15}						& $>chips$ \cellcolor{red!15}	& \cellcolor{green
 \avsnitt{Testfall -- subtractChips}
 
 Testfallen som ni fått fram från ekvivalensklasserna. Observera att vi inte vill ha någon kod här, utan bara en tydlig presentation av testfallen i någon lämplig tabellform.
-?
+\begin{table}[h]
+\begin{tabular}{llll}
+\textbf{Valid test cases} &                  &  &                 \\
+id                        & \textbf{Inputs}  &  & \textbf{Result} \\
+                          & \textit{int bet} &  &                 \\
+1                         & 1                &  & TRUE            \\
+2                         & chips            &  & TRUE            \\
+                          &                  &  &                
+\end{tabular}
+\end{table}
+\\
+\begin{table}[h]
+\begin{tabular}{lllll}
+\textbf{Invalid test cases} &                 &  &  &                 \\
+id                          & \textbf{Inputs} &  &  & \textbf{Result} \\
+                            & int bet         &  &  &                 \\
+1                           & 0               &  &  & FALSE           \\
+2                           & chips + 1       &  &  & FALSE          
+\end{tabular}
+\end{table}
+
 \avsnitt{Testmatris -- subtractChips}
 
 En testmatris som visar sambandet mellan ekvivalensklasserna och testfallen för denna del.
