@@ -74,7 +74,7 @@ public class DeckTest
 		assertFalse(deck.deckContains(card));
 	}
 	
-	@Test(expected=IllegalAccessException.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void removeNonExistingCardTest()
 	{
 		Card card = deck.drawCard();

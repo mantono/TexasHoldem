@@ -1,34 +1,32 @@
 \avsnitt{Tillståndsbaserad testning}
 
-En kort presentation av vad ni valt ut för att tillämpa tillståndsbaserad testning på och
-vilket täckningskriterium ni valt att använda er av.
-Ni ska kort motivera valen, och ge tillräckligt med information för att det ska gå att bedöma er.
+En kort presentation av vad ni valt ut för att tillämpa tillståndsbaserad testning på och 
+vilket täckningskriterium ni valt att använda er av. 
+Ni ska kort motivera valen, och ge tillräckligt med information för att det ska gå att bedöma er. 
 Glöm inte att ta med själva modellen.
 
-------------
-
-\DeclareGraphicsExtensions{.png}
-\includegraphics[natwidth=12559, natheight=592, scale=0.6, angle=0, trim = 35mm 2mm 0mm 0mm, clip]{bilder/diagram/state_machine}\\
-
-
-Vi valde att tillämpa tillståndsbaserad testning på vår Player-klass eftersom den hanterar de tillstånd som en spelare kommer att förflyttas emellan under hela spelets gång.
-Statement coverage är det täckningskriterium som vi valde att använda oss av eftersom det kollar varje programsats genom programmet och kan se till att det har en hög täckningsgad.
-Här velade vi lite mellan om vi skulle statement och branch coverage, vi ansåg att det inte skulle spela någon större roll och
-vi ville se att täckningsgraden håller en så pass hög grad som möjligt i funktionerna och bestämde oss för att använda statement coverage.
+När vi disskuterade vilken del av programmet att använda för den tillståndsbaserade testningen så stod valet mellan boolean-attributet "inRound" i klassen Player, eller hela Game-klassen.
+Tillslut valde vi "inRound" attributet, med motivationen att "inRound"s tillstånd var tillräckligt viktiga för att skapa många testfall, men samtidigt tillräckligt avgränsande så att denna del inte blev för stort. 
+Game-klassen hade helt enkelt för många kombinationer av tilstånd för att vara passande.
+När vi ritade upp flödesdiagramet för "inRound" så märkte vi att "inRound" var beroende på om Player hade några chips eller inte. Dvs om Player inte hade chips, så agerar klassen Player annorlunda i båda "inRound" tillstånden,
+ och därför måste vi inkludera detta på något sätt. Vi började fundera på om vi skulle ha två "tillståndsdiagram" gentemot varandra, med "broar" mellan de olika tillstånderna, men vi kom fram till att den implementationen var överflödig, då om Player får slut på chips utan att vara "inRound"
+ så borde den Playern inte finnas kvar i programmet överhuvudtaget. Så vi gjorde istället ytterligare ett tillstånd som vi kallade "Zero chips" för att vissa att Player befinner sig i den enda relevanta kombinationen av tillstånd: den när Player är "inGame", men har inga chips kvar (dvs gått all-in). 
+När vi var klara med diagramet disskuterade vi vilket täckningskriteruim vi skulle använda oss utav. Valet var denna gång mellan Statement coverage eller Branch-coverage. 
+I efterhand insåg vi hur dum denna disskussion egentligen var, då branch coverage automatiskt uppnår statement coverage, så det blev självklart branch coverage.
+Tankegångarna var att det faktiskt inte var tillstånden i sig som var det viktiga att testa, utan övergångarna mellan de olika tillstånden var de som var viktiga.
 Modellen som vi designade visar på hur klassen hanterar en spelare i vårt system och vilka tillstånd denne spelare kan befinna sig i.
 
 
 \avsnitt{Testfall för tillståndsbaserad testning}
 
-Testfallen som ni fått fram från tillståndsmaskinen. Observera att vi inte vill ha någon kod här,
-utan bara en tydlig presentation av testfallen i någon lämplig tabellform.
+Testfallen som ni fått fram från tillståndsmaskinen. Observera att vi inte vill ha någon kod här, 
+utan bara en tydlig presentation av testfallen i någon lämplig tabellform. 
 Det ska enkelt gå att mappa testfallen till tillståndsmaskinen.
 
----------
+Eftersom att vi använde testdriven utveckling när vi skrev Player och Game klasserna så hade vi redan i princip testfall för boolean "inGame", och därför så skapade vi en egen test-klass som vi enbart använde som en kompletering.
+Vi var lite osäkra på hur många testfall vi skulle göra. Skulle vi ha få testfall, där varje testfall täcker flera "vägar", eller skulle vi ha ett testfall för varje individuell "väg"?
+Vi beslöt oss för att göra många testfall som testade en individuell sak, då om det blir fel på någon av de mittersta vägarna så kommer få fast långa testfall att inte testa de vägarna efter den misslyckade vägen.
+På det här sättet är det garanterat att vi täcker alla vägar, oberoende på vilka vägar som misslyckas eller inte.  
 
-Testfallen vi skrev gjordes efter det att modellen hade gjorts och därmed tillämpade vi inte testdriven utveckling under denna del av projektet
-då vi inte kändes oss helt säkra på hur mycket vi skulle ha med i modellen från början.
-Under tiden då modellen designades så diskuterades det runt andra möjliga tillstånd som man komma till eftersom koden runt dessa tillstånd vi redan hade inte var kompletta,
-vi bestämde oss för att göra klart modellen efter det vi hade i koden just då och designa testfallen efter tillstånden vi redan hade.
 
 testfallen i någon lämplig tabellform
