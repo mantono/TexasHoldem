@@ -6,7 +6,44 @@ En presentation av de problem som hittats med hjälp av verktyg för statisk analy
 
 En presentation och diskussion kring ett antal lämpliga statiska mått på koden. Att vi inte specificerar exakt vilka mått som ska tas upp beror på att olika verktyg har olika uppsättningar, men vi förväntar oss fler och mer intressanta mått än bara rena storleksmått som LOC, \#klasser, \#metoder, etc. Även här är det viktigt att förhållas sig till måtten, inte bara lista dem.
 
-Pizza metric index: 1.
+\textbf{Number of Classes}: 8 (exklusive testfall, interface och enums)
+\begin{enumerate}
+	\item cards: 5
+	\item texasholdem: 3
+\end{enumerate}
+
+\textbf{Total Lines of Code}: 2014
+\begin{enumerate}
+	\item testfall: 1140 (56,6\%)
+	\item texasholdem: 476  (23,6\%)
+	\item cards: 398 (19,7\%)
+\end{enumerate}
+
+Det som kan vara intressant med resultaten för \emph{Number of Classes} och \emph{Total Lines of Code} är det faktum att paketet texasholdem har färre klasser än cards, men fler antal rader. Man bör kanske fundera på varför det har blivit så, och fråga sig om det verkligen är bra. Detta är något som i sin tur står i korrelation till de metrics som följer.
+
+\textbf{Lack of Cohesion (mean)}:  0,403
+\begin{enumerate}
+	\item Game: 0,806
+	\item Player: 0,795
+	\item CardGame: 0,717
+\end{enumerate}
+
+\textbf{MacCabe Cyclomatic Complexity (mean)}: 1,632
+\begin{enumerate}
+	\item Pot:handOutChips() - 9
+	\item TexasRules:hasCombination() - 9
+	\item Game:placeBlinds() - 7
+	\item Game:playerAction() - 7
+\end{enumerate}
+
+\textbf{Number of Parameters (mean)}: 0,667
+\begin{enumerate}
+	\item Pot:handOutChips() - 3
+	\item Game:Game() - 3
+\end{enumerate}
+
+
+\textbf{Pizza metric index}: 1
 
 \avsnitt{Täckningsgrad}
 
