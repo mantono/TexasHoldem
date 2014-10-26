@@ -80,6 +80,12 @@ Vi har inte råd att äta mer pizza.
 
 En översikt över vilken täckningsgrad era testfall uppnått. Denna kan antagligen tas rakt av från verktyget ni använt för att mäta den. Om ni inte uppnått fullständig täckning så ska detta förklaras och motiveras.
 
+-------
+
+Vi har närmast 100\% täckningsgrad. Det finns två klasser som inte riktigt når hela vägen. I det ena fallet handlar det om klassen Deck som har en metod setSeed som matar ett SecureRandom-objekt med ny data för seeden. Metoden är protected och anropas aldrig i dagsläget av någon annan metod i paketet då vi är osäkra på om vi faktiskt behöver den eller inte. Det kan faktiskt vara så att vi kommer ta bort metoden, men fram till dess att vi är helt säkra på att det är rätt beslut får den ligga kvar.
+
+Den andra klassen som inte har 100\% täckningsgrad är TexasRules. Det är helt enkelt för att vi har kommit fram till att stora delar av koden måste skrivas om, och vi ser ingen poäng med att försöka få full täckning för kod som vi kommer ta bort.
+
 \DeclareGraphicsExtensions{.png}
 \includegraphics[natwidth=350, natheight=258, scale=0.9, angle=0, trim = 0mm 0mm 0mm 0mm, clip]{bilder/coverage}\\
 
@@ -92,7 +98,7 @@ En kort presentation av hur ni gått tillväga för att testa koden med en profiler
 
 Byggscriptets första (seriösa) version, och den slutliga.
 
-I den första versionen av byggscriptet vad ambitionen främst att det skulle göra ungefär samma sak som den standard-byggscripten som eclipse skapar för ett projekt. Med andra ord, kompilera alla klasser och dess beroenden. Det gick ganska bra fram till dess att testfallen inkluderades, då det krävdes externa bibliotek (JUnit) för att kompilera dessa. Så småningom fick vi även det att fungera.
+I den första versionen av byggscriptet var ambitionen främst att det skulle göra ungefär samma sak som den standard-byggscripten som eclipse skapar för ett projekt. Med andra ord, kompilera alla klasser och dess beroenden. Det gick ganska bra fram till dess att testfallen inkluderades, då det krävdes externa bibliotek (JUnit) för att kompilera dessa. Så småningom fick vi även det att fungera.
 
  \lstset{
 	language=XML,
