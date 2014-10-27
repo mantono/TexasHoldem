@@ -18,7 +18,7 @@ public boolean subtractChips(int bet)
 \begin{tabular}{|l|l|l|l|}
 \hline
 \textbf{Invalida interval} \cellcolor{red!15}	& \cellcolor{red!15}			& \textbf{Valida interval} \cellcolor{green!15}	& \cellcolor{green!15}					\\ \hline
-int bet \cellcolor{red!15}						& $<=1$ \cellcolor{red!15}		& int bet \cellcolor{green!15}					& $0<bet<=chips$ \cellcolor{green!15}	\\ \hline
+int bet \cellcolor{red!15}						& $<=0$ \cellcolor{red!15}		& int bet \cellcolor{green!15}					& $0<bet<=chips$ \cellcolor{green!15}	\\ \hline
 int bet	\cellcolor{red!15}						& $>chips$ \cellcolor{red!15}	& \cellcolor{green!15}							& \cellcolor{green!15}					\\ \hline
 \end{tabular}
 \end{table}
@@ -44,8 +44,8 @@ id                        & \textbf{Inputs}  &  & \textbf{Result} \\
 \textbf{Invalid test cases} &                 &  &  &                 \\
 id                          & \textbf{Inputs} &  &  & \textbf{Result} \\
                             & int bet         &  &  &                 \\
-1                           & 0               &  &  & FALSE           \\
-2                           & chips + 1       &  &  & FALSE
+3                           & 0               &  &  & FALSE           \\
+4                           & chips + 1       &  &  & FALSE
 \end{tabular}
 \end{table}
 
