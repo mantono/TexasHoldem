@@ -1,21 +1,18 @@
 \avsnitt{Testdriven utveckling -- process}
 
-En översikt över hur ni tillämpat TDD med exempel från olika personer och olika faser i projektet. 
-Om ni har använt versionshanteringssystemet ordentligt bör all information som efterfrågas här finnas i det. Tänk på att kodexemplen ska vara läsbara.
-
-Alla fyra har tillämpat testdriven utveckling under större delar av projektets gång. 
+Alla fyra har tillämpat testdriven utveckling under större delar av projektets gång.
 Till en början var vi hårda på att använda testdriven utveckling men desto längre in i projektet vi kom så släppte vi på det för att få in alla funktioner i programmet.
 Även om vi inte var lika hårda i slutet på att tillämpa testdriven utveckling så övergav vi ändå inte det helt då vi kände att det var ett väldigt använbart verktyg. I den senare delen av projektet kom dock testfallen - tyvärr - oftast att skrivas efter att koden som skulle testas redan hade skrivits.
 
 Nedan kommer 4 olika exempel på testfall som skrivits av alla personer i projektet och den kom som togs fram med hjälp av testfallen:
 
-Elliot : PotTest / Pot.receiveBet()\\
+Elliot : PotTest\\
 \begin{lstlisting}
 @Test
-public void betSizeTestFromEmptyPot(){		
+public void betSizeTestFromEmptyPot(){
 	Pot emptyPot = new Pot();
 	emptyPot.receiveBet(300,player1);
-	assertEquals(300, emptyPot.getAmount());		
+	assertEquals(300, emptyPot.getAmount());
 }
 
 @Test
@@ -24,7 +21,10 @@ public void betSizeTestFromPositiveSize() {
 	positivePot.receiveBet(300,player1);
 	assertEquals(301, positivePot.getAmount());
 }
+\end{lstlisting}
 
+Elliot : Pot.receiveBet()\\
+\begin{lstlisting}
 public void receiveBet(int bet, Player player) {
 	if (bet < 1)
 		throw new IllegalArgumentException(
@@ -36,7 +36,7 @@ public void receiveBet(int bet, Player player) {
 }
 \end{lstlisting}
 
-Rasmus : PotTest / Pot.Pot()\\
+Rasmus : PotTest\\
 \begin{lstlisting}
 @Test(expected = IllegalArgumentException.class)
 	public void testForInvalidSize() {
@@ -49,7 +49,10 @@ Rasmus : PotTest / Pot.Pot()\\
 		Pot pot = new Pot(500);
 		assertEquals(500, pot.getAmount());
 	}
+\end{lstlisting}
 
+Rasmus : Pot.Pot()\\
+\begin{lstlisting}
 public Pot(int amount) {
 		if (amount < 0)
 			throw new IllegalArgumentException(
@@ -58,21 +61,24 @@ public Pot(int amount) {
 	}
 \end{lstlisting}
 
-Emil : GameTest / Game.Game()\\
+Emil : GameTest\\
 \begin{lstlisting}
 @Test
 public void addingOnePlayerTest(){
 	Game newGame = new Game(4, 0.3, kalle);
 	assertTrue(newGame.getPlayers().contains(kalle));
 }
-	
+
 @Test
 public void addingPlayersTest(){
 	Game newGame = new Game(4, 0.3, kalle, pelle);
 	assertTrue(newGame.getPlayers().contains(kalle));
 	assertTrue(newGame.getPlayers().contains(pelle));
 }
-	
+\end{lstlisting}
+
+Emil : Game.Game()\\
+\begin{lstlisting}
 public Game(int bigBlind, double blindsRaisePercentage, Player... players) {
 		this(players);
 		if (bigBlind < 1)
@@ -86,7 +92,7 @@ public Game(int bigBlind, double blindsRaisePercentage, Player... players) {
 	}
 \end{lstlisting}
 
-Anton : CardTest / Card.equals()\\
+Anton : CardTest\\
 \begin{lstlisting}
 @Test
 public void testEqualsValid(){
@@ -106,7 +112,10 @@ public void testEqualsInvalid(){
         assertFalse(card1.equals(card2));
         assertFalse(card1.equals("A string"));
 }
+\end{lstlisting}
 
+Anton : Card.equals()\\
+\begin{lstlisting}
 @Override
 public boolean equals(Object object){
         if(object == null)
@@ -118,38 +127,29 @@ public boolean equals(Object object){
 }
 \end{lstlisting}
 
------------------
-
-
-
 \avsnitt{Testdriven utveckling -- erfarenheter}
 
-En diskussion om vilka era erfarenheter ni dragit av att tillämpa TDD. Det finns inget rätt eller fel här. 
-Enda sättet att bli underkända är att bara fuska över punkten och säga något pliktskyldigt.
-
-----------------
-
-Vi har arbetat med testdriven utveckling nästan helt och hållet genom projektet vilket har gett oss en mängd erfarenheter av hur bra/dåligt det kan fungera. 
-Till en början kändes det väldigt överflödigt och framtvingat då man arbetade med simpla metoder, 
-klasser och konstruktioner som kändes självklara hur man skulle skriva och som alltid fungerade direkt. 
-Desto mer vi arbetade och kom in i svårare metoder och konstruktioner så började testdriven utveckling kännas mer och mer användbart och mot slutet i projektet, 
-speciellt när vi arbetade med klasses TexasRules, så kändes det nästan som att det hade varit omöjligt att genomföra den delen utan testdriven utveckling och testfall. 
-Eftersom man i klassen TexasRules behövde testa väldigt specifika fall, som t ex att rätt person vinner om båda har stege men en av personerna har högre kort, 
-så gjorde testfall att man enkelt kunde sätta upp ett eller flera komplexa fall som endast gått igenom om koden är korrekt skriven. 
+Vi har arbetat med testdriven utveckling nästan helt och hållet genom projektet vilket har gett oss en mängd erfarenheter av hur bra/dåligt det kan fungera.
+Till en början kändes det väldigt överflödigt och framtvingat då man arbetade med simpla metoder,
+klasser och konstruktioner som kändes självklara hur man skulle skriva och som alltid fungerade direkt.
+Desto mer vi arbetade och kom in i svårare metoder och konstruktioner så började testdriven utveckling kännas mer och mer användbart och mot slutet i projektet,
+speciellt när vi arbetade med klasses TexasRules, så kändes det nästan som att det hade varit omöjligt att genomföra den delen utan testdriven utveckling och testfall.
+Eftersom man i klassen TexasRules behövde testa väldigt specifika fall, som t ex att rätt person vinner om båda har stege men en av personerna har högre kort,
+så gjorde testfall att man enkelt kunde sätta upp ett eller flera komplexa fall som endast gått igenom om koden är korrekt skriven.
 Detta skulle vara väldigt svårt att testa utan testfall.
 
-Testdriven utveckling ledde också till att vi snabbt upptäckte fel som introducerats i koden. 
-Detta eftersom man kunde se om ett testfall gått igenom tidigare antingen i commit-kommentarerna eller för att man själv kört dem tidigare och 
-då också se om man kan ha introducerat något fel i en specifik del av koden. Lyckades man då inte se vilket fel man introducerat 
+Testdriven utveckling ledde också till att vi snabbt upptäckte fel som introducerats i koden.
+Detta eftersom man kunde se om ett testfall gått igenom tidigare antingen i commit-kommentarerna eller för att man själv kört dem tidigare och
+då också se om man kan ha introducerat något fel i en specifik del av koden. Lyckades man då inte se vilket fel man introducerat
 så gick det alltid att titta på versionen som commitats t ex med kommentaren \emph{testfall X går nu igenom} och se hur koden såg ut i det tillfället.
 
-En ytterliggare positiv effekt av testdriven utveckling som vi inte tänkt på i förhand är att den gör koden mycket mer lättförståelig 
-för de man arbetar med då man kan se hur koden är tänkt att fungera även om den inte i nuvarande läge fungerar. Detta leder till att man enkelt kan ta över metoder 
-och skriva klart dem även om det inte var man själv som började skriva på den. Även om man har dokumentation om ungefär vad metoden ska göra, 
+En ytterliggare positiv effekt av testdriven utveckling som vi inte tänkt på i förhand är att den gör koden mycket mer lättförståelig
+för de man arbetar med då man kan se hur koden är tänkt att fungera även om den inte i nuvarande läge fungerar. Detta leder till att man enkelt kan ta över metoder
+och skriva klart dem även om det inte var man själv som började skriva på den. Även om man har dokumentation om ungefär vad metoden ska göra,
 så ger testfallen mycket med information om exakt hur metoden ska bete sig och vilket resultat som förväntas.
 
-Vi har förstås också fått uppleva några utav baksidorna med testdriven utveckling. Det är tidskrävande, 
-speciellt att skriva bra tester som ger god täckningsgrad och täcker alla ekvivalensklasser. 
-Det krävs god disciplin för att inte slarva och börja övergå i ad-hoc-testning, speciellt under tidspress, 
-något som vi kanske inte kan säga att vi alltid lyckats med. Det är inte heller alla gånger som vi varit helt överens om hur vi ska prioritera testbarhet kontra inkapsling. 
+Vi har förstås också fått uppleva några utav baksidorna med testdriven utveckling. Det är tidskrävande,
+speciellt att skriva bra tester som ger god täckningsgrad och täcker alla ekvivalensklasser.
+Det krävs god disciplin för att inte slarva och börja övergå i ad-hoc-testning, speciellt under tidspress,
+något som vi kanske inte kan säga att vi alltid lyckats med. Det är inte heller alla gånger som vi varit helt överens om hur vi ska prioritera testbarhet kontra inkapsling.
 Oftast har vi lyckats finna någon kompromiss där t.ex. privata metoder har varit testbara via publika metoder där den privata anropas.
