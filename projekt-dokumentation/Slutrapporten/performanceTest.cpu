@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?JvmMonitor version="3.8.1"?>
+<cpu-profile date="2014/10/28 15:04:08" runtime="14755@localhost" mainClass="test.ProfilerTest" arguments="-Dfile.encoding=UTF-8">
+	<thread name="main">
+		<frame name="test.ProfilerTest.main()" cnt="600" time="181244">
+			<frame name="texasholdem.Game.initiateDeal()" cnt="164" time="17135">
+				<frame name="cards.CardGame.putRandomCardOnTable()" cnt="164" time="17135">
+					<frame name="cards.Deck.drawCard()" cnt="164" time="17135"/>
+				</frame>
+			</frame>
+			<frame name="test.ProfilerTest.doSomething()" cnt="115" time="12214">
+				<frame name="texasholdem.Game.playerAction()" cnt="115" time="12214">
+					<frame name="texasholdem.Game.allIn()" cnt="58" time="5929">
+						<frame name="texasholdem.Game.bet()" cnt="58" time="5929">
+							<frame name="texasholdem.Pot.receiveBet()" cnt="58" time="5929">
+								<frame name="texasholdem.Pot.getBetHistory()" cnt="58" time="5929"/>
+							</frame>
+						</frame>
+					</frame>
+					<frame name="texasholdem.Game.raise()" cnt="62" time="6285">
+						<frame name="texasholdem.Game.bet()" cnt="62" time="6285">
+							<frame name="texasholdem.Pot.receiveBet()" cnt="62" time="6285">
+								<frame name="texasholdem.Pot.getBetHistory()" cnt="62" time="6285"/>
+							</frame>
+						</frame>
+					</frame>
+				</frame>
+			</frame>
+			<frame name="texasholdem.Game.initiateRound()" cnt="272" time="146869">
+				<frame name="cards.CardGame.dealCards()" cnt="344" time="133433">
+					<frame name="cards.Deck.drawCards()" cnt="344" time="133333"/>
+				</frame>
+				<frame name="texasholdem.Game.placeBlinds()" cnt="37" time="3894">
+					<frame name="texasholdem.Pot.receiveBet()" cnt="37" time="3894">
+						<frame name="texasholdem.Pot.getBetHistory()" cnt="2" time="200"/>
+					</frame>
+				</frame>
+				<frame name="cards.CardGame.newDeck()" cnt="89" time="9542">
+					<frame name="cards.Deck.&lt;init&gt;()" cnt="89" time="9542">
+						<frame name="cards.Deck.&lt;init&gt;()" cnt="89" time="9542"/>
+					</frame>
+				</frame>
+			</frame>
+			<frame name="texasholdem.Game.&lt;init&gt;()" cnt="49" time="5026">
+				<frame name="texasholdem.Game.&lt;init&gt;()" cnt="49" time="5026">
+					<frame name="cards.CardGame.&lt;init&gt;()" cnt="49" time="5026">
+						<frame name="cards.Deck.&lt;init&gt;()" cnt="49" time="5026">
+							<frame name="cards.Deck.&lt;init&gt;()" cnt="49" time="5026"/>
+						</frame>
+					</frame>
+				</frame>
+			</frame>
+		</frame>
+	</thread>
+</cpu-profile>
