@@ -1,22 +1,10 @@
 \avsnitt{Tillståndsbaserad testning}
+När vi disskuterade vilken del av programmet att använda för den tillståndsbaserade testningen så stod valet mellan boolean-attributet \emph{inRound} i klassen Player, eller hela Game-klassen. Tillslut valde vi attributet \emph{inRound}, med motivationen att \emph{inRound}s tillstånd var tillräckligt viktiga för att skapa många testfall, men samtidigt tillräckligt avgränsande så att denna del inte blev för stort. Game-klassen hade helt enkelt för många kombinationer av tilstånd för att vara passande.
 
-En kort presentation av vad ni valt ut för att tillämpa tillståndsbaserad testning på och
-vilket täckningskriterium ni valt att använda er av.
-Ni ska kort motivera valen, och ge tillräckligt med information för att det ska gå att bedöma er.
-Glöm inte att ta med själva modellen.
+När vi ritade upp flödesdiagramet för \emph{inRound} så märkte vi att \emph{inRound} var beroende på om Player hade några chips eller inte. Dvs om Player inte hade chips, så agerar klassen Player annorlunda i båda \emph{inRound} tillstånden, och därför måste vi inkludera detta på något sätt. Vi började fundera på om vi skulle ha två tillståndsmaskiner gentemot varandra, med \emph{broar} mellan de olika tillstånderna, men vi kom fram till att den implementationen var överflödig, då om Player får slut på chips utan att vara \emph{inRound} så borde den Playern inte finnas kvar i programmet överhuvudtaget. Så vi gjorde istället ytterligare ett tillstånd som vi kallade \emph{Zero chips} för att vissa att Player befinner sig i den enda relevanta kombinationen av tillstånd: den när Player är \emph{inGame}, men har inga chips kvar (dvs gått all-in).
 
---------------------------
+När vi var klara med diagramet disskuterade vi vilket täckningskriteruim vi skulle använda oss utav. Valet var denna gång mellan state coverage eller path coverage. I efterhand insåg vi hur dum denna disskussion egentligen var, då path coverage automatiskt uppnår state coverage, så det blev självklart path coverage. Tankegångarna var att det faktiskt inte var tillstånden i sig som var det viktiga att testa, utan övergångarna mellan de olika tillstånden var de som var viktiga.
 
-När vi disskuterade vilken del av programmet att använda för den tillståndsbaserade testningen så stod valet mellan boolean-attributet \emph{inRound} i klassen Player, eller hela Game-klassen.
-Tillslut valde vi attributet \emph{inRound}, med motivationen att \emph{inRound}s tillstånd var tillräckligt viktiga för att skapa många testfall, men samtidigt tillräckligt avgränsande så att denna del inte blev för stort.
-Game-klassen hade helt enkelt för många kombinationer av tilstånd för att vara passande.
-När vi ritade upp flödesdiagramet för \emph{inRound} så märkte vi att \emph{inRound} var beroende på om Player hade några chips eller inte. Dvs om Player inte hade chips, så agerar klassen Player annorlunda i båda \emph{inRound} tillstånden,
- och därför måste vi inkludera detta på något sätt. Vi började fundera på om vi skulle ha två tillståndsmaskiner gentemot varandra, med \emph{broar} mellan de olika tillstånderna, men vi kom fram till att den implementationen var överflödig, då om Player får slut på chips utan att vara \emph{inRound}
- så borde den Playern inte finnas kvar i programmet överhuvudtaget. Så vi gjorde istället ytterligare ett tillstånd som vi kallade \emph{Zero chips} för att vissa att Player befinner sig i den enda relevanta kombinationen av tillstånd: den när Player är \emph{inGame}, men har inga chips kvar (dvs gått all-in).
-
-När vi var klara med diagramet disskuterade vi vilket täckningskriteruim vi skulle använda oss utav. Valet var denna gång mellan Statement coverage eller Branch-coverage.
-I efterhand insåg vi hur dum denna disskussion egentligen var, då branch coverage automatiskt uppnår statement coverage, så det blev självklart branch coverage.
-Tankegångarna var att det faktiskt inte var tillstånden i sig som var det viktiga att testa, utan övergångarna mellan de olika tillstånden var de som var viktiga.
 Modellen som vi designade visar på hur klassen hanterar en spelare i vårt system och vilka tillstånd denne spelare kan befinna sig i.
 
 
@@ -29,8 +17,8 @@ Testfallen som ni fått fram från tillståndsmaskinen. Observera att vi inte vill 
 utan bara en tydlig presentation av testfallen i någon lämplig tabellform.
 Det ska enkelt gå att mappa testfallen till tillståndsmaskinen.
 
-Eftersom att vi använde testdriven utveckling när vi skrev Player och Game klasserna så hade vi redan i princip testfall för boolean "inGame", och därför så skapade vi en egen test-klass som vi enbart använde som en kompletering.
-Vi var lite osäkra på hur många testfall vi skulle göra. Skulle vi ha få testfall, där varje testfall täcker flera "vägar", eller skulle vi ha ett testfall för varje individuell "väg"?
+Eftersom att vi använde testdriven utveckling när vi skrev Player och Game klasserna så hade vi redan i princip testfall för boolean \emph{inGame}, och därför så skapade vi en egen test-klass som vi enbart använde som en kompletering.
+Vi var lite osäkra på hur många testfall vi skulle göra. Skulle vi ha få testfall, där varje testfall täcker flera \emph{vägar}, eller skulle vi ha ett testfall för varje individuell \emph{väg}?
 Vi beslöt oss för att göra många testfall som testade en individuell sak, då om det blir fel på någon av de mittersta vägarna så kommer få fast långa testfall att inte testa de vägarna efter den misslyckade vägen.
 På det här sättet är det garanterat att vi täcker alla vägar, oberoende på vilka vägar som misslyckas eller inte.
 
@@ -41,6 +29,25 @@ testfallen i någon lämplig tabellform
 \begin{tabular}{|l|l|l|l|}
 \hline
 \textbf{I tillstånd}	& \textbf{Båge}		& \textbf{Till tillstånd}	& \textbf{Testfall} \\ \hline
-q0: Not in round		& Enter round		& q1: In round				& notInRoundToInRound\_EnterRoundTest() \\ \hline
+q0: Not in round		& Enter round		& q1: In round				& notInRoundToInRound\_EnterRoundTest()	\\ \hline
+q0: Not in round		& Check			& q2: Illegal state			& notInRoundToIllegalState\_CheckTest()		\\ \hline
+q0: Not in round		& All in			& q2: Illegal state			& notInRoundToIllegalState\_AllInTest()		\\ \hline
+q0: Not in round		& Raise			& q2: Illegal state			& notInRoundToIllegalState\_RaiseTest()		\\ \hline
+q0: Not in round		& Call			& q2: Illegal state			& notInRoundToIllegalState\_CallTest()		\\ \hline
+q0: Not in round		& Fold			& q2: Illegal state			& notInRoundToIllegalState\_FoldTest()		\\ \hline
+q1: In round			& Fold			& q0: Not in round			& inRoundToNotInRound_FoldTest()			\\ \hline
+q1: In round			& Round over		& q0: Not in round			& inRoundToNotInRound_RoundOverTest()		\\ \hline
+q1: In round			& Call			& q1: In round				& inRoundToInRound_CallTest()				\\ \hline
+q1: In round			& Check			& q1: In round				& inRoundToInRound_CheckTest()			\\ \hline
+q1: In round			& Raise			& q1: In round				& inRoundToInRound_RaiseTest()			\\ \hline
+q1: In round			& All in			& q3: Zero chips			& inRoundToZeroChips_AllInTest()			\\ \hline
+q3: Zero chips			& Call			& q2: Illegal state			& zeroChipsToIllegalState_call()				\\ \hline
+q3: Zero chips			& All in			& q2: Illegal state			& zeroChipsToIllegalState_allIn()			\\ \hline
+q3: Zero chips			& Fold			& q2: Illegal state			& zeroChipsToIllegalState_fold()				\\ \hline
+q3: Zero chips			& Raise			& q2: Illegal state			& zeroChipsToIllegalState_raise()			\\ \hline
+q3: Zero chips			& Check			& q2: Illegal state			& zeroChipsToIllegalState_check()			\\ \hline
+q3: Zero chips			& Won round		& q0: Not in round			& zeroChipsToNotInRound_wonRound()		\\ \hline
+q3: Zero chips			& Lost round		& q4: Out of game			& zeroChipsToNotInGame_lostRound()		\\ \hline
+
 \end{tabular}
 \end{table}
