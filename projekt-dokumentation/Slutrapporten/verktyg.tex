@@ -9,12 +9,19 @@ Vi körde FindBugs vid ett flertal tillfällen under utvecklingen med olika result
 när den användes för första gången precis innan den första granskningen så hittade den inte ett enda fel, även när känsligheten drogs upp på max och vi bad den rapportera allt den möjligen kunde hitta.
 Det fanns dock inga större fel vid denna punkt men vi hittade ändå rätt mycket saker som vi behövde ändra när vi körde vår formella granskning som FindBugs ej hade hittat. Många av de felen vi hittade
 hade dock med namngivning och liknande att göra vilket är svårare för ett program att hitta. Vi körde också FindBugs efter vi gjort korrigeringar efter granskningen men hittade då heller inga fel.
-Vi körde däremot FindBugs mot slutet av projektet också och då hittade den faktist några intressanta fel som hjälpte oss:
-/*sätt in fel som hittas nu i koden*/
+Vi körde däremot FindBugs mot slutet av projektet också och då hittade den dessa ``fel'':
+\begin{enumerate}
+\item TexasRules.java:32 texasholdem.TexasRules.equals(Object) always returns false [Scary(7), High confidence]
+\item TexasRules.java:128 Potentially dangerous use of non-short-circuit logic in texasholdem.TexasRules.hasFullHouse(Hand) [Of Concern(15), High confidence]
+\item Hand.java:10 Class cards.Hand implements Cloneable but does not define or use clone method [Of Concern(16), Normal confidence]
+\item TexasRules.java:12 texasholdem.TexasRules implements Comparator but not Serializable [Of Concern(19), Normal confidence]
+\item Game.java:175 Dead store to amountOfErrors in texasholdem.Game.distributeChip(ArrayList) [Of Concern(20), Low confidence]
+\item Hand.java:36 Confusing to have methods cards.Hand.addToHand(Card[]) and cards.Player.addTohand(Card[]) [Of Concern(19), Low confidence]
+\end{enumerate}
 
 \avsnitt{Statiska mått}
 
-En presentation och diskussion kring ett antal lämpliga statiska mått på koden. Att vi inte specificerar exakt vilka mått som ska tas upp beror på att olika verktyg har olika uppsättningar, men vi förväntar oss fler och mer intressanta mått än bara rena storleksmått som LOC, \#klasser, \#metoder, etc. Även här är det viktigt att förhållas sig till måtten, inte bara lista dem.
+En presentation och diskussion kring ett antal lämpliga statiska mått på koden. Att vi inte specificerar exakt vilka mått som ska tas upp beror på att olika verktyg har olika uppsättningar, men vi förväntar oss fler och mer intressanta mått än bara rena storleksmått som LOC, \#klasser, \#metoder, etc. Även här är det viktigt att förhållas sig till måtten, inte bara lista dem.\\
 
 \textbf{Number of Classes}: 8 (exklusive testfall, interface och enums)
 \begin{enumerate}
@@ -29,7 +36,7 @@ En presentation och diskussion kring ett antal lämpliga statiska mått på koden. 
 	\item cards: 398 (19,7\%)
 \end{enumerate}
 
-Det som kan vara intressant med resultaten för \emph{Number of Classes} och \emph{Total Lines of Code} är det faktum att paketet texasholdem har färre klasser än cards, men fler antal rader kod. Man bör kanske fundera på varför det har blivit så, och fråga sig om det verkligen är bra. Detta är något som i sin tur står i korrelation till de metrics som följer.
+Det som kan vara intressant med resultaten för \emph{Number of Classes} och \emph{Total Lines of Code} är det faktum att paketet texasholdem har färre klasser än cards, men fler antal rader kod. Man bör kanske fundera på varför det har blivit så, och fråga sig om det verkligen är bra. Detta är något som i sin tur står i korrelation till de metrics som följer.\\
 
 \textbf{Lack of Cohesion (mean)}:  0,403
 \begin{enumerate}
@@ -59,7 +66,7 @@ Den relativt sett höga komplexiteten på några av de metoder som finns ger kanske
 	\item Game:Game(int bigBlind, double blindsRaisePercentage, Player... players) - 3
 \end{enumerate}
 
-Vi har överlag lyckats hålla nere antalet parametrar för metoderna i vårt bibliotek. Kontruktorn ovan behöver dessutom bara två av de tre argumenten då den sista är en varargs som inte är obligatorisk.
+Vi har överlag lyckats hålla nere antalet parametrar för metoderna i vårt bibliotek. Kontruktorn ovan behöver dessutom bara två av de tre argumenten då den sista är en varargs som inte är obligatorisk.\\
 
 \textbf{Method Lines of Code (mean)}: 4.313
 \begin{enumerate}
@@ -70,7 +77,7 @@ Vi har överlag lyckats hålla nere antalet parametrar för metoderna i vårt biblio
 
 Som man kanske hade kunnat gissa så kan man se ett samband mellan \emph{MacCabe Cyclomatic Complexity} och \emph{Method Lines of Code} där en mer komplex metod kan utgöra ett motstånd för att bryta upp den i flera mindre metoder.
 
-Dessa statiska mått är var och för sig, av ganska begränsad nytta, men tillsammans ger de en ganska god bild av vilka förbättringar som köras på projektet som helhet och enskilda klasser och metoder.
+Dessa statiska mått är var och för sig, av ganska begränsad nytta, men tillsammans ger de en ganska god bild av vilka förbättringar som köras på projektet som helhet och enskilda klasser och metoder.\\
 
 
 \textbf{Pizza metric index}: 1\\

@@ -30,24 +30,24 @@ testfallen i någon lämplig tabellform
 \hline
 \textbf{I tillstånd}	& \textbf{Båge}		& \textbf{Till tillstånd}	& \textbf{Testfall} \\ \hline
 q0: Not in round		& Enter round		& q1: In round				& notInRoundToInRound\_EnterRoundTest()	\\ \hline
-q0: Not in round		& Check			& q2: Illegal state			& notInRoundToIllegalState\_CheckTest()		\\ \hline
-q0: Not in round		& All in			& q2: Illegal state			& notInRoundToIllegalState\_AllInTest()		\\ \hline
-q0: Not in round		& Raise			& q2: Illegal state			& notInRoundToIllegalState\_RaiseTest()		\\ \hline
-q0: Not in round		& Call			& q2: Illegal state			& notInRoundToIllegalState\_CallTest()		\\ \hline
-q0: Not in round		& Fold			& q2: Illegal state			& notInRoundToIllegalState\_FoldTest()		\\ \hline
-q1: In round			& Fold			& q0: Not in round			& inRoundToNotInRound_FoldTest()			\\ \hline
-q1: In round			& Round over		& q0: Not in round			& inRoundToNotInRound_RoundOverTest()		\\ \hline
-q1: In round			& Call			& q1: In round				& inRoundToInRound_CallTest()				\\ \hline
-q1: In round			& Check			& q1: In round				& inRoundToInRound_CheckTest()			\\ \hline
-q1: In round			& Raise			& q1: In round				& inRoundToInRound_RaiseTest()			\\ \hline
-q1: In round			& All in			& q3: Zero chips			& inRoundToZeroChips_AllInTest()			\\ \hline
-q3: Zero chips			& Call			& q2: Illegal state			& zeroChipsToIllegalState_call()				\\ \hline
-q3: Zero chips			& All in			& q2: Illegal state			& zeroChipsToIllegalState_allIn()			\\ \hline
-q3: Zero chips			& Fold			& q2: Illegal state			& zeroChipsToIllegalState_fold()				\\ \hline
-q3: Zero chips			& Raise			& q2: Illegal state			& zeroChipsToIllegalState_raise()			\\ \hline
-q3: Zero chips			& Check			& q2: Illegal state			& zeroChipsToIllegalState_check()			\\ \hline
-q3: Zero chips			& Won round		& q0: Not in round			& zeroChipsToNotInRound_wonRound()		\\ \hline
-q3: Zero chips			& Lost round		& q4: Out of game			& zeroChipsToNotInGame_lostRound()		\\ \hline
+q0: Not in round		& Check				& q2: Illegal state			& notInRoundToIllegalState\_CheckTest()	\\ \hline
+q0: Not in round		& All in			& q2: Illegal state			& notInRoundToIllegalState\_AllInTest()	\\ \hline
+q0: Not in round		& Raise				& q2: Illegal state			& notInRoundToIllegalState\_RaiseTest()	\\ \hline
+q0: Not in round		& Call				& q2: Illegal state			& notInRoundToIllegalState\_CallTest()	\\ \hline
+q0: Not in round		& Fold				& q2: Illegal state			& notInRoundToIllegalState\_FoldTest()	\\ \hline
+q1: In round			& Fold				& q0: Not in round			& inRoundToNotInRound\_FoldTest()		\\ \hline
+q1: In round			& Round over		& q0: Not in round			& inRoundToNotInRound\_RoundOverTest()	\\ \hline
+q1: In round			& Call				& q1: In round				& inRoundToInRound\_CallTest()			\\ \hline
+q1: In round			& Check				& q1: In round				& inRoundToInRound\_CheckTest()			\\ \hline
+q1: In round			& Raise				& q1: In round				& inRoundToInRound\_RaiseTest()			\\ \hline
+q1: In round			& All in			& q3: Zero chips			& inRoundToZeroChips\_AllInTest()		\\ \hline
+q3: Zero chips			& Call				& q2: Illegal state			& zeroChipsToIllegalState\_call()		\\ \hline
+q3: Zero chips			& All in			& q2: Illegal state			& zeroChipsToIllegalState\_allIn()		\\ \hline
+q3: Zero chips			& Fold				& q2: Illegal state			& zeroChipsToIllegalState\_fold()		\\ \hline
+q3: Zero chips			& Raise				& q2: Illegal state			& zeroChipsToIllegalState\_raise()		\\ \hline
+q3: Zero chips			& Check				& q2: Illegal state			& zeroChipsToIllegalState\_check()		\\ \hline
+q3: Zero chips			& Won round			& q0: Not in round			& zeroChipsToNotInRound\_wonRound()		\\ \hline
+q3: Zero chips			& Lost round		& q4: Out of game			& zeroChipsToNotInGame\_lostRound()		\\ \hline
 
 \end{tabular}
 \end{table}
