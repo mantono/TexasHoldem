@@ -1,15 +1,17 @@
 \avsnitt{Introduktion}
 
-En kort introduction till projektet där ni också listar de verktyg ni använt.
-Om ert versionshanteringssystem går att komma åt ska adressen dit finnas med,
-annars ska det finnas en länk från vilken man kan ladda hem källkoden.
 
 Vi valde att inte skriva ett av de projekt som vi blev givna utan började skriva ett klassbiblitek
 till ett kortspel, eller mer specifikt till texashold'em poker. Vi använde oss utav Git som
 versionshanteringsverktyg under hela projektets gång. Ungefär halvvägs in i projektet gjordes en
 formell granskning av majoriteten av koden som vi hade skrivit för att senare utveckla det vi redan
-hade skrivit till en bättre slutprodukt. För att kolla på statistik i vår kod använde vi metrics
-som ett statiskt mått.
+hade skrivit till en bättre slutprodukt. För att kolla på statistik i vår kod använde vi Eclipse Metrics Plugin
+som ett statiskt mått. Som dynamiskt mått för att uppmäta prestanda som ett antal olika metoder drar 
+använde vi oss utav JVM Monitor i Eclipse. 
+För att uppnå högst möjliga coverage använde vi oss utav EclEmma för att kolla att vi uppnådde 100% 
+coverage på våra klasser.
+Under kodkritik körde vi igenom våra klasser med FindBugs för att se vad vi inte redan hade hittat 
+som kunde ändras och möjligen göras bättre.
 
 
 \begin{itemize}
