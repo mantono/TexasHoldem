@@ -15,11 +15,12 @@ Samtliga ekvivalensklasser för denna del presenterade på ett tydligt sätt.\\
 public boolean subtractChips(int bet)
 
 \begin{table}[h]
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|l|l|}
 \hline
-\textbf{Invalida interval} \cellcolor{red!15}	& \cellcolor{red!15}			& \textbf{Valida interval} \cellcolor{green!15}	& \cellcolor{green!15}					\\ \hline
-int bet \cellcolor{red!15}						& $<=0$ \cellcolor{red!15}		& int bet \cellcolor{green!15}					& $0<bet<=chips$ \cellcolor{green!15}	\\ \hline
-int bet	\cellcolor{red!15}						& $>chips$ \cellcolor{red!15}	& \cellcolor{green!15}							& \cellcolor{green!15}					\\ \hline
+Ekvivalensklass \cellcolor{red!15} & \multicolumn{2}{|l|}{\textbf{Invalida interval} \cellcolor{red!15}} &
+Ekvivalensklass \cellcolor{green!15} & \multicolumn{2}{|l|}{\textbf{Valida interval} \cellcolor{green!15}} \\ \hline
+\cellcolor{red!15} a	& int bet \cellcolor{red!15}		& $<=0$ \cellcolor{red!15}		& \cellcolor{green!15}	c						& int bet \cellcolor{green!15}					& $0<bet<=chips$ \cellcolor{green!15}	\\ \hline
+\cellcolor{red!15} b	& int bet	\cellcolor{red!15}		& $>chips$ \cellcolor{red!15}	& \cellcolor{green!15}							& \cellcolor{green!15}							& \cellcolor{green!15}					\\ \hline
 \end{tabular}
 \end{table}
 
@@ -40,12 +41,13 @@ id                        & \textbf{Inputs}  &  & \textbf{Result} \\
 \end{table}
 \\
 \begin{table}[h]
-\begin{tabular}{lllll}
-\textbf{Invalid test cases} &                 &  &  &                 \\
-id                          & \textbf{Inputs} &  &  & \textbf{Result} \\
-                            & int bet         &  &  &                 \\
-3                           & 0               &  &  & FALSE           \\
-4                           & chips + 1       &  &  & FALSE
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Invalid test cases} &                 &  &  &                 \\ \hline
+id                          & \textbf{Inputs} &  &  & \textbf{Result} \\ \hline
+                            & int bet         &  &  &                 \\ \hline
+3                           & 0               &  &  & FALSE           \\ \hline
+4                           & chips + 1       &  &  & FALSE			\\ \hline
 \end{tabular}
 \end{table}
 
@@ -64,12 +66,15 @@ då det är objekt av denna klass som skapas när man vill starta ett Texas Holdem-
 Samtliga ekvivalensklasser för denna del presenterade på ett tydligt sätt.
 
 \begin{table}[h]
-\begin{tabular}{|l|l|l|l|}
-\hline
-\cellcolor{red!15} \textbf{Invalida interval}	& \cellcolor{red!15}					& \cellcolor{green!15} \textbf{Valida interval}		& \cellcolor{green!15}		\\ \hline
-\cellcolor{red!15} int bigblind					& \cellcolor{red!15} $<=0$				& \cellcolor{green!15} int bigBlind					& \cellcolor{green!15} $>0$	\\ \hline
-\cellcolor{red!15} double blindsRaisePercentage & \cellcolor{red!15} $<0$				& \cellcolor{green!15} double blindsRaisePercentage	& \cellcolor{green!15} $>=0$\\ \hline
-\cellcolor{red!15} Players... players			& \cellcolor{red!15} null				& \cellcolor{green!15} Players... players			& \cellcolor{green!15}*		\\ \hline
+\begin{tabular}{|>{\columncolor{green!15}}l|>{\columncolor{green!15}}l|>{\columncolor{green!15}}l|} \hline
+Ekvivalensklass                         & \multicolumn{2}{l|}{\cellcolor{green!15}\textbf{Valida intervall}}\\ \hline
+a                                       & int bigBlind                                         & \textgreater0 \\ \hline
+b                                       & double blindsRaidePercentage                         & \textgreater=0 \\ \hline
+c                                       & Player... players                                    & * \\ \hline
+\cellcolor{red!15}Ekvivalensklass & \multicolumn{2}{l|}{\cellcolor{red!15}\textbf{Invalida intervall}} \\ \hline
+\cellcolor{red!15}d               & \cellcolor{red!15}int bigBlind                 & \cellcolor{red!15}\textless=0 \\ \hline
+\cellcolor{red!15}e               & \cellcolor{red!15}double blindsRaidePercentage & \cellcolor{red!15}\textless0 \\ \hline
+\cellcolor{red!15}f               & \cellcolor{red!15}Player... players            & \cellcolor{red!15}null \\ \hline
 \end{tabular}
 \end{table}
 
