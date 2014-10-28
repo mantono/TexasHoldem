@@ -101,7 +101,15 @@ Den andra klassen som inte har 100\% täckningsgrad är TexasRules. Det är helt en
 
 En kort presentation av hur ni gått tillväga för att testa koden med en profiler och vilka resultat ni fick fram.
 
-Vi skrev ett profilertest där ett antal huvudmetoder loopas igenom ett flertal gånger så att processen håller på ett tag så att vi kunde se hur mycket våra metoder påverkar datorns prestanda. Vi testade både profiler verktyg för NetBeans och Eclipse innan vi bestämde oss för att använda Eclipse JVM Monitor.
+Vi skrev ett profilertest där ett antal huvudmetoder loopas igenom ett flertal gånger så att processen håller på ett tag så att vi kunde se hur mycket våra metoder påverkar datorns prestanda. Vi försökte använda NetBeans först, men då det inte funkade blev vi tvugna att använda Eclipse egna profiler (JVM monitor). 
+
+<insert screenshoot here>
+
+Det första vi märkte av resultatet var att metoden drawCards() (poängtera pluralet dvs inte drawCard()) drog absolut mest CPU kraft gemfört med alla andra metoder. Vi disskuterade om varför det kunnat ha blivit så, och vi kom fram till två teorier. Den första är att drawCards() använder sig utav secureRandomInt, vilket vi har förstått är en väldigt komplicerad klass, och därför drar mycket CPU-kraft. Den metod som drar näst mest kraft är drawCard(), som också använder sig utav secureRandomInt, vilket stödjer denna teori. Den andra teorin vi hade var att drawCards() anroppades absolut mest gånger utav alla andra metoder, vilket i sin tur resulterar i en mycket större sammanlagd CPU-kraft, vilket är vad profilen vissar.
+
+Men vi kom också fram till att med den informationen profilern givit oss så kan vi inte komma fram till ett garanterat svar. Kanske om profilern tillät oss att köra endast ett game (vi försökte, men programmet avslutades så snabbt att vi inte kunde se CPU-kraftsmätningarna) istället för flera tusen så skulle vi kunna komma närmare vilken teori som stämmer, eller alternativt om profilern lät oss gå djupare till exakt vilka sub-metoder av varje anropp som tar mest kraft skulle det också ge någon klarhet. Men denna information gav inte profilern, och detta tillåter oss endast att spekulera.
+
+All in all tycker vi att profilern var den näst mest oanvändbara testningsmetoden vi använde oss utav, då det är mycket tydligt att det är menade för större projekt, och gav inte tillräckligt med detaljrik information för att vara till värde för oss.
 
 \avsnitt{Byggscript}
 
