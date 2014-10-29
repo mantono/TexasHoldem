@@ -12,30 +12,36 @@ När vi genomförde granskningen valde vi att alla personer räknades som rollen re
 
 En lista över de påträffade felen och hur pass allvarliga ni bedömer dem.
 
+Allvarlighetsgragsskalan:
+1 - Minimal allvarlighet - Fel som inte skapar några buggar, krasher, eller andra fel som påverkar programmets funktionallitet, samt heller inte gör koden svårförståligare.
+2- Låg allvarlighet - Fel som gör koden svårförstålig eller icke konsikvent, men som annars inte påverkar programmets funktionalitet.
+3 - Medel allvarlighet - Fel som skapar små oväntade beteenden i koden, gör programmet långsamt, eller i övrigt skapar bugar som inte nödvändigtvis krashar programmet. Här inkluderas också kodbitar som är ineffektivt skrivna, eller lösningar som gör programmet långsamt.
+4 - Hög allvarlighet - Fel som gör att programmet krashar, eller fel som hindrar programmet från att köra överhuvudtaget.
+
 -----------------\\
 Granskning: 8/10\\
 Commit: 8b02afa79f6373217c9b3d89462695a7d34eb4b
 \begin{description}
 \item[cards] Card / Colour / Deck / Rank
 	\begin{description}
-		\item[Rank:14] Value och rank missförstånd kan uppstå mellan variabelnamnet och metodnamnet.
-		\item[Rank:5] Funderingar över hur vi ska lösa hantering av att Rank.ACE kan vara 1 i enum-klassen Rank.java. Detta sågs inte vara något allvarligt och bestämdes att det skulle lösas direkt där det behövdes, t ex vid uträkning av kombinationen CardCombination.STRAIGHT.
-		\item[Colour:13] Enum-klassen Colour går nu att använda en getValue metod på även fast vi är osäkra på hur ranking mellan olika färger går till i Texas Hold Em och andra kortspel. Detta anses ganska allvarligt då det kan leda till felaktiga uträkningar i vinnande händer osv.
-		\item[Colour:13, Rank:14] getValue-metoden har skyddsnivån public i enum-klassen Colour men protected i enum-klassen Rank vilket, den borde ha samma skyddsnivå i båda klasserna vilket är något som ska korrigeras.
-		\item[Deck:11-22] Byta plats på konstruktorerna i klassen Deck för bättre läsbarhet.
+		\item[Rank:14] Value och rank missförstånd kan uppstå mellan variabelnamnet och metodnamnet. Allvarlighetsgrad 2.
+		\item[Rank:5] Funderingar över hur vi ska lösa hantering av att Rank.ACE kan vara 1 i enum-klassen Rank.java. Detta sågs inte vara något allvarligt och bestämdes att det skulle lösas direkt där det behövdes, t ex vid uträkning av kombinationen CardCombination.STRAIGHT. Allvarlighetsgrad 3 med kommentar att detta kommer lösas ju längre in i projektet vi kommer.
+		\item[Colour:13] Enum-klassen Colour går nu att använda en getValue metod på även fast vi är osäkra på hur ranking mellan olika färger går till i Texas Hold Em och andra kortspel. Detta anses ganska allvarligt då det kan leda till felaktiga uträkningar i vinnande händer osv. Allvarlighetsgrad 3.
+		\item[Colour:13, Rank:14] getValue-metoden har skyddsnivån public i enum-klassen Colour men protected i enum-klassen Rank, den borde ha samma skyddsnivå i båda klasserna vilket är något som ska korrigeras. Allvarlighetsgrad 2.
+		\item[Deck:11-22] Byta plats på konstruktorerna i klassen Deck för bättre läsbarhet. Allvarlighetsgrad 2.
 	\end{description}
 \item[texasholdem] Action / Game / Player / Pot
 	\begin{description}
-		\item[Player:33] Implementation av clearhand() i Game-klassen istället för player?
-		\item[Player:41] Returtyp int på addChips(), behövs det?
-		\item[Player:45]Ska addToPot returnera en boolean? Exception vid i>chips?
-		\item[Pot:12] If-satsen i konstruktorn som tar emot en parameter för klassen Pot måste ändras så att du kan skapa en pot med 0 chips i, för tillfället så får man ett exception då vilket inte är meningen. Detta ses som relativt allvarligt då inget ska hindra dig från att skapa en pot med 0 chips i.
-		\item[Pot:9] betHistory i Pot borde sättas till final då det inte ska skapas flera av den utan bara tömma den redan skapade mapen.
-		\item[Pot:28] Metoden checkNull i Pot visar sig vara överflödig och ska tas bort.
-		\item[Pot:43] betToPot-metoden borde byta namn till någon som bättre representerar dess funktion, t ex recieveBet.
-		\item[Player:60] Metoden getInGame i klassen Player borde borde byta namn till isInGame för att bättre representera sin funktion.
-		\item[Player:45] addToPot-metoden borde byta namn för att bättre representera sin funktion eller göras om så att mer av denna funktionalitet ligger i Game-klassen och det enda som görs i den här metoden är att ta bort de chipsen som spelare bettar.
-		\item[Player:45] Byte av varibelnamn i metoden addToPot från i till bet för att öka läsbarheten.
+		\item[Player:33] Implementation av clearhand() i Game-klassen istället för player? Allvarlighetsgrad 2.
+		\item[Player:41] Returtyp int på addChips(), behövs det? Allvarlighetsgrad 2.
+		\item[Player:45]Ska addToPot returnera en boolean? Exception vid i>chips? Allvarlighetsgrad 2.
+		\item[Pot:12] If-satsen i konstruktorn som tar emot en parameter för klassen Pot måste ändras så att du kan skapa en pot med 0 chips i, för tillfället så får man ett exception då vilket inte är meningen. Detta ses som relativt allvarligt då inget ska hindra dig från att skapa en pot med 0 chips i. Allvarlighetsgrad 3.
+		\item[Pot:9] betHistory i Pot borde sättas till final då det inte ska skapas flera av den utan bara tömma den redan skapade mapen. Allvarlighetsgrad 3.
+		\item[Pot:28] Metoden checkNull i Pot visar sig vara överflödig och ska tas bort. Allvarlighetsgrad 2.
+		\item[Pot:43] betToPot-metoden borde byta namn till någon som bättre representerar dess funktion, t ex recieveBet. Allvarlighetsgrad 2.
+		\item[Player:60] Metoden getInGame i klassen Player borde byta namn till isInGame för att bättre representera sin funktion. Allvarlighetsgrad 2. 
+		\item[Player:45] addToPot-metoden borde byta namn för att bättre representera sin funktion eller göras om så att mer av denna funktionalitet ligger i Game-klassen och det enda som görs i den här metoden är att ta bort de chipsen som spelare bettar. Allvarlighetsgrad 2.
+		\item[Player:45] Byte av varibelnamn i metoden addToPot från i till bet för att öka läsbarheten. Allvarlighetsgrad 2.
 	\end{description}
 \end{description}
 
