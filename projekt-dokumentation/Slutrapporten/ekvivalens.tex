@@ -30,24 +30,17 @@ Ekvivalensklass \cellcolor{green!15} & \multicolumn{2}{|l|}{\textbf{Valida inter
 
 Testfallen som ni fått fram från ekvivalensklasserna. Observera att vi inte vill ha någon kod här, utan bara en tydlig presentation av testfallen i någon lämplig tabellform.
 \begin{table}[h]
-\begin{tabular}{llll}
-\textbf{Valid test cases} &                  &  &                 \\
-id                        & \textbf{Inputs}  &  & \textbf{Result} \\
-                          & \textit{int bet} &  &                 \\
-1                         & 1                &  & TRUE            \\
-2                         & chips            &  & TRUE            \\
-                          &                  &  &
-\end{tabular}
-\end{table}
-\\
-\begin{table}[h]
-\begin{tabular}{|l|l|l|l|l|}
+\begin{tabular}{|l|l|l|l|}
 \hline
-\textbf{Invalid test cases} &                 &  &  &                 \\ \hline
-id                          & \textbf{Inputs} &  &  & \textbf{Result} \\ \hline
-                            & int bet         &  &  &                 \\ \hline
-3                           & 0               &  &  & FALSE           \\ \hline
-4                           & chips + 1       &  &  & FALSE			\\ \hline
+id & Namn &Input(int bet) & Result \\ \hline
+\rowcolor{green!15}
+1  & addToPotTestSuccess()	& 1              & true   \\ \hline
+\rowcolor{green!15}
+2  & addToPotTestSuccess()	& chips          & true   \\ \hline
+\rowcolor{red!15}
+3  & add0ChipsToPotTest()	& 0              & false  \\ \hline
+\rowcolor{red!15}
+4  & addToPotTestFail()	& chips+1        & false	 \\ \hline
 \end{tabular}
 \end{table}
 
@@ -55,9 +48,22 @@ id                          & \textbf{Inputs} &  &  & \textbf{Result} \\ \hline
 
 En testmatris som visar sambandet mellan ekvivalensklasserna och testfallen för denna del.
 
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|}
+\hline
+  & a & b & c \\ \hline
+1 &   &   & x \\ \hline
+2 &   &   & x \\ \hline
+3 & x &   &   \\ \hline
+4 &   & x &		\\ \hline
+\end{tabular}
+\end{table}
+
 \avsnitt{Ekvivalensklassuppdelning - Game-konstruktor}
 
-En kort presentation av vad ni valt ut för att tillämpa ekvivalensklassuppdelning på. Ni ska kort motivera valet, och ge tillräckligt med information för att det ska gå att bedöma er. Detta avsnitt och de tre föjande (till och med testmatrisen) ska finnas för samtliga delar ni tillämpat ekvivalensklassuppdelning på.
+En kort presentation av vad ni valt ut för att tillämpa ekvivalensklassuppdelning på. Ni ska kort motivera valet, och ge tillräckligt med information för att det ska gå att bedöma er. Detta avsnitt och de tre föjande (till och med testmatrisen) ska finnas för samtliga delar ni tillämpat ekvivalensklassuppdelning på.\\
+----------------------------------------\\
 Vi valde att göra en ekvivalensklassuppdellning på Game-konstruktorn då den tar emot relativt många parametrar, iallfall om man jämför med resten av projektet, och löper därför en större risk att få olika slags fel. Den är också en väldigt viktig del av hela biblioteket
 då det är objekt av denna klass som skapas när man vill starta ett Texas Holdem-spel vilket gjorde att den kändes som en självklar metod att tillämpa ekvivalensklassuppdelning på.
 
