@@ -32,7 +32,7 @@ Testfallen som ni fått fram från ekvivalensklasserna. Observera att vi inte vill
 \begin{table}[h]
 \begin{tabular}{|l|l|l|l|}
 \hline
-id & Namn &Input(int bet) & Result \\ \hline
+id & Namn &Input(int bet) & Resultat \\ \hline
 \rowcolor{green!15}
 1  & addToPotTestSuccess()	& 1              & true   \\ \hline
 \rowcolor{green!15}
@@ -75,20 +75,46 @@ Samtliga ekvivalensklasser för denna del presenterade på ett tydligt sätt.
 \begin{tabular}{|>{\columncolor{green!15}}l|>{\columncolor{green!15}}l|>{\columncolor{green!15}}l|} \hline
 Ekvivalensklass                         & \multicolumn{2}{l|}{\cellcolor{green!15}\textbf{Valida intervall}}\\ \hline
 a                                       & int bigBlind                                         & \textgreater0 \\ \hline
-b                                       & double blindsRaidePercentage                         & \textgreater=0 \\ \hline
-c                                       & Player... players                                    & * \\ \hline
+b                                       & double blindsRaisePercentage                         & \textgreater=0 \\ \hline
+c                                       & Player... players                                    & >0 \\ \hline
+d                                       & Player... players                                    & 0 \\ \hline
 \cellcolor{red!15}Ekvivalensklass & \multicolumn{2}{l|}{\cellcolor{red!15}\textbf{Invalida intervall}} \\ \hline
-\cellcolor{red!15}d               & \cellcolor{red!15}int bigBlind                 & \cellcolor{red!15}\textless=0 \\ \hline
-\cellcolor{red!15}e               & \cellcolor{red!15}double blindsRaidePercentage & \cellcolor{red!15}\textless0 \\ \hline
-\cellcolor{red!15}f               & \cellcolor{red!15}Player... players            & \cellcolor{red!15}null \\ \hline
+\cellcolor{red!15}e               & \cellcolor{red!15}int bigBlind                 & \cellcolor{red!15}\textless=0 \\ \hline
+\cellcolor{red!15}f               & \cellcolor{red!15}double blindsRaisePercentage & \cellcolor{red!15}\textless0 \\ \hline
+\cellcolor{red!15}g               & \cellcolor{red!15}Player... players            & \cellcolor{red!15}null \\ \hline
 \end{tabular}
 \end{table}
 
 \avsnitt{Testfall -- Game-konstruktor }
 
-Testfallen som ni fått fram från ekvivalensklasserna. Observera att vi inte vill ha någon kod här, utan bara en tydlig presentation av testfallen i någon lämplig tabellform.
-?
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+id & Namn                                       & \textit{bigBlind} & \textit{blindsRaisePercentage} & \textit{players} & Resultat                 \\ \hline
+\rowcolor{green!15}
+1  & assertBlindsAndPlayersInNewGameTest()      & 4                 & 0.3                            & 2                & \checkmark               \\ \hline
+\rowcolor{green!15}
+2  & addingNoPlayerTest()                       & 4                 & 0.3                            & 0                & \checkmark               \\ \hline
+\rowcolor{red!15}
+3  & addingNegativeBigBlindTest()               & -4                & 0.3                            & 1                & IllegalArgumentException \\ \hline
+\rowcolor{red!15}
+4  & addingNegativeBlindsRaiserPercentageTest() & 4                 & -0.2                           & 1                & IllegalArgumentException \\ \hline
+\rowcolor{red!15}
+5  & nullPlayerConstructorTest()                & 2					& 0.5                            & null             & NullPointerException \\ \hline
+\end{tabular}
+\end{table}
+
 \avsnitt{Testmatris -- Game-konstruktor }
 
-En testmatris som visar sambandet mellan ekvivalensklasserna och testfallen för denna del.
+\begin{table}[h]
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+  & a & b & c & d & e & f & g \\ \hline
+1 & x & x & x &   &   &   &   \\ \hline
+2 & x & x &   & x &   &   &   \\ \hline
+3 &   &   &   &   & x &   &   \\ \hline
+4 &   &   &   &   &   & x &   \\ \hline
+5 &   &   &   &   &   &   & x \\ \hline
+\end{tabular}
+\end{table}
 

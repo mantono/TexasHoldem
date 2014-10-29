@@ -28,17 +28,11 @@ public class GameTest {
 	}
 
 	@Test
-	public void assertBlindsInNewGameTest(){
+	public void assertBlindsAndPlayersInNewGameTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle);
 		assertEquals(2, newGame.getSmallBlind());
 		assertEquals(4, newGame.getBigBlind());
 		assertEquals(0.3, newGame.getBlindsRaisePercentage(), 0.0001);
-	}
-	
-	@Test
-
-	public void addingPlayersTest(){
-		Game newGame = new Game(4, 0.3, kalle, pelle);
 		assertTrue(newGame.getPlayers().contains(kalle));
 		assertTrue(newGame.getPlayers().contains(pelle));
 	}
@@ -230,7 +224,7 @@ public class GameTest {
 	@Test(expected = NullPointerException.class)
 	public void nullPlayerConstructorTest(){
 		Player nullPlayer = null;
-		Game game = new Game(nullPlayer);
+		Game game = new Game(2, 0.5, nullPlayer);
 	}	
 
 	@Test(expected = NullPointerException.class)
