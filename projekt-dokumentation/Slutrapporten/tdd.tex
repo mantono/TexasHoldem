@@ -39,26 +39,26 @@ public void receiveBet(int bet, Player player) {
 Rasmus : PotTest\\
 \begin{lstlisting}
 @Test(expected = IllegalArgumentException.class)
-	public void testForInvalidSize() {
-		Pot invalidPot = new Pot(-1);
-		assertEquals(-1, invalidPot.getAmount());
-	}
+public void testForInvalidSize() {
+	Pot invalidPot = new Pot(-1);
+	assertEquals(-1, invalidPot.getAmount());
+}
 
 @Test
-	public void testPotSizeIfPositiveInt() {
-		Pot pot = new Pot(500);
-		assertEquals(500, pot.getAmount());
-	}
+public void testPotSizeIfPositiveInt() {
+	Pot pot = new Pot(500);
+	assertEquals(500, pot.getAmount());
+}
 \end{lstlisting}
 
 Rasmus : Pot.Pot()\\
 \begin{lstlisting}
 public Pot(int amount) {
-		if (amount < 0)
-			throw new IllegalArgumentException(
-					"The Pot has to be at least 0");
-		this.amount = amount;
-	}
+	if (amount < 0)
+		throw new IllegalArgumentException(
+				"The Pot has to be at least 0");
+	this.amount = amount;
+}
 \end{lstlisting}
 
 Emil : GameTest\\
@@ -80,15 +80,15 @@ public void addingPlayersTest(){
 Emil : Game.Game()\\
 \begin{lstlisting}
 public Game(int bigBlind, double blindsRaisePercentage, Player... players) {
-		this(players);
-		if (bigBlind < 1)
-			throw new IllegalArgumentException(
-					"Error: parameter bigBlind is less than 1.");
-		if (blindsRaisePercentage < 0)
-			throw new IllegalArgumentException(
-					"Error: parameter blindsRaisePercentage is less than 0.");
-		this.bigBlind = bigBlind;
-		this.blindsRaisePercentage = blindsRaisePercentage;
+	this(players);
+	if (bigBlind < 1)
+		throw new IllegalArgumentException(
+				"Error: parameter bigBlind is less than 1.");
+	if (blindsRaisePercentage < 0)
+		throw new IllegalArgumentException(
+				"Error: parameter blindsRaisePercentage is less than 0.");
+	this.bigBlind = bigBlind;
+	this.blindsRaisePercentage = blindsRaisePercentage;
 	}
 \end{lstlisting}
 
@@ -96,21 +96,21 @@ Anton : CardTest\\
 \begin{lstlisting}
 @Test
 public void testEqualsValid(){
-        Card card1 = new Card(Colour.HEARTS, Rank.QUEEN);
-        Card card2 = new Card(Colour.HEARTS, Rank.QUEEN);
-        assertTrue(card1.equals(card2));
+	Card card1 = new Card(Colour.HEARTS, Rank.QUEEN);
+	Card card2 = new Card(Colour.HEARTS, Rank.QUEEN);
+	assertTrue(card1.equals(card2));
 }
 
 @Test
 public void testEqualsInvalid(){
-        Card card1 = new Card(Colour.HEARTS, Rank.QUEEN);
-        Card card2 = new Card(Colour.HEARTS, Rank.ACE);
-        assertFalse(card1.equals(card2));
-        card2 = new Card(Colour.CLUBS, Rank.QUEEN);
-        assertFalse(card1.equals(card2));
-        card2 = null;
-        assertFalse(card1.equals(card2));
-        assertFalse(card1.equals("A string"));
+	Card card1 = new Card(Colour.HEARTS, Rank.QUEEN);
+	Card card2 = new Card(Colour.HEARTS, Rank.ACE);
+	assertFalse(card1.equals(card2));
+	card2 = new Card(Colour.CLUBS, Rank.QUEEN);
+	assertFalse(card1.equals(card2));
+	card2 = null;
+	assertFalse(card1.equals(card2));
+	assertFalse(card1.equals("A string"));
 }
 \end{lstlisting}
 
@@ -118,12 +118,12 @@ Anton : Card.equals()\\
 \begin{lstlisting}
 @Override
 public boolean equals(Object object){
-        if(object == null)
-                return false;
-        if(!object.getClass().equals(this.getClass()))
-                return false;
-        Card other = (Card) object;
-        return (this.colour.equals(other.colour) && this.rank.equals(other.rank));
+	if(object == null)
+			return false;
+	if(!object.getClass().equals(this.getClass()))
+			return false;
+	Card other = (Card) object;
+	return (this.colour.equals(other.colour) && this.rank.equals(other.rank));
 }
 \end{lstlisting}
 
