@@ -19,6 +19,10 @@ Vi körde däremot FindBugs mot slutet av projektet också och då hittade den dessa
 \item Hand.java:36 Confusing to have methods cards.Hand.addToHand(Card[]) and cards.Player.addTohand(Card[]) [Of Concern(19), Low confidence]
 \end{enumerate}
 
+Värt att påpeka är att flera buggar från TexasRules hittades men inte är medtagna här eftersom klassen inte är komplett.
+Det som FindBugs hittade som vi kunde ta till oss var de två metoderna som har samma namn fast ligger i olika klasser. 
+FindBugs kollade framför allt på varningar som som finns i koden och pekar ut varför dessa varningar finns i koden. Ex är att variabeln amountOfErrors inte används i metoden distributeChips.
+
 \avsnitt{Statiska mått}
 
 En presentation och diskussion kring ett antal lämpliga statiska mått på koden. Att vi inte specificerar exakt vilka mått som ska tas upp beror på att olika verktyg har olika uppsättningar, men vi förväntar oss fler och mer intressanta mått än bara rena storleksmått som LOC, \#klasser, \#metoder, etc. Även här är det viktigt att förhållas sig till måtten, inte bara lista dem.\\
