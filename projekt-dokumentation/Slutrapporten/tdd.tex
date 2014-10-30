@@ -1,11 +1,11 @@
 \avsnitt{Testdriven utveckling -- process}
 
-Alla fyra har tillämpat testdriven utveckling under större delar av projektets gång.
+Alla fyra har tillämpat testdriven utveckling under större delen av projektets gång.
 Till en början var vi hårda på att använda testdriven utveckling men desto längre in i projektet vi kom så släppte vi på det för att få in alla funktioner i programmet.
 Även om vi inte var lika hårda i slutet på att tillämpa testdriven utveckling så övergav vi ändå inte det helt då vi kände att det var ett väldigt använbart verktyg. I den senare delen av projektet kom dock testfallen - tyvärr - oftast att skrivas efter att koden som skulle testas redan hade skrivits.
 
 Nedan kommer 4 olika exempel på testfall som skrivits av alla personer i projektet och den kom som togs fram med hjälp av testfallen:
-
+\clearpage
 Elliot : PotTest\\
 \begin{lstlisting}
 @Test
@@ -35,7 +35,7 @@ public void receiveBet(int bet, Player player) {
 	}
 }
 \end{lstlisting}
-
+\clearpage
 Rasmus : PotTest\\
 \begin{lstlisting}
 @Test(expected = IllegalArgumentException.class)
@@ -60,7 +60,7 @@ public Pot(int amount) {
 	this.amount = amount;
 }
 \end{lstlisting}
-
+\clearpage
 Emil : GameTest\\
 \begin{lstlisting}
 @Test
@@ -91,7 +91,7 @@ public Game(int bigBlind, double blindsRaisePercentage, Player... players) {
 	this.blindsRaisePercentage = blindsRaisePercentage;
 	}
 \end{lstlisting}
-
+\clearpage
 Anton : CardTest\\
 \begin{lstlisting}
 @Test
@@ -129,11 +129,12 @@ public boolean equals(Object object){
 
 \avsnitt{Testdriven utveckling -- erfarenheter}
 
-Vi har arbetat med testdriven utveckling nästan helt och hållet genom projektet vilket har gett oss en mängd erfarenheter av hur bra/dåligt det kan fungera.
+Vi har arbetat med testdriven under större del av projektets gång vilket har gett oss en mängd erfarenheter av hur bra/dåligt det kan fungera.
 Till en början kändes det väldigt överflödigt och framtvingat då man arbetade med simpla metoder,
 klasser och konstruktioner som kändes självklara hur man skulle skriva och som alltid fungerade direkt.
 Desto mer vi arbetade och kom in i svårare metoder och konstruktioner så började testdriven utveckling kännas mer och mer användbart och mot slutet i projektet,
 speciellt när vi arbetade med klasses TexasRules, så kändes det nästan som att det hade varit omöjligt att genomföra den delen utan testdriven utveckling och testfall.
+
 Eftersom man i klassen TexasRules behövde testa väldigt specifika fall, som t ex att rätt person vinner om båda har stege men en av personerna har högre kort,
 så gjorde testfall att man enkelt kunde sätta upp ett eller flera komplexa fall som endast gått igenom om koden är korrekt skriven.
 Detta skulle vara väldigt svårt att testa utan testfall.
@@ -146,10 +147,9 @@ så gick det alltid att titta på versionen som commitats t ex med kommentaren \em
 En ytterliggare positiv effekt av testdriven utveckling som vi inte tänkt på i förhand är att den gör koden mycket mer lättförståelig
 för de man arbetar med då man kan se hur koden är tänkt att fungera även om den inte i nuvarande läge fungerar. Detta leder till att man enkelt kan ta över metoder
 och skriva klart dem även om det inte var man själv som började skriva på den. Även om man har dokumentation om ungefär vad metoden ska göra,
-så ger testfallen mycket med information om exakt hur metoden ska bete sig och vilket resultat som förväntas.
+så ger testfallen mycket mer information om exakt hur metoden ska bete sig och vilket resultat som förväntas.
 
 Vi har förstås också fått uppleva några utav baksidorna med testdriven utveckling. Det är tidskrävande,
 speciellt att skriva bra tester som ger god täckningsgrad och täcker alla ekvivalensklasser.
-Det krävs god disciplin för att inte slarva och börja övergå i ad-hoc-testning, speciellt under tidspress,
-något som vi kanske inte kan säga att vi alltid lyckats med. Det är inte heller alla gånger som vi varit helt överens om hur vi ska prioritera testbarhet kontra inkapsling.
+Det krävs god disciplin för att inte slarva och börja övergå i ad-hoc-testning, speciellt under tidspress, något som vi kanske inte kan säga att vi alltid lyckats med. Det är inte heller alla gånger som vi varit helt överens om hur vi ska prioritera testbarhet kontra inkapsling.
 Oftast har vi lyckats finna någon kompromiss där t.ex. privata metoder har varit testbara via publika metoder där den privata anropas.

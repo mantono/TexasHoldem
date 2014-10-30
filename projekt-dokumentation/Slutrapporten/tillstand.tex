@@ -3,13 +3,13 @@ När vi disskuterade vilken del av programmet att använda för den tillståndsbaser
 
 När vi ritade upp flödesdiagramet för \emph{inRound} så märkte vi att \emph{inRound} var beroende på om Player hade några chips eller inte. Dvs om Player inte hade chips, så agerar klassen Player annorlunda i båda \emph{inRound} tillstånden, och därför måste vi inkludera detta på något sätt. Vi började fundera på om vi skulle ha två tillståndsmaskiner gentemot varandra, med \emph{broar} mellan de olika tillstånderna, men vi kom fram till att den implementationen var överflödig, då om Player får slut på chips utan att vara \emph{inRound} så borde den Playern inte finnas kvar i programmet överhuvudtaget. Så vi gjorde istället ytterligare ett tillstånd som vi kallade \emph{Zero chips} för att vissa att Player befinner sig i den enda relevanta kombinationen av tillstånd: den när Player är \emph{inGame}, men har inga chips kvar (dvs gått all-in).
 
-När vi var klara med diagramet disskuterade vi vilket täckningskriteruim vi skulle använda oss utav. Valet var denna gång mellan state coverage eller path coverage. I efterhand insåg vi hur dum denna disskussion egentligen var, då path coverage automatiskt uppnår state coverage, så det blev självklart path coverage. Tankegångarna var att det faktiskt inte var tillstånden i sig som var det viktiga att testa, utan övergångarna mellan de olika tillstånden var de som var viktiga.
+När vi var klara med diagramet disskuterade vi vilket täckningskriteruim vi skulle använda oss utav. Valet var denna gång mellan \emph{state coverage} eller \emph{path coverage}, där valet föll på path coverage. Tankegången var att det faktiskt inte var tillstånden i sig som var det viktiga att testa, utan övergångarna mellan de olika tillstånden var de som var viktiga.
 
 Modellen som vi designade visar på hur klassen hanterar en spelare i vårt system och vilka tillstånd denne spelare kan befinna sig i.
 
 
 \DeclareGraphicsExtensions{.png}
-\includegraphics[natwidth=12559, natheight=592, scale=0.6, angle=0, trim = 35mm 2mm 0mm 0mm, clip]{bilder/diagram/state_machine}\\
+\includegraphics[natwidth=12559, natheight=592, scale=0.6, angle=0, trim = 35mm 2mm 0mm 0mm, clip]{bilder/diagram/state_machine}
 
 \avsnitt{Testfall för tillståndsbaserad testning}
 

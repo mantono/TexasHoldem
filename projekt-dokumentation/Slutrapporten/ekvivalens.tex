@@ -1,16 +1,10 @@
 \avsnitt{Ekvivalensklassuppdelning -- subtractChips}
 
-En kort presentation av vad ni valt ut för att tillämpa ekvivalensklassuppdelning på. Ni ska kort motivera valet, och ge tillräckligt med information för att det ska gå att bedöma er. Detta avsnitt och de tre föjande (till och med testmatrisen) ska finnas för samtliga delar ni tillämpat ekvivalensklassuppdelning på.
 Då vi inte hittade några självklara metoder att köra ekvivalensklassuppdelning vid en första anblick så valde vi att göra det på några klasser som används relativt ofta och/eller som är väldigt viktiga att ingenting får gå fel i. subtractChips är en metod
 som är väldigt viktigt att den fungerar som den ska och returnerar rätt värde vid rätt tillfälle då det annars kan leda till att en person som ej har råd att betala en viss summa till potten ändå kan få fortsätta den rundan. Vi valde därför att genomföra ekvivalensklassuppdelning
 på denna metod för att se till att vi inte missat något även fast det inte resulterade i jättemånga ekvivalensklasser.
 
------------------
-
 \avsnitt{Ekvivalensklasser -- subtractChips}
-
-Samtliga ekvivalensklasser för denna del presenterade på ett tydligt sätt.\\
------------------\\
 
 public boolean subtractChips(int bet)
 
@@ -28,7 +22,6 @@ Ekvivalensklass \cellcolor{green!15} & \multicolumn{2}{|l|}{\textbf{Valida inter
 
 \avsnitt{Testfall -- subtractChips}
 
-Testfallen som ni fått fram från ekvivalensklasserna. Observera att vi inte vill ha någon kod här, utan bara en tydlig presentation av testfallen i någon lämplig tabellform.
 \begin{table}[h]
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -46,9 +39,6 @@ id & Namn &Input(int bet) & Resultat \\ \hline
 
 \avsnitt{Testmatris -- subtractChips}
 
-En testmatris som visar sambandet mellan ekvivalensklasserna och testfallen för denna del.
-
-
 \begin{table}[h]
 \begin{tabular}{|l|l|l|l|}
 \hline
@@ -62,14 +52,9 @@ En testmatris som visar sambandet mellan ekvivalensklasserna och testfallen för 
 
 \avsnitt{Ekvivalensklassuppdelning - Game-konstruktor}
 
-En kort presentation av vad ni valt ut för att tillämpa ekvivalensklassuppdelning på. Ni ska kort motivera valet, och ge tillräckligt med information för att det ska gå att bedöma er. Detta avsnitt och de tre föjande (till och med testmatrisen) ska finnas för samtliga delar ni tillämpat ekvivalensklassuppdelning på.\\
-----------------------------------------\\
-Vi valde att göra en ekvivalensklassuppdellning på Game-konstruktorn då den tar emot relativt många parametrar, iallfall om man jämför med resten av projektet, och löper därför en större risk att få olika slags fel. Den är också en väldigt viktig del av hela biblioteket
-då det är objekt av denna klass som skapas när man vill starta ett Texas Holdem-spel vilket gjorde att den kändes som en självklar metod att tillämpa ekvivalensklassuppdelning på.
+Vi valde att göra en ekvivalensklassuppdellning på Game-konstruktorn då den tar emot relativt många parametrar, iallfall om man jämför med resten av projektet, och löper därför en större risk att få olika slags fel. Den är också en väldigt viktig del av hela biblioteket då det är objekt av denna klass som skapas när man vill starta ett Texas Holdem-spel vilket gjorde att den kändes som en självklar metod att tillämpa ekvivalensklassuppdelning på.
 
 \avsnitt{Ekvivalensklasser -- Game-konstruktor }
-
-Samtliga ekvivalensklasser för denna del presenterade på ett tydligt sätt.
 
 \begin{table}[h]
 \begin{tabular}{|>{\columncolor{green!15}}l|>{\columncolor{green!15}}l|>{\columncolor{green!15}}l|} \hline

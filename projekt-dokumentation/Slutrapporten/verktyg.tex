@@ -1,15 +1,11 @@
 \avsnitt{Kodkritiksystem}
 
-
-En presentation av de problem som hittats med hjälp av verktyg för statisk analys och en diskussion av dem enligt anvisningarna. Det räcker alltså inte med att bara lista problemen, ni måste förhålla er till dem också. Tänk också på att ni ska göra detta både på koden som den såg ut före granskningen och på koden efter att ni rättat det som kommit fram under granskningen.
-
------------------
-
 Vi körde FindBugs vid ett flertal tillfällen under utvecklingen med olika resultat men den slutsatsen vi ändå kunde dra av detta var att FindBugs var en av de minst användbara verktygen vi testat oss på,
 när den användes för första gången precis innan den första granskningen så hittade den inte ett enda fel, även när känsligheten drogs upp på max och vi bad den rapportera allt den möjligen kunde hitta.
 Det fanns dock inga större fel vid denna punkt men vi hittade ändå rätt mycket saker som vi behövde ändra när vi körde vår formella granskning som FindBugs ej hade hittat. Många av de felen vi hittade
 hade dock med namngivning och liknande att göra vilket är svårare för ett program att hitta. Vi körde också FindBugs efter vi gjort korrigeringar efter granskningen men hittade då heller inga fel.
 Vi körde däremot FindBugs mot slutet av projektet också och då hittade den dessa ``fel'':
+
 \begin{enumerate}
 \item TexasRules.java:32 texasholdem.TexasRules.equals(Object) always returns false [Scary(7), High confidence]
 \item TexasRules.java:128 Potentially dangerous use of non-short-circuit logic in texasholdem.TexasRules.hasFullHouse(Hand) [Of Concern(15), High confidence]
@@ -19,9 +15,7 @@ Vi körde däremot FindBugs mot slutet av projektet också och då hittade den dessa
 \item Hand.java:36 Confusing to have methods cards.Hand.addToHand(Card[]) and cards.Player.addTohand(Card[]) [Of Concern(19), Low confidence]
 \end{enumerate}
 
-Värt att påpeka är att flera buggar från TexasRules hittades men inte är medtagna här eftersom klassen inte är komplett.
-Det som FindBugs hittade som vi kunde ta till oss var de två metoderna som har samma namn fast ligger i olika klasser. 
-FindBugs kollade framför allt på varningar som som finns i koden och pekar ut varför dessa varningar finns i koden. Ex är att variabeln amountOfErrors inte används i metoden distributeChips.
+Ett utav felen som hittades (1) i TexasRules var helt enkelt en följd utav att klassen inte var färdig, medan de andra två i klassen (2, 4) var av kanske större intresse trots att klassen fortfarande kommer göras om i stor utsträckning. Tredje punkten om \emph{Cloneable} var intressant då vi faktsitk trodde att vi hade implementerat det gränssnittet i klassen, så det var verkligen något vi hade missat. De sista två punkterna (5, 6) är ju strängt taget inga ``fel'' men är förstås av intresse ändå och båda kommer nog kräva någon form av åtgärd från vår sida. Det ska dock erkännas att vi redan var medvetna om \emph{amountOfErrors} (5) inte används just nu. Det råder nog dock lite förvirring om varför den existerar och om den kommer fylla någon funktion i framtiden, varför det kan vara bra att påminnas om att den i nuläget inte fyller någon funktion.
 
 \avsnitt{Statiska mått}
 
@@ -88,11 +82,6 @@ Dessa statiska mått är var och för sig, av ganska begränsad nytta, men tillsamma
 Vi har inte råd att äta mer pizza.
 
 \avsnitt{Täckningsgrad}
-
-En översikt över vilken täckningsgrad era testfall uppnått. Denna kan antagligen tas rakt av från verktyget ni använt för att mäta den. Om ni inte uppnått fullständig täckning så ska detta förklaras och motiveras.
-
--------
-
 Vi har närmast 100\% täckningsgrad. Det finns två klasser som inte riktigt når hela vägen. I det ena fallet handlar det om klassen Deck som har en metod setSeed som matar ett SecureRandom-objekt med ny data för seeden. Metoden är protected och anropas aldrig i dagsläget av någon annan metod i paketet då vi är osäkra på om vi faktiskt behöver den eller inte. Det kan faktiskt vara så att vi kommer ta bort metoden, men fram till dess att vi är helt säkra på att det är rätt beslut får den ligga kvar.
 
 Den andra klassen som inte har 100\% täckningsgrad är TexasRules. Det är helt enkelt för att vi har kommit fram till att stora delar av koden måste skrivas om, och vi ser ingen poäng med att försöka få full täckning för kod som vi kommer ta bort.
@@ -108,17 +97,17 @@ Vi skrev ett profilertest där ett antal huvudmetoder loopas igenom ett flertal g
 \DeclareGraphicsExtensions{.png}
 \includegraphics[natwidth=809, natheight=349, scale=0.69, angle=0, trim = 14mm 0mm 0mm 0mm]{bilder/profiler/crop}\\
 
-Det första vi märkte av resultatet var att metoden drawCards() (poängtera pluralet dvs inte drawCard()) drog absolut mest CPU kraft gemfört med alla andra metoder. Vi disskuterade om varför det kunnat ha blivit så, och vi kom fram till två teorier. Den första är att drawCards() använder sig utav secureRandomInt, vilket vi har förstått är en väldigt komplicerad klass, och därför drar mycket CPU-kraft. Den metod som drar näst mest kraft är drawCard(), som också använder sig utav secureRandomInt, vilket stödjer denna teori. Den andra teorin vi hade var att drawCards() anroppades absolut mest gånger utav alla andra metoder, vilket i sin tur resulterar i en mycket större sammanlagd CPU-kraft, vilket är vad profilen visar.
+Det första vi märkte av resultatet var att metoden drawCards() (poängtera pluralet dvs inte drawCard()) drog absolut mest CPU jämfört med alla andra metoder. Vi diskuterade om varför det kan ha blivit så, och vi kom fram till två teorier. Den första är att drawCards() använder sig utav \emph{SecureRandom.nextInt()}, vilket vi har förstått är en väldigt komplicerad klass, och därför drar mycket CPU-kraft. Den metod som drar näst mest kraft är drawCard(), som också använder sig utav \emph{SecureRandom.nextInt()}, vilket stödjer denna teori. Den andra teorin vi hade var att drawCards() anroppades absolut mest gånger utav alla andra metoder, vilket i sin tur resulterar i en mycket större sammanlagd CPU-kraft, vilket är vad profilen visar.
 
-Men vi vågar inte riktigt dra några säkra slutsatser av den data som profilern gav oss. Kanske om profilern tillät oss att köra endast ett game (vi försökte, men programmet avslutades så snabbt att vi inte kunde se CPU-kraftsmätningarna) istället för flera tusen så skulle vi kunna komma närmare vilken teori som stämmer, eller alternativt om profilern lät oss gå djupare till exakt vilka sub-metoder av varje anropp som tar mest kraft skulle det också ge någon klarhet. Men denna information gav inte profilern, och detta tillåter oss endast att spekulera.
+Men vi vågar inte riktigt dra några säkra slutsatser av den data som profilern gav oss. Kanske om profilern tillät oss att köra endast ett game (vi försökte, men programmet avslutades så snabbt att vi inte kunde se CPU-datan) istället för flera tusen så skulle vi kunna komma närmare vilken teori som stämmer, eller alternativt om profilern lät oss gå djupare till exakt vilka sub-metoder av varje anropp som tar mest kraft skulle det också ge någon klarhet. Men denna information gav inte profilern, och detta tillåter oss endast att spekulera.
 
-All in all tycker vi att profilern var den näst mest oanvändbara testningsmetoden vi använde oss utav, då det är mycket tydligt att det är menade för större projekt, och gav inte tillräckligt med detaljrik information för att vara till värde för oss.
+All in all tycker vi att profilern var en av de minst användbara testningsmetoden vi använde oss utav, då det är mycket tydligt att det är menade för större projekt, och gav inte tillräckligt med detaljrik information för att vara till värde för oss. För ett klassbibliotek av den här storleken finns det helt klart andra saker som man kan fokusera mer på istället.
 
 \avsnitt{Byggscript}
 
 Byggscriptets första (seriösa) version, och den slutliga.
 
-I den första versionen av byggscriptet var ambitionen främst att det skulle göra ungefär samma sak som den standard-byggscripten som eclipse skapar för ett projekt. Med andra ord, kompilera alla klasser och dess beroenden. Det gick ganska bra fram till dess att testfallen inkluderades, då det krävdes externa bibliotek (JUnit) för att kompilera dessa. Så småningom fick vi även det att fungera.
+I den första versionen av byggscriptet var ambitionen främst att det skulle göra ungefär samma sak som den standard-byggscripten som Eclipse skapar för ett projekt. Med andra ord, kompilera alla klasser och dess beroenden. Det gick ganska bra fram till dess att testfallen inkluderades, då det krävdes externa bibliotek (JUnit) för att kompilera dessa. Så småningom fick vi även det att fungera.
 
  \lstset{
 	language=XML,
