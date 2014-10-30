@@ -117,7 +117,7 @@ public class HandTest
 	@Test
 	public void cloneTest()
 	{
-		Player player = new Player("anton", 200);
+		Player player = new Player("anton");
 		player.newHand(card1, card2, card3);
 		Hand secondHand = player.getHand();
 		assertEquals(hand, secondHand);
@@ -126,7 +126,7 @@ public class HandTest
 	@Test
 	public void cloneIntegrityTest()
 	{
-		Player player = new Player("anton", 200);
+		Player player = new Player("anton");
 		player.newHand(card1, card2, card3);
 		Hand secondHand = player.getHand();
 		hand.dropCard(0);

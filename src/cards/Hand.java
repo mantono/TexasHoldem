@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public final class Hand implements Cloneable
+public final class Hand
 {
 	private final List<Card> cards = new ArrayList<Card>();
 
@@ -17,6 +17,12 @@ public final class Hand implements Cloneable
 	public Hand(Card... cards)
 	{
 		this(Arrays.asList(cards));
+	}
+	
+	public Hand(Hand hand)
+	{
+		for(Card card : hand.cards)
+			addToHand(card);
 	}
 	
 	public void newHand(Card... newCards)
@@ -83,13 +89,7 @@ public final class Hand implements Cloneable
 	{
 		return cards.toString();
 	}
-	
-	@Override
-	protected Object clone()
-	{
-		return new Hand(copyOfAllCards());
-	}
-	
+
 	@Override
 	public boolean equals(Object object)
 	{

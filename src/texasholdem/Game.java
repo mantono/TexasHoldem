@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import cards.*;
 
-public class Game extends CardGame {
+public class Game extends CardGame<BettingPlayer> {
 	private Pot pot = new Pot();
 	private boolean roundIsActive = false;
 	private int smallBlindPosition = 0;
@@ -12,7 +12,7 @@ public class Game extends CardGame {
 	private int raiseBy = bigBlind; 
 	private double blindsRaisePercentage = 0.2;
 
-	public Game(int bigBlind, double blindsRaisePercentage, Player... players) {
+	public Game(int bigBlind, double blindsRaisePercentage, BettingPlayer... players) {
 		this(players);
 		if (bigBlind < 1)
 			throw new IllegalArgumentException(
@@ -24,7 +24,7 @@ public class Game extends CardGame {
 		this.blindsRaisePercentage = blindsRaisePercentage;
 	}
 
-	public Game(Player... players) {
+	public Game(BettingPlayer... players) {
 		super(players);
 	}
 
@@ -49,24 +49,28 @@ public class Game extends CardGame {
 		int bigBlindPosition = smallBlindPosition + 1;
 		if (bigBlindPosition >= getPlayers().size())
 			bigBlindPosition = 0;
-		for (int i = 0; i < getPlayers().size(); i++) {
-			if (i == smallBlindPosition) {
-				if (getPlayerWithSmallBlind().subtractChips(getSmallBlind()))
-					pot.receiveBet(getSmallBlind(),
-							getPlayers().get(smallBlindPosition));
-			} else if (i == bigBlindPosition) {
-				if (getPlayerWithBigBlind().subtractChips(getBigBlind()))
-					pot.receiveBet(getBigBlind(),
-							getPlayers().get(bigBlindPosition));
-			}
-		}
+		placeSmallBlind();
+		placeBigBlind(bigBlindPosition);
 	}
-
-	public Player getPlayerWithSmallBlind() {
+	
+	private void placeSmallBlind()
+	{
+		if(!(getPlayerWithSmallBlind().subtractChips(getSmallBlind())))
+			pot.receiveBet(getSmallBlind(), getPlayers().get(smallBlindPosition));
+	}
+	
+	private void placeBigBlind(int bigBlindPosition)
+	{
+		if (getPlayerWithBigBlind().subtractChips(getBigBlind()))
+			pot.receiveBet(getBigBlind(), getPlayers().get(bigBlindPosition));
+	}
+	
+	public BettingPlayer getPlayerWithSmallBlind()
+	{
 		return getPlayer(smallBlindPosition);
 	}
 
-	public Player getPlayerWithBigBlind() {
+	public BettingPlayer getPlayerWithBigBlind() {
 		int bigBlindPosition = smallBlindPosition + 1;
 		if (bigBlindPosition >= getPlayers().size())
 			bigBlindPosition = 0;
@@ -88,7 +92,7 @@ public class Game extends CardGame {
 		raiseBy = raise;
 	}
 
-	public boolean playerAction(Player player, Action action) {
+	public boolean playerAction(BettingPlayer player, Action action) {
 		if(!player.isInRound() || !roundIsActive)
 			throw new IllegalStateException("Player may not " + action + " while not in a round.");
 		
@@ -101,12 +105,12 @@ public class Game extends CardGame {
 		}
 	}
 	
-	private boolean allIn(Player player){
+	private boolean allIn(BettingPlayer player){
 		nextPlayer();
 		return bet(player.getChips(), player);
 	}
 	
-	private boolean call(Player player){
+	private boolean call(BettingPlayer player){
 		// TODO 
 		/*
 		 * Ta reda på senaste höjningen
@@ -116,16 +120,16 @@ public class Game extends CardGame {
 		nextPlayer();
 		return true;
 	}
-	private boolean check(Player player){
+	private boolean check(BettingPlayer player){
 		nextPlayer();
 		return true;
 	}
-	private boolean fold(Player player){
+	private boolean fold(BettingPlayer player){
 		player.setInRound(false);
 		nextPlayer();
 		return true;
 	}
-	private boolean raise(Player player){
+	private boolean raise(BettingPlayer player){
 		if(!bet(raiseBy, player))
 			return false;
 		raiseBy = bigBlind;
@@ -156,8 +160,8 @@ public class Game extends CardGame {
 		
 	}
 
-	public void distributeChip(ArrayList<ArrayList<Player>> victoryOrder) {
-		for (ArrayList<Player> victoryPosition : victoryOrder) {
+	public void distributeChip(ArrayList<ArrayList<BettingPlayer>> victoryOrder) {
+		for (ArrayList<BettingPlayer> victoryPosition : victoryOrder) {
 			int amountOfWinners = victoryPosition.size();
 			int leftoverFromchipsWonCalculation = (pot.getBetHistory(victoryPosition.get(0)) % amountOfWinners);
 			int chipsWon;
@@ -168,7 +172,7 @@ public class Game extends CardGame {
 			} else {
 				chipsWon = (pot.getBetHistory(victoryPosition.get(0)) / amountOfWinners);
 			}
-			for (Player winner : victoryPosition) {
+			for (BettingPlayer winner : victoryPosition) {
 				pot.handOutChips(winner, chipsWon, amountOfWinners);
 				if (isThereLeftOvers) {
 					if (victoryPosition.get(0) != winner) {
@@ -183,7 +187,7 @@ public class Game extends CardGame {
 		}
 	}
 
-	public boolean bet(int bet, Player player) {
+	public boolean bet(int bet, BettingPlayer player) {
 		if(player.subtractChips(bet))
 		{
 			pot.receiveBet(bet, player);

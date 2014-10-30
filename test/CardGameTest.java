@@ -5,24 +5,23 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import texasholdem.BettingPlayer;
 import texasholdem.Game;
 import cards.Card;
 import cards.Colour;
-import cards.Deck;
-import cards.Player;
 import cards.Rank;
 
 public class CardGameTest
 {
-	private Player kalle, pelle, kent;
+	private BettingPlayer kalle, pelle, kent;
 	private Game game;
 
 	@Before
 	public void setUp() throws Exception
 	{
-		kalle = new Player("kalle", 200);
-		pelle = new Player("pelle", 200);
-		kent = new Player("kent", 200);
+		kalle = new BettingPlayer("kalle", 200);
+		pelle = new BettingPlayer("pelle", 200);
+		kent = new BettingPlayer("kent", 200);
 		game = new Game();
 	}
 

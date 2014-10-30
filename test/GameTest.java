@@ -12,18 +12,18 @@ import cards.*;
 
 public class GameTest {
 	
-	private Player kalle, pelle, kent, joe, quinn, martin, jim;
+	private BettingPlayer kalle, pelle, kent, joe, quinn, martin, jim;
 	private Game defaultGame;
 	
 	@Before
 	public void setup(){
-		kalle = new Player("kalle", 200);
-		pelle = new Player("pelle", 200);
-		kent = new Player("kent", 200);
-		joe = new Player("joe", 200);
-		quinn = new Player("quinn", 200);
-		martin = new Player("martin", 200);
-		jim = new Player("jim", 200);
+		kalle = new BettingPlayer("kalle", 200);
+		pelle = new BettingPlayer("pelle", 200);
+		kent = new BettingPlayer("kent", 200);
+		joe = new BettingPlayer("joe", 200);
+		quinn = new BettingPlayer("quinn", 200);
+		martin = new BettingPlayer("martin", 200);
+		jim = new BettingPlayer("jim", 200);
 		defaultGame = new Game(kalle, pelle, kent, joe, quinn, martin, jim);
 	}
 
@@ -203,12 +203,12 @@ public class GameTest {
 		defaultGame.bet(41, joe);
 		defaultGame.bet(35, martin);
 		defaultGame.bet(5, jim);
-		ArrayList<ArrayList<Player>> victoryOrder = new ArrayList<ArrayList<Player>>();
-		victoryOrder.add(new ArrayList<Player>());
+		ArrayList<ArrayList<BettingPlayer>> victoryOrder = new ArrayList<ArrayList<BettingPlayer>>();
+		victoryOrder.add(new ArrayList<BettingPlayer>());
 		victoryOrder.get(0).add(kalle);
-		victoryOrder.add(new ArrayList<Player>());
+		victoryOrder.add(new ArrayList<BettingPlayer>());
 		victoryOrder.get(1).add(pelle);
-		victoryOrder.add(new ArrayList<Player>());
+		victoryOrder.add(new ArrayList<BettingPlayer>());
 		victoryOrder.get(2).add(kent);
 		victoryOrder.get(2).add(quinn);
 		defaultGame.distributeChip(victoryOrder);
@@ -223,14 +223,14 @@ public class GameTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void nullPlayerConstructorTest(){
-		Player nullPlayer = null;
+		BettingPlayer nullPlayer = null;
 		Game game = new Game(2, 0.5, nullPlayer);
 	}	
 
 	@Test(expected = NullPointerException.class)
 	public void nullPlayerTest(){
 		Game game = new Game();
-		Player nullPlayer = null;
+		BettingPlayer nullPlayer = null;
 		game.addPlayer(nullPlayer);
 	}
 	

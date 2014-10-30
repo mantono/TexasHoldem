@@ -9,15 +9,15 @@ import cards.*;
 
 public class GameStateMachineTest
 {
-	private Player emil, rasmus, elliot;
+	private BettingPlayer emil, rasmus, elliot;
 	private Game game;
 	
 	@Before
 	public void setup()
 	{
-		emil = new Player("emil", 100);
-		rasmus = new Player("rasmus", 100);
-		elliot = new Player("elliot", 100);
+		emil = new BettingPlayer("emil", 100);
+		rasmus = new BettingPlayer("rasmus", 100);
+		elliot = new BettingPlayer("elliot", 100);
 		game = new Game(emil, rasmus, elliot);
 	}
 	

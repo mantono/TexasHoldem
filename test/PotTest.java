@@ -4,18 +4,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cards.Player;
+import texasholdem.BettingPlayer;
 import texasholdem.Pot;
 
 public class PotTest {
 	
-	private Player player1, player2, player3, player4;
+	private BettingPlayer player1, player2, player3, player4;
 
 	@Before
 	public void setup() {
-		player1 = new Player("kalle", 0);
-		player2 = new Player("pelle", 0);
-		player3 = new Player("kent", 0);
-		player4 = new Player("karl", 0);
+		player1 = new BettingPlayer("kalle", 0);
+		player2 = new BettingPlayer("pelle", 0);
+		player3 = new BettingPlayer("kent", 0);
+		player4 = new BettingPlayer("karl", 0);
 	}
 	
 	@Test

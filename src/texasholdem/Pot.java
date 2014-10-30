@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import cards.Player;
-
 public class Pot {
 
 	private int amount = 0;
-	private final Map<Player, Integer> betHistory = new HashMap<Player, Integer>();
+	private final Map<BettingPlayer, Integer> betHistory = new HashMap<BettingPlayer, Integer>();
 
 	public Pot(int amount) {
 		if (amount < 0)
@@ -28,7 +26,7 @@ public class Pot {
 		return amount;
 	}
 
-	public void receiveBet(int bet, Player player) {
+	public void receiveBet(int bet, BettingPlayer player) {
 		if (bet < 1)
 			throw new IllegalArgumentException(
 					"The Bet has to be larger than 0");
@@ -39,7 +37,7 @@ public class Pot {
 		}
 	}
 
-	public void handOutChips(Player player, int chipsWon, int playersWon){
+	public void handOutChips(BettingPlayer player, int chipsWon, int playersWon){
 		if (!betHistory.containsKey(player)){
 			throw new IllegalArgumentException("The player must have betted something in order to recieve chips");
 		}
@@ -47,9 +45,9 @@ public class Pot {
 			throw new IllegalArgumentException("The number of won players cannot be 0 or lower.");
 		}
 		int chipsToBeHandedOut = 0;
-		Iterator<Map.Entry<Player, Integer>> iterator = betHistory.entrySet().iterator();
+		Iterator<Map.Entry<BettingPlayer, Integer>> iterator = betHistory.entrySet().iterator();
 			while(iterator.hasNext()){
-				Map.Entry<Player, Integer> participant = iterator.next();
+				Map.Entry<BettingPlayer, Integer> participant = iterator.next();
 				if((participant.getValue() <= (chipsWon*playersWon))){
 					int leftovers = (participant.getValue() % playersWon);
 					if(leftovers < 1){
@@ -82,7 +80,7 @@ public class Pot {
 		return;
 	}
 
-	public int getBetHistory(Player p) {
+	public int getBetHistory(BettingPlayer p) {
 		if (!betHistory.containsKey(p)) {
 			return 0;
 		}

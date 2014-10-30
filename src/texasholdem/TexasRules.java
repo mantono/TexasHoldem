@@ -125,7 +125,7 @@ public class TexasRules implements Rules
 	}
 
 	private boolean hasFullHouse(Hand hand) {
-		if (hasThreeOfAKind(hand) & hasPair(hand))
+		if (hasThreeOfAKind(hand) && hasPair(hand))
 			return true;
 		return false;
 	}

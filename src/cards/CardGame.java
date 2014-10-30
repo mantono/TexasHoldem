@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class CardGame
+public abstract class CardGame<T extends Player>
 {
 	private Deck deck = new Deck();
-	private final ArrayList<Player> players = new ArrayList<Player>();
+	private final ArrayList<T> players = new ArrayList<T>();
 	private final List<Card> cardsOnTable = new ArrayList<Card>();
 	private int currentPlayer = 0;
 
-	public CardGame(Player... players)
+	public CardGame(T... players)
 	{
 		this.players.addAll(Arrays.asList(players));
 		if(this.players.contains(null))
@@ -28,14 +28,14 @@ public abstract class CardGame
 		deck = new Deck(amoutOfSets);
 	}
 	
-	public boolean addPlayer(Player player)
+	public boolean addPlayer(T player)
 	{
 		if(player == null)
 			throw new NullPointerException("A player variable is pointing to null.");
 		return players.add(player);
 	}
 	
-	public boolean removePlayer(Player player)
+	public boolean removePlayer(T player)
 	{
 		return players.remove(player);
 	}
@@ -52,17 +52,17 @@ public abstract class CardGame
 			player.newHand(deck.drawCards(amountOfCards));
 	}
 
-	public ArrayList<Player> getPlayers()
+	public ArrayList<T> getPlayers()
 	{
 		return players;
 	}
 	
-	public Player getPlayer(int index)
+	public T getPlayer(int index)
 	{
 		return players.get(index);
 	}
 	
-	public Player getCurrentPlayer()
+	public T getCurrentPlayer()
 	{
 		return players.get(currentPlayer);
 	}
