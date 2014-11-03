@@ -30,5 +30,9 @@ public class BettingPlayer extends Player
 		assert chips >= 0 : "The amount of chips must not be negative";
 		return true;
 	}
-
+	
+	public boolean hasChips()
+	{
+		return chips > 0;
+	}
 }

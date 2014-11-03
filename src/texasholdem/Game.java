@@ -106,6 +106,8 @@ public class Game extends CardGame<BettingPlayer> {
 	}
 	
 	private boolean allIn(BettingPlayer player){
+		if(!player.hasChips())
+			throw new IllegalStateException("Player may not go all in with zero chips");
 		nextPlayer();
 		return bet(player.getChips(), player);
 	}

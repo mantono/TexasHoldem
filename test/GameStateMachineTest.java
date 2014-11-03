@@ -21,6 +21,13 @@ public class GameStateMachineTest
 		game = new Game(emil, rasmus, elliot);
 	}
 	
+	private void putElliotInStateAllIn()
+	{
+		game.initiateRound();
+		game.initiateDeal();
+		game.playerAction(elliot, Action.ALL_IN);
+	}
+	
 	// Not in round
 	
 	@Test(expected=IllegalStateException.class)
@@ -127,50 +134,40 @@ public class GameStateMachineTest
 	//zero chips
 	@Test(expected=IllegalStateException.class)
 	public void zeroChipsToIllegalState_call(){
-		game.initiateRound();
-		game.initiateDeal();
-		game.playerAction(elliot, Action.ALL_IN);
+		putElliotInStateAllIn();
 		game.playerAction(elliot, Action.CALL);
 	}
 	
 	
 	@Test(expected=IllegalStateException.class)
 	public void zeroChipsToIllegalState_allIn(){
-		game.initiateRound();
-		game.initiateDeal();
-		game.playerAction(elliot, Action.ALL_IN);
+		putElliotInStateAllIn();
+		assertTrue(elliot.isInRound());
 		game.playerAction(elliot, Action.ALL_IN);
 	}
 	
 	@Test(expected=IllegalStateException.class)
 	public void zeroChipsToIllegalState_fold(){
-		game.initiateRound();
-		game.initiateDeal();
-		game.playerAction(elliot, Action.ALL_IN);
+		putElliotInStateAllIn();
 		game.playerAction(elliot, Action.FOLD);
 	}
 	
 	@Test(expected=IllegalStateException.class)
 	public void zeroChipsToIllegalState_raise(){
-		game.initiateRound();
-		game.initiateDeal();
-		game.playerAction(elliot, Action.ALL_IN);
+		putElliotInStateAllIn();
 		game.playerAction(elliot, Action.RAISE);
 	}
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void zeroChipsToIllegalState_check(){
-		game.initiateRound();
-		game.initiateDeal();
-		game.playerAction(elliot, Action.ALL_IN);
-		game.playerAction(elliot, Action.CHECK);
+		putElliotInStateAllIn();
+		assertTrue(elliot.isInRound());
+		assertTrue(game.playerAction(elliot, Action.CHECK));
 	}
 	
 	@Test
 	public void zeroChipsToNotInRound_wonRound(){
-		game.initiateRound();
-		game.initiateDeal();
-		game.playerAction(elliot, Action.ALL_IN);
+		putElliotInStateAllIn();
 		game.playerAction(emil, Action.FOLD);
 		game.playerAction(rasmus, Action.FOLD);
 		game.endRound();
@@ -179,9 +176,7 @@ public class GameStateMachineTest
 	
 	@Test
 	public void zeroChipsToNotInGame_lostRound(){
-		game.initiateRound();
-		game.initiateDeal();
-		game.playerAction(elliot, Action.ALL_IN);
+		putElliotInStateAllIn();
 		game.playerAction(emil, Action.ALL_IN);
 		game.playerAction(rasmus, Action.FOLD);
 		elliot.clearHand();
