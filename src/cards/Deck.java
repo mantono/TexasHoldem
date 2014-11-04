@@ -12,6 +12,7 @@ public class Deck
 	{
 		if(numberOfSets < 1)
 			throw new IllegalArgumentException("The deck must consist of at least one complete set.");
+		cards.ensureCapacity(numberOfSets*52);
 		for(byte i = 0; i < numberOfSets; i++)
 			generateCards();
 	}

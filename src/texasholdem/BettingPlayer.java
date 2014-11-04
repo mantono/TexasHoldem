@@ -35,4 +35,9 @@ public class BettingPlayer extends Player
 	{
 		return chips > 0;
 	}
+	
+	public boolean isAllIn()
+	{
+		return !hasChips() && isInRound();
+	}
 }

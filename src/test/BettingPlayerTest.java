@@ -1,3 +1,4 @@
+package test;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -59,6 +60,34 @@ public class BettingPlayerTest
 		player.addChips(200);
 		assertFalse(player.subtractChips(201));
 
+	}
+	
+	@Test
+	public void isAllInTest()
+	{
+		player.setInRound(true);
+		assertTrue(player.isInRound());
+		assertTrue(!player.hasChips());
+		assertTrue(player.isAllIn());
+	}
+	
+	@Test
+	public void isAllInTestNotInRound()
+	{
+		player.setInRound(false);
+		assertFalse(player.isInRound());
+		assertTrue(!player.hasChips());
+		assertFalse(player.isAllIn());
+	}
+	
+	@Test
+	public void isAllInTestHasChips()
+	{
+		BettingPlayer player = new BettingPlayer("Henrik", 200);
+		player.setInRound(true);
+		assertTrue(player.isInRound());
+		assertFalse(!player.hasChips());
+		assertFalse(player.isAllIn());
 	}
 	
 	@Test(expected = NullPointerException.class)

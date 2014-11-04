@@ -3,10 +3,10 @@
 		<property name="build.dir" location="bin" />
 		<property name="cards.src.dir" location="src/cards" />
 		<property name="texasHoldem.src.dir" location="src/texasholdem" />
-		<property name="test.src.dir" location="test" />
+		<property name="test.src.dir" location="src/test" />
 		<property name="test.report.dir" location="testreports" />
 		<property name="jar.dir" location="jar" />
-		<property name="eclipse" location="C:\Users\svampen\Documents\eclipse" />
+		<property name="eclipse" location="/home/anton/dokument/eclipse" />
 
 		<path id="junit.class.path">
 			<fileset dir="${eclipse}/plugins" includes="org.junit*/*junit.jar" />

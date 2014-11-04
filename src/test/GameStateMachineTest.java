@@ -1,3 +1,4 @@
+package test;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -30,34 +31,34 @@ public class GameStateMachineTest
 	
 	// Not in round
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void notInRoundToIllegalState_CheckTest()
 	{
-		game.playerAction(emil, Action.CHECK);
+		assertFalse(game.playerAction(emil, Action.CHECK));
 	}
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void notInRoundToIllegalState_AllInTest()
 	{
-		game.playerAction(emil, Action.ALL_IN);
+		assertFalse(game.playerAction(emil, Action.ALL_IN));
 	}
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void notInRoundToIllegalState_RaiseTest()
 	{
-		game.playerAction(emil, Action.RAISE);
+		assertFalse(game.playerAction(emil, Action.RAISE));
 	}
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void notInRoundToIllegalState_CallTest()
 	{
-		game.playerAction(emil, Action.CALL);
+		assertFalse(game.playerAction(emil, Action.CALL));
 	}
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void notInRoundToIllegalState_FoldTest()
 	{
-		game.playerAction(emil, Action.FOLD);
+		assertFalse(game.playerAction(emil, Action.FOLD));
 	}
 	
 	@Test
@@ -132,30 +133,30 @@ public class GameStateMachineTest
 	}
 	
 	//zero chips
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void zeroChipsToIllegalState_call(){
 		putElliotInStateAllIn();
-		game.playerAction(elliot, Action.CALL);
+		assertFalse(game.playerAction(elliot, Action.CALL));
 	}
 	
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void zeroChipsToIllegalState_allIn(){
 		putElliotInStateAllIn();
 		assertTrue(elliot.isInRound());
-		game.playerAction(elliot, Action.ALL_IN);
+		assertFalse(game.playerAction(elliot, Action.ALL_IN));
 	}
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void zeroChipsToIllegalState_fold(){
 		putElliotInStateAllIn();
-		game.playerAction(elliot, Action.FOLD);
+		assertFalse(game.playerAction(elliot, Action.FOLD));
 	}
 	
-	@Test(expected=IllegalStateException.class)
+	@Test
 	public void zeroChipsToIllegalState_raise(){
 		putElliotInStateAllIn();
-		game.playerAction(elliot, Action.RAISE);
+		assertFalse(game.playerAction(elliot, Action.RAISE));
 	}
 	
 	@Test

@@ -94,7 +94,7 @@ public class Game extends CardGame<BettingPlayer> {
 
 	public boolean playerAction(BettingPlayer player, Action action) {
 		if(!player.isInRound() || !roundIsActive)
-			throw new IllegalStateException("Player may not " + action + " while not in a round.");
+			return false;
 		
 		switch(action){
 			case ALL_IN: return allIn(player);
@@ -107,7 +107,7 @@ public class Game extends CardGame<BettingPlayer> {
 	
 	private boolean allIn(BettingPlayer player){
 		if(!player.hasChips())
-			throw new IllegalStateException("Player may not go all in with zero chips");
+			return false;
 		nextPlayer();
 		return bet(player.getChips(), player);
 	}
@@ -122,15 +122,20 @@ public class Game extends CardGame<BettingPlayer> {
 		nextPlayer();
 		return true;
 	}
+	
 	private boolean check(BettingPlayer player){
 		nextPlayer();
 		return true;
 	}
+	
 	private boolean fold(BettingPlayer player){
+		if(player.isInRound() && !player.hasChips())
+			return false;
 		player.setInRound(false);
 		nextPlayer();
 		return true;
 	}
+	
 	private boolean raise(BettingPlayer player){
 		if(!bet(raiseBy, player))
 			return false;

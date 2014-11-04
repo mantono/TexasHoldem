@@ -11,6 +11,7 @@ public abstract class CardGame<T extends Player>
 	private final List<Card> cardsOnTable = new ArrayList<Card>();
 	private int currentPlayer = 0;
 
+	@SafeVarargs
 	public CardGame(T... players)
 	{
 		this.players.addAll(Arrays.asList(players));
