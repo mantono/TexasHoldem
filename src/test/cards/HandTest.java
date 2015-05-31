@@ -1,4 +1,4 @@
-package test;
+package test.cards;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;

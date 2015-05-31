@@ -1,4 +1,4 @@
-package test;
+package test.texasholdem;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -122,23 +122,23 @@ public class GameTest {
 	}
 
 	
-	@Test
-	public void initiateDealTest(){
-		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
-		newGame.newDeck();
-		assertEquals(0, newGame.getCardsOnTable().size());
-		newGame.initiateDeal();
-		assertEquals(3, newGame.getCardsOnTable().size());
-		newGame.initiateDeal();
-		assertEquals(4, newGame.getCardsOnTable().size());
-		newGame.initiateDeal();
-		assertEquals(5, newGame.getCardsOnTable().size());
-	}
+//	@Test
+//	public void initiateDealTest(){
+//		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
+//		newGame.newDeck();
+//		assertEquals(0, newGame.getCardsOnTable().size());
+//		newGame.initiateDeal();
+//		assertEquals(3, newGame.getCardsOnTable().size());
+//		newGame.initiateDeal();
+//		assertEquals(4, newGame.getCardsOnTable().size());
+//		newGame.initiateDeal();
+//		assertEquals(5, newGame.getCardsOnTable().size());
+//	}
 	
 	@Test (expected = IllegalStateException.class)
 	public void initiateDealFiveCardsOnTest(){
 		Game newGame = new Game(4, 0.3, kalle, pelle, kent);
-		newGame.newDeck();
+		//newGame.newDeck();
 		newGame.initiateDeal();
 		newGame.initiateDeal();
 		newGame.initiateDeal();
@@ -153,7 +153,6 @@ public class GameTest {
 		assertEquals(0, kalle.getNumberOfCards());
 		assertEquals(0, pelle.getNumberOfCards());
 		assertEquals(0, kent.getNumberOfCards());
-		assertEquals(0, game.getCardsOnTable().size());
 		assertEquals(8, game.getBigBlind());
 		assertEquals(4, game.getSmallBlind());
 		assertEquals(1, game.getSmallBlindPosition());
@@ -165,7 +164,6 @@ public class GameTest {
 		game.initiateRound();
 		game.endGame();
 		assertEquals(0, joe.getNumberOfCards());
-		assertEquals(0, game.getCardsOnTable().size());
 				
 		assertEquals(2, game.getSmallBlind());
 		assertEquals(0, game.getSmallBlindPosition());		

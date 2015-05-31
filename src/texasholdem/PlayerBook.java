@@ -1,33 +1,25 @@
-package cards;
+package texasholdem;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
-public abstract class CardGame<T extends Player>
+import cards.Deck;
+import cards.Player;
+import cards.PlayerRecord;
+
+public class PlayerBook<T extends Player> implements PlayerRecord<T>
 {
-	private Deck deck = new Deck();
-	private final ArrayList<T> players = new ArrayList<T>();
-	private final List<Card> cardsOnTable = new ArrayList<Card>();
+	private final List<T> players = new LinkedList<T>();
 	private int currentPlayer = 0;
 
-	@SafeVarargs
-	public CardGame(T... players)
+	public PlayerBook(T... players)
 	{
 		this.players.addAll(Arrays.asList(players));
 		if(this.players.contains(null))
 			throw new NullPointerException("A player variable is pointing to null.");
 	}
 	
-	public void newDeck()
-	{
-		deck = new Deck();
-	}
-
-	public void newDeck(byte amoutOfSets)
-	{
-		deck = new Deck(amoutOfSets);
-	}
 	
 	public boolean addPlayer(T player)
 	{
@@ -43,17 +35,17 @@ public abstract class CardGame<T extends Player>
 
 	public void clearAllHands()
 	{
-		for(Player player : players)
+		for(T player : players)
 			player.clearHand();
 	}
-
-	public void dealCards(int amountOfCards)
+	
+	public void dealCards(Deck deck, int amountOfCards)
 	{
 		for(Player player : players)
 			player.newHand(deck.drawCards(amountOfCards));
 	}
 
-	public ArrayList<T> getPlayers()
+	public List<T> getPlayers()
 	{
 		return players;
 	}
@@ -79,36 +71,9 @@ public abstract class CardGame<T extends Player>
 	public int getNumberOfPlayersInGame()
 	{
 		int numberOfPlayers = 0;
-		for(Player player : players)
+		for(T player : players)
 			if(player.isInRound())
 				numberOfPlayers++;
 		return numberOfPlayers;
 	}
-
-	public void clearTableOfCards()
-	{
-		cardsOnTable.clear();
-	}
-
-	public void putRandomCardOnTable()
-	{
-		cardsOnTable.add(deck.drawCard());
-	}
-	
-	public void putCardOnTable(Card card)
-	{
-		if(deck.removeCard(card))
-			cardsOnTable.add(card);
-	}
-	
-	public List<Card> getCardsOnTable()
-	{
-		return cardsOnTable;
-	}
-	
-	public int getSizeOfDeck()
-	{
-		return deck.getSize();
-	}
-	
 }

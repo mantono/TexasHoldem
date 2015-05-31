@@ -1,4 +1,4 @@
-package test;
+package test.texasholdem;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -90,7 +90,6 @@ public class TexasRulesTest
 		assertEquals(1, rules.compare(highFourOfAKind, lowFourOfAKind));
 	}
 	
-	@Ignore
 	@Test
 	public void testTieOnHasStraight()
 	{
@@ -102,8 +101,8 @@ public class TexasRulesTest
 		Card card6 = new Card(Colour.HEARTS, Rank.SIX);
 		
 		
-		Hand lowStraight = new Hand(card1, card2, card3, card4,card5);
-		Hand highStraight = new Hand(card2,card3,card4,card5,card6);
+		Hand lowStraight = new Hand(card1, card2, card3, card4, card5);
+		Hand highStraight = new Hand(card2, card3, card4, card5, card6);
 		Hand emptyHand = new Hand();
 		
 		assertEquals(1, rules.compare(highStraight, lowStraight));
@@ -131,7 +130,6 @@ public class TexasRulesTest
 		assertEquals(17, rules.compare(threeOfAKindHand, emptyHand));
 	}
 	
-	@Ignore
 	@Test
 	public void testCompareTwoPairsOfDifferentRank()
 	{

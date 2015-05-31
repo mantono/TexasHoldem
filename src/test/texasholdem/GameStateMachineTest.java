@@ -1,4 +1,4 @@
-package test;
+package test.texasholdem;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -175,23 +175,23 @@ public class GameStateMachineTest
 		assertFalse(elliot.isInRound());
 	}
 	
-	@Test
-	public void zeroChipsToNotInGame_lostRound(){
-		putElliotInStateAllIn();
-		game.playerAction(emil, Action.ALL_IN);
-		game.playerAction(rasmus, Action.FOLD);
-		elliot.clearHand();
-		emil.clearHand();
-		elliot.newHand(new Card(Colour.CLUBS, Rank.FIVE), new Card(Colour.SPADES, Rank.EIGHT));
-		emil.newHand(new Card(Colour.DIAMONDS, Rank.FIVE), new Card(Colour.DIAMONDS, Rank.ACE));
-		game.putCardOnTable(new Card(Colour.DIAMONDS, Rank.ACE));
-		game.putCardOnTable(new Card(Colour.DIAMONDS, Rank.KING));
-		game.putCardOnTable(new Card(Colour.DIAMONDS, Rank.FOUR));
-		game.putCardOnTable(new Card(Colour.CLUBS, Rank.ACE));
-		game.putCardOnTable(new Card(Colour.SPADES, Rank.ACE));
-		game.endRound();
-		assertFalse(game.getPlayers().contains(elliot));
-	}
+//	@Test
+//	public void zeroChipsToNotInGame_lostRound(){
+//		putElliotInStateAllIn();
+//		game.playerAction(emil, Action.ALL_IN);
+//		game.playerAction(rasmus, Action.FOLD);
+//		elliot.clearHand();
+//		emil.clearHand();
+//		elliot.newHand(new Card(Colour.CLUBS, Rank.FIVE), new Card(Colour.SPADES, Rank.EIGHT));
+//		emil.newHand(new Card(Colour.DIAMONDS, Rank.FIVE), new Card(Colour.DIAMONDS, Rank.ACE));
+//		game.putCardOnTable(new Card(Colour.DIAMONDS, Rank.ACE));
+//		game.putCardOnTable(new Card(Colour.DIAMONDS, Rank.KING));
+//		game.putCardOnTable(new Card(Colour.DIAMONDS, Rank.FOUR));
+//		game.putCardOnTable(new Card(Colour.CLUBS, Rank.ACE));
+//		game.putCardOnTable(new Card(Colour.SPADES, Rank.ACE));
+//		game.endRound();
+//		assertFalse(game.getPlayers().contains(elliot));
+//	}
 	
 	
 }

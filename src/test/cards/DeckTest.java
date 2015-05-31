@@ -1,4 +1,4 @@
-package test;
+package test.cards;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -30,7 +30,6 @@ public class DeckTest
 	public void testForInvalidSize()
 	{
 		Deck bad = new Deck((byte) -1);
-		assertEquals(-52, bad.getSize());
 	}
 	
 	@Test

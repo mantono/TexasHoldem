@@ -1,4 +1,4 @@
-package test;
+package test.texasholdem;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
