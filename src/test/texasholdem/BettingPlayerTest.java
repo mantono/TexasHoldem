@@ -2,16 +2,10 @@ package test.texasholdem;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import texasholdem.BettingPlayer;
 import texasholdem.Pot;
-import cards.Card;
-import cards.Colour;
-import cards.Hand;
-import cards.Rank;
-
 
 public class BettingPlayerTest
 {
