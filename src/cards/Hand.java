@@ -104,11 +104,9 @@ public final class Hand
 	@Override
 	public int hashCode()
 	{
-		int sumOfCards = 0;
+		int sumOfCards = 1;
 		for(Card card : cards)
-		{
-			sumOfCards += card.hashCode();
-		}
+			sumOfCards += sumOfCards*11 + card.hashCode();
 		return sumOfCards;
 	}
 	
