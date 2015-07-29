@@ -1,7 +1,5 @@
 package texasholdem;
 
-import java.util.ArrayList;
-
 import cards.Card;
 import cards.Colour;
 import cards.Hand;
@@ -56,46 +54,14 @@ public enum CardCombination
 
 	private static boolean hasStraightFlush(final Hand hand)
 	{
-		hand.sort();
-		int counter = 0;
-		int previousCard = 0;
-		Colour previousColour = null;
-		for(Card card : hand.copyOfAllCards())
-		{
-			if(previousCard == 0 || ((card.getRank().getValue() - previousCard) <= 1 && previousColour == card
-					.getColour()))
-				counter++;
-			else
-				counter = 0;
-			if(counter == 5)
-				return true;
-			previousCard = card.getRank().getValue();
-			previousColour = card.getColour();
-		}
-		return false;
+		return hasStraight(hand) && hasFlush(hand);
 	}
 
 	private static boolean hasFourOfAKind(Hand hand)
 	{
-		ArrayList<Card> tempCards = new ArrayList<Card>();
 		for(Card card : hand.copyOfAllCards())
-		{
 			if(hand.getNumberOfRank(card.getRank()) == 4)
-			{
-				for(Card innerCard : hand.copyOfAllCards())
-				{
-					if(innerCard.getRank() == card.getRank())
-					{
-						tempCards.add(innerCard);
-					}
-
-				}
-				hand.newHand(tempCards);
 				return true;
-
-			}
-
-		}
 		return false;
 	}
 
@@ -106,7 +72,7 @@ public enum CardCombination
 		return false;
 	}
 
-	private boolean hasFlush(Hand hand)
+	private static boolean hasFlush(Hand hand)
 	{
 		for(Colour colour : Colour.values())
 			if(hand.getNumberOfColour(colour) == 5)
@@ -117,36 +83,27 @@ public enum CardCombination
 	private static boolean hasStraight(Hand hand)
 	{
 		hand.sort();
-		int counter = 0;
-		int previousCard = 0;
-		for(Card card : hand.copyOfAllCards())
+		int straightCards = 0;
+		Card previousCard = null;
+		for(Card currentCard : hand.copyOfAllCards())
 		{
-			if(card.getRank().getValue() == 14)
+			if(previousCard != null)
 			{
-				counter = 1;
-				previousCard = 1;
+				if(isAdjacentCardsByRank(previousCard, currentCard))
+					straightCards++;
+				else if(previousCard.getRank() != currentCard.getRank())
+					straightCards = 0;
+				if(straightCards == 4)
+					return true;
 			}
-		}
-		for(Card card : hand.copyOfAllCards())
-		{
-			if(previousCard == 0 || (card.getRank().getValue() - previousCard) <= 1)
-			{
-				if(previousCard == 0 || (card.getRank().getValue() - previousCard) == 1)
-				{
-					counter++;
-				}
-			}
-			else
-			{
-				counter = 0;
-			}
-			if(counter == 5)
-			{
-				return true;
-			}
-			previousCard = card.getRank().getValue();
+			previousCard = currentCard;
 		}
 		return false;
+	}
+	
+	private static boolean isAdjacentCardsByRank(Card card1, Card card2)
+	{
+		return card1.getRank().getValue() - card2.getRank().getValue() == -1;
 	}
 
 	private static boolean hasThreeOfAKind(Hand hand)
@@ -160,11 +117,10 @@ public enum CardCombination
 	private static boolean hasTwoPair(Hand hand)
 	{
 		int counter = 0;
-		for(Card card : hand.copyOfAllCards())
-			if(hand.getNumberOfRank(card.getRank()) == 2)
+		for(Rank rank : Rank.values())
+			if(hand.getNumberOfRank(rank) == 2)
 				counter++;
-
-		return counter >= 4;
+		return counter == 2;
 	}
 
 	private static boolean hasPair(Hand hand)
