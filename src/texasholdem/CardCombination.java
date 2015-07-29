@@ -108,18 +108,14 @@ public enum CardCombination
 
 	private boolean hasFlush(Hand hand)
 	{
-		for(Card card : hand.copyOfAllCards())
-		{
-			if(hand.getNumberOfColour(card.getColour()) == 5)
+		for(Colour colour : Colour.values())
+			if(hand.getNumberOfColour(colour) == 5)
 				return true;
-
-		}
 		return false;
 	}
 
 	private static boolean hasStraight(Hand hand)
 	{
-		ArrayList<Card> tempCards = new ArrayList<Card>();
 		hand.sort();
 		int counter = 0;
 		int previousCard = 0;
@@ -139,16 +135,13 @@ public enum CardCombination
 				{
 					counter++;
 				}
-				tempCards.add(card);
 			}
 			else
 			{
 				counter = 0;
-				tempCards.clear();
 			}
 			if(counter == 5)
 			{
-				hand.newHand(tempCards);
 				return true;
 			}
 			previousCard = card.getRank().getValue();
@@ -158,25 +151,9 @@ public enum CardCombination
 
 	private static boolean hasThreeOfAKind(Hand hand)
 	{
-		ArrayList<Card> tempCards = new ArrayList<Card>();
 		for(Card card : hand.copyOfAllCards())
-		{
 			if(hand.getNumberOfRank(card.getRank()) == 3)
-			{
-				for(Card innerCard : hand.copyOfAllCards())
-				{
-					if(innerCard.getRank() == card.getRank())
-					{
-						tempCards.add(innerCard);
-					}
-
-				}
-				hand.newHand(tempCards);
 				return true;
-
-			}
-
-		}
 		return false;
 	}
 
