@@ -1,5 +1,6 @@
 package texasholdem;
 
+import cards.AceFirst;
 import cards.Card;
 import cards.Colour;
 import cards.Hand;
@@ -83,6 +84,14 @@ public enum CardCombination
 	private static boolean hasStraight(Hand hand)
 	{
 		hand.sort();
+		if(containsStraight(hand))
+			return true;
+		hand.sort(new AceFirst());
+		return containsStraight(hand);
+	}
+	
+	private static boolean containsStraight(Hand hand)
+	{
 		int straightCards = 0;
 		Card previousCard = null;
 		for(Card currentCard : hand.copyOfAllCards())
@@ -101,9 +110,12 @@ public enum CardCombination
 		return false;
 	}
 	
+	
 	private static boolean isAdjacentCardsByRank(Card card1, Card card2)
 	{
-		return card1.getRank().getValue() - card2.getRank().getValue() == -1;
+		final boolean adjacent = card1.getRank().getValue() - card2.getRank().getValue() == -1;
+		final boolean aceAndTwo = card1.getRank() == Rank.ACE && card2.getRank() == Rank.TWO;
+		return adjacent || aceAndTwo;
 	}
 
 	private static boolean hasThreeOfAKind(Hand hand)

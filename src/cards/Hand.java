@@ -3,6 +3,7 @@ package cards;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public final class Hand
@@ -70,6 +71,11 @@ public final class Hand
 	public void sort()
 	{
 		Collections.sort(cards);
+	}
+	
+	public void sort(Comparator<Card> comparator)
+	{
+		Collections.sort(cards, comparator);
 	}
 	
 	public int getNumberOfCards()
