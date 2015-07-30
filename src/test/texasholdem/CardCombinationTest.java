@@ -2,6 +2,9 @@ package test.texasholdem;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -171,6 +174,23 @@ public class CardCombinationTest
 	}
 	
 	@Test
+	public void testStraightWithThreeLeadingAce()
+	{
+		final Card aceOfSpades = new Card(Colour.SPADES, Rank.ACE);
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfHearts = new Card(Colour.HEARTS, Rank.THREE);
+		final Card fourOfSpades = new Card(Colour.SPADES, Rank.FOUR);
+		final Card fiveOfHearts = new Card(Colour.HEARTS, Rank.FIVE);
+		
+		final Card aceOfClubs = new Card(Colour.CLUBS, Rank.ACE);
+		final Card aceOfDiamonds = new Card(Colour.DIAMONDS, Rank.ACE);
+		
+		final Hand hand = new Hand(twoOfSpades, aceOfSpades, threeOfHearts, fourOfSpades, fiveOfHearts, aceOfDiamonds, aceOfClubs);
+		
+		assertTrue(CardCombination.STRAIGHT.inHand(hand));
+	}
+	
+	@Test
 	public void testStraightWithEndingAce()
 	{
 		final Card tenOfSpades = new Card(Colour.SPADES, Rank.TEN);
@@ -333,6 +353,27 @@ public class CardCombinationTest
 		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, fiveOfSpades, nineOfDiamonds, queenOfClubs);
 		
 		assertFalse(CardCombination.STRAIGHT_FLUSH.inHand(hand));
+	}
+	
+	@Test
+	public void testGetCardsForPair()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfDiamonds = new Card(Colour.DIAMONDS, Rank.FOUR);
+		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
+		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
+		final Card fourOfClubs = new Card(Colour.CLUBS, Rank.FOUR);
+
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, fiveOfSpades, nineOfDiamonds, fourOfClubs);
+		
+		List<Card> cards = CardCombination.PAIR.getCards(hand);
+		List<Card> expected = new ArrayList<Card>(2);
+		expected.add(fourOfDiamonds);
+		expected.add(fourOfClubs);
+		
+		assertEquals(expected, cards);
 	}
 
 

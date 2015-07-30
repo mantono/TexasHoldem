@@ -1,5 +1,6 @@
 package texasholdem;
 
+import java.util.Collections;
 import java.util.List;
 
 import cards.Card;
@@ -11,7 +12,7 @@ public class TexasRules implements Rules
 {
 
 	@Override
-	public Hand declareWinner(List<Hand> hands)
+	public List<Hand> declareWinner(List<Hand> hands)
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -38,36 +39,62 @@ public class TexasRules implements Rules
 	@Override
 	public int compare(Hand hand1, Hand hand2)
 	{
-		Hand hand1local = new Hand(hand1.copyOfAllCards());
-		Hand hand2local = new Hand(hand2.copyOfAllCards());
-		int bestCombinationHand1 = 0;
-		int bestCombinationHand2 = 0;
-		for(CardCombination combination : CardCombination.values()){
-			if(combination.inHand(hand1local) && bestCombinationHand1 == 0)
-				bestCombinationHand1 = combination.getValue();
-			if(combination.inHand(hand2local) && bestCombinationHand2 == 0)
-				bestCombinationHand2 = combination.getValue();
+		assert hand1.getNumberOfCards() == hand2.getNumberOfCards();
+		for(CardCombination combination : CardCombination.values())
+		{
+			final boolean hand1HasCombination = combination.inHand(hand1);
+			final boolean hand2HasCombination = combination.inHand(hand2);
+			if(hand1HasCombination && !hand2HasCombination)
+				return 1;
+			else if(!hand1HasCombination && hand2HasCombination)
+				return -1;
+			else if(hand1HasCombination && hand2HasCombination && combinationUsesFiveCards(combination))
+				return comapareHighestCardInCombination(combination, hand1, hand2);
+			else if(hand1HasCombination && hand2HasCombination && !combinationUsesFiveCards(combination))
+				return compareKicker(hand1, hand2);
 		}
-		boolean tieOnCombination = bestCombinationHand1 == bestCombinationHand2 && bestCombinationHand1 > 14;
-		if(tieOnCombination){
-			bestCombinationHand1 = bestCombinationHand2 = 0; //Vi måste bara ta bort alla kort förutom de som ingår i den bästa kombinationen så fungerar detta! 
-		}
-		if(bestCombinationHand1 == 0)
-			bestCombinationHand1 = getHighestCard(hand1local);
-		if(bestCombinationHand2 == 0)
-			bestCombinationHand2 = getHighestCard(hand2local);
-		return bestCombinationHand1 - bestCombinationHand2;
+		return compareKicker(hand1, hand2);
 	}
 
-	private int getHighestCard(Hand hand) {
-		if(hand.getNumberOfCards() == 0)
-			return 0;
-		Rank bestRankOnHand = Rank.TWO;
-		for(Card card : hand.copyOfAllCards()) {
-			if(card.getRank().getValue() > bestRankOnHand.getValue())
-				bestRankOnHand = card.getRank();
+	private int comapareHighestCardInCombination(CardCombination combination, Hand hand1, Hand hand2)
+	{
+		Hand hand1WithCombinationCardsOnly = new Hand(combination.getCards(hand1));
+		Hand hand2WithCombinationCardsOnly = new Hand(combination.getCards(hand2));
+		hand1WithCombinationCardsOnly.sort();
+		hand2WithCombinationCardsOnly.sort();
+		
+		final int lastCard = hand1WithCombinationCardsOnly.getNumberOfCards() - 1;
+		final Card highestCardHand1 = hand1WithCombinationCardsOnly.dropCard(lastCard);
+		final Card highestCardHand2 = hand2WithCombinationCardsOnly.dropCard(lastCard);
+		
+		return highestCardHand1.compareTo(highestCardHand2);
+	}
 
+	private int compareKicker(Hand hand1, Hand hand2)
+	{
+		List<Card> cardsHand1 = sortAndReverse(hand1);
+		List<Card> cardsHand2 = sortAndReverse(hand2);
+		
+		for(int i = 0; i < cardsHand1.size(); i++)
+		{
+			Card cardInHand1 = cardsHand1.get(i);
+			Card cardInHand2 = cardsHand2.get(i);
+			if(cardInHand1.getRank() != cardInHand2.getRank())
+				return cardInHand1.compareTo(cardInHand2);
 		}
-		return bestRankOnHand.getValue();
+		return 0;
+	}
+	
+	private List<Card> sortAndReverse(Hand hand)
+	{
+		List<Card> cards = hand.copyOfAllCards();
+		Collections.sort(cards);
+		Collections.reverse(cards);
+		return cards;
+	}
+
+	private boolean combinationUsesFiveCards(CardCombination combination)
+	{
+		return combination == CardCombination.STRAIGHT_FLUSH || combination == CardCombination.STRAIGHT || combination == CardCombination.FLUSH || combination == CardCombination.FULL_HOUSE;
 	}
 }

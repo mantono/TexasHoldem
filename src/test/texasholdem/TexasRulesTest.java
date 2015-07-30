@@ -1,6 +1,9 @@
 package test.texasholdem;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -14,41 +17,30 @@ import cards.Rank;
 
 public class TexasRulesTest
 {
-	private Hand pairOfAcesHand, pairOfTwosHand, emptyHand;
-	private Card flop1, flop2, flop3, turn, river;
-	private TexasRules rules = new TexasRules();
-
-	@Before
-	public void setup() throws Exception
-	{
-		flop1 = new Card(Colour.CLUBS, Rank.TWO);
-		flop2 = new Card(Colour.DIAMONDS, Rank.SEVEN);
-		flop3 = new Card(Colour.CLUBS, Rank.NINE);
-		turn = new Card(Colour.CLUBS, Rank.JACK);
-		river = new Card(Colour.HEARTS, Rank.SIX);
-		
-		Card card1 = new Card(Colour.HEARTS, Rank.TWO);
-		Card card2 = new Card(Colour.SPADES, Rank.THREE);
-		
-		Card card3 = new Card(Colour.DIAMONDS, Rank.ACE);
-		Card card4 = new Card(Colour.CLUBS, Rank.ACE);
-				
-		pairOfTwosHand = new Hand(card1, card2);
-		pairOfTwosHand.addToHand(flop1, flop2, flop3, turn, river);
-		pairOfAcesHand = new Hand(card3, card4);
-		pairOfAcesHand.addToHand(flop1, flop2, flop3, turn, river);
-		
-		emptyHand = new Hand();
-	}
+	private final TexasRules rules = new TexasRules();
 
 	@Test
 	public void testHasStraight()
 	{
-		Hand straightHand = new Hand(new Card(Colour.DIAMONDS, Rank.TEN),new Card(Colour.DIAMONDS, Rank.EIGHT));
-		straightHand.addToHand(flop1,flop2,flop3,turn,river); //Hela handen: 2, 6, (7, 8, 9, 10, J)
-		//andra handen: (2, 2), 3, 6, 7, 9, 11
-		assertEquals(3, rules.compare(straightHand, pairOfTwosHand)); //straight(18) - par(15) = 3 
-		// detta ska bli 3 då straighthand har straight(18) och badHand har pair(15)
+		Card flop1 = new Card(Colour.CLUBS, Rank.TWO);
+		Card flop2 = new Card(Colour.DIAMONDS, Rank.SEVEN);
+		Card flop3 = new Card(Colour.CLUBS, Rank.NINE);
+		Card turn = new Card(Colour.CLUBS, Rank.JACK);
+		Card river = new Card(Colour.HEARTS, Rank.SIX);
+				
+		Card card1 = new Card(Colour.HEARTS, Rank.TWO);
+		Card card2 = new Card(Colour.SPADES, Rank.THREE);
+		
+		Card card3 = new Card(Colour.DIAMONDS, Rank.TEN);
+		Card card4 = new Card(Colour.DIAMONDS, Rank.EIGHT);
+		
+		Hand straightHand = new Hand(card3, card4);
+		straightHand.addToHand(flop1,flop2,flop3,turn,river);
+		
+		Hand pairOfTwosHand = new Hand(card1, card2);
+		pairOfTwosHand.addToHand(flop1,flop2,flop3,turn,river);
+		
+		assertEquals(1, rules.compare(straightHand, pairOfTwosHand));
 	}
 	
 	
@@ -67,25 +59,26 @@ public class TexasRulesTest
 		Hand straightFlushHand = new Hand(card1, card2, card3, card4, card5, card6, card7);
 		Hand emptyHand = new Hand();
 		
-		assertEquals(22, rules.compare(straightFlushHand, emptyHand));
+		assertEquals(1, rules.compare(straightFlushHand, emptyHand));
 	}
 	
 	@Test
-	public void testTieOnFourOfAKind()
+	public void testTwoHandsWithFourOfAKind()
 	{
-		Card card1 = new Card(Colour.SPADES, Rank.TWO);
-		Card card2 = new Card(Colour.HEARTS, Rank.TWO);
+		Card flop1 = new Card(Colour.SPADES, Rank.TWO);
+		Card flop2 = new Card(Colour.HEARTS, Rank.TWO);
+		Card flop3 = new Card(Colour.SPADES, Rank.THREE);
+		Card turn = new Card(Colour.HEARTS, Rank.THREE);
+		Card river = new Card(Colour.DIAMONDS, Rank.KING);
+		
+		Card card1 = new Card(Colour.CLUBS, Rank.THREE);
+		Card card2 = new Card(Colour.DIAMONDS, Rank.THREE);
+		
 		Card card3 = new Card(Colour.CLUBS, Rank.TWO);
 		Card card4 = new Card(Colour.DIAMONDS, Rank.TWO);
-		Card card5 = new Card(Colour.SPADES, Rank.THREE);
-		Card card6 = new Card(Colour.HEARTS, Rank.THREE);
-		Card card7 = new Card(Colour.CLUBS, Rank.THREE);
-		Card card8 = new Card(Colour.DIAMONDS, Rank.THREE);
-		Card card9 = new Card(Colour.DIAMONDS, Rank.KING);
 		
-		Hand lowFourOfAKind = new Hand(card1, card2, card3, card4,card9);
-		Hand highFourOfAKind = new Hand(card5,card6,card7,card8);
-		Hand emptyHand = new Hand();
+		Hand lowFourOfAKind = new Hand(flop1, flop2, flop3, turn, river, card3, card4);
+		Hand highFourOfAKind = new Hand(flop1, flop2, flop3, turn, river, card1, card2);
 		
 		assertEquals(1, rules.compare(highFourOfAKind, lowFourOfAKind));
 	}
@@ -93,17 +86,21 @@ public class TexasRulesTest
 	@Test
 	public void testTieOnHasStraight()
 	{
-		Card card1 = new Card(Colour.SPADES, Rank.ACE);
-		Card card2 = new Card(Colour.HEARTS, Rank.TWO);
-		Card card3 = new Card(Colour.CLUBS, Rank.THREE);
-		Card card4 = new Card(Colour.DIAMONDS, Rank.FOUR);
-		Card card5 = new Card(Colour.SPADES, Rank.FIVE);
-		Card card6 = new Card(Colour.HEARTS, Rank.SIX);
+		Card flop1 = new Card(Colour.HEARTS, Rank.TWO);
+		Card flop2 = new Card(Colour.CLUBS, Rank.THREE);
+		Card flop3 = new Card(Colour.DIAMONDS, Rank.KING);
+		Card turn = new Card(Colour.SPADES, Rank.FIVE);
+		Card river = new Card(Colour.HEARTS, Rank.SIX);
+		
+		Card card1 = new Card(Colour.SPADES, Rank.FOUR);
+		Card card2 = new Card(Colour.SPADES, Rank.ACE);
+		
+		Card card3 = new Card(Colour.SPADES, Rank.FOUR);
+		Card card4 = new Card(Colour.SPADES, Rank.SEVEN);
 		
 		
-		Hand lowStraight = new Hand(card1, card2, card3, card4, card5);
-		Hand highStraight = new Hand(card2, card3, card4, card5, card6);
-		Hand emptyHand = new Hand();
+		Hand lowStraight = new Hand(flop1, flop2, flop3, turn, river, card1, card2);
+		Hand highStraight = new Hand(flop1, flop2, flop3, turn, river, card3, card4);
 		
 		assertEquals(1, rules.compare(highStraight, lowStraight));
 	}
@@ -119,7 +116,7 @@ public class TexasRulesTest
 		Hand straightHand = new Hand(card1, card2, card3, card4, card5);
 		Hand emptyHand = new Hand();
 		
-		assertEquals(18, rules.compare(straightHand,emptyHand));
+		assertEquals(1, rules.compare(straightHand,emptyHand));
 	}
 	
 	@Ignore
@@ -127,19 +124,36 @@ public class TexasRulesTest
 	public void testCompareThreeOfAKind()
 	{
 		Hand threeOfAKindHand = new Hand();
-		assertEquals(17, rules.compare(threeOfAKindHand, emptyHand));
+		assertEquals(1, rules.compare(threeOfAKindHand, new Hand()));
 	}
 	
 	@Test
 	public void testCompareTwoPairsOfDifferentRank()
 	{
-		assertEquals(-12, rules.compare(pairOfTwosHand, pairOfAcesHand));
+		Card flop1 = new Card(Colour.CLUBS, Rank.TWO);
+		Card flop2 = new Card(Colour.DIAMONDS, Rank.SEVEN);
+		Card flop3 = new Card(Colour.CLUBS, Rank.NINE);
+		Card turn = new Card(Colour.CLUBS, Rank.JACK);
+		Card river = new Card(Colour.HEARTS, Rank.SIX);
+		
+		Card card1hand1 = new Card(Colour.HEARTS, Rank.TWO);
+		Card card2hand1 = new Card(Colour.SPADES, Rank.THREE);
+		
+		Card card1hand2 = new Card(Colour.DIAMONDS, Rank.ACE);
+		Card card2hand2 = new Card(Colour.CLUBS, Rank.ACE);
+		
+		Hand pairOfTwosHand = new Hand(card1hand1, card2hand1);
+		pairOfTwosHand.addToHand(flop1, flop2, flop3, turn, river);
+		Hand pairOfAcesHand = new Hand(card1hand2, card2hand2);
+		pairOfAcesHand.addToHand(flop1, flop2, flop3, turn, river);
+		
+		assertEquals(-1, rules.compare(pairOfTwosHand, pairOfAcesHand));
 		
 		pairOfTwosHand.newHand(new Card(Colour.SPADES, Rank.TWO), new Card(Colour.DIAMONDS, Rank.ACE));
 		Hand pairOfKingsHand = new Hand(new Card(Colour.CLUBS, Rank.KING), new Card(Colour.DIAMONDS, Rank.KING));
 		pairOfTwosHand.addToHand(flop1, flop2, flop3, turn, river);
 		pairOfKingsHand.addToHand(flop1, flop2, flop3, turn, river);
-		assertEquals(-11, rules.compare(pairOfTwosHand, pairOfKingsHand));
+		assertEquals(-1, rules.compare(pairOfTwosHand, pairOfKingsHand));
 	}
 
 	@Ignore

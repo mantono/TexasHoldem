@@ -1,5 +1,8 @@
 package texasholdem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cards.AceFirst;
 import cards.Card;
 import cards.Colour;
@@ -89,7 +92,7 @@ public enum CardCombination
 		hand.sort(new AceFirst());
 		return containsStraight(hand);
 	}
-	
+
 	private static boolean containsStraight(Hand hand)
 	{
 		int straightCards = 0;
@@ -109,8 +112,7 @@ public enum CardCombination
 		}
 		return false;
 	}
-	
-	
+
 	private static boolean isAdjacentCardsByRank(Card card1, Card card2)
 	{
 		final boolean adjacent = card1.getRank().getValue() - card2.getRank().getValue() == -1;
@@ -143,5 +145,88 @@ public enum CardCombination
 				return true;
 		}
 		return false;
+	}
+
+	public List<Card> getCards(Hand hand)
+	{
+		hand.sort();
+		switch(this)
+		{
+			case PAIR:
+				return getCardsForPair(hand);
+			case TWO_PAIR:
+				return getCardsForTwoPair(hand);
+			case THREE_OF_A_KIND:
+				return getCardsForThreeOfAKind(hand);
+			case STRAIGHT:
+				return getCardsForStraight(hand);
+			case FLUSH:
+				return getCardsForFlush(hand);
+			case FULL_HOUSE:
+				return getCardsForFullHouse(hand);
+			case FOUR_OF_A_KIND:
+				return getCardsForFourOfAKind(hand);
+			case STRAIGHT_FLUSH:
+				return getCardsForStraightFlush(hand);
+			default:
+				return null;
+		}
+	}
+
+	private List<Card> getCardsForStraight(Hand hand)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private List<Card> getCardsForFlush(Hand hand)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private List<Card> getCardsForStraightFlush(Hand hand)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private List<Card> getCardsForFourOfAKind(Hand hand)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private List<Card> getCardsForFullHouse(Hand hand)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private List<Card> getCardsForThreeOfAKind(Hand hand)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private List<Card> getCardsForTwoPair(Hand hand)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private List<Card> getCardsForPair(Hand hand)
+	{
+		List<Card> cards = new ArrayList<Card>(2);
+		for(Card card : hand.copyOfAllCards())
+		{
+			if(hand.getNumberOfRank(card.getRank()) == 2)
+			{
+				if(cards.size() == 2)
+					cards.clear();
+				cards.add(card);
+			}
+		}
+		return cards;
 	}
 }
