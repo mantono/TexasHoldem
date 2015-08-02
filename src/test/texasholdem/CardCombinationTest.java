@@ -21,7 +21,7 @@ public class CardCombinationTest
 	public void setUp() throws Exception
 	{
 	}
-	
+
 	@Test
 	public void testGetValue()
 	{
@@ -43,8 +43,7 @@ public class CardCombinationTest
 		final Card kingOfClubs = new Card(Colour.CLUBS, Rank.KING);
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 
-		final Hand handWithPair = new Hand(twoOfSpades, twoOfHearts, threeOfDiamonds, queenOfClubs, jackOfHearts,
-				kingOfClubs, nineOfDiamonds);
+		final Hand handWithPair = new Hand(twoOfSpades, twoOfHearts, threeOfDiamonds, queenOfClubs, jackOfHearts, kingOfClubs, nineOfDiamonds);
 
 		assertTrue(CardCombination.PAIR.inHand(handWithPair));
 	}
@@ -60,8 +59,7 @@ public class CardCombinationTest
 		final Card kingOfClubs = new Card(Colour.CLUBS, Rank.KING);
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 
-		final Hand hand = new Hand(twoOfSpades, aceOfHearts, threeOfDiamonds, queenOfClubs, jackOfHearts, kingOfClubs,
-				nineOfDiamonds);
+		final Hand hand = new Hand(twoOfSpades, aceOfHearts, threeOfDiamonds, queenOfClubs, jackOfHearts, kingOfClubs, nineOfDiamonds);
 
 		assertFalse(CardCombination.PAIR.inHand(hand));
 	}
@@ -78,8 +76,7 @@ public class CardCombinationTest
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 		final Card aceOfHearts = new Card(Colour.HEARTS, Rank.ACE);
 
-		final Hand hand = new Hand(twoOfSpades, twoOfHearts, fiveOfSpades, fiveOfHearts, threeOfDiamonds, queenOfClubs,
-				aceOfHearts);
+		final Hand hand = new Hand(twoOfSpades, twoOfHearts, fiveOfSpades, fiveOfHearts, threeOfDiamonds, queenOfClubs, aceOfHearts);
 
 		assertTrue(CardCombination.TWO_PAIR.inHand(hand));
 	}
@@ -95,8 +92,7 @@ public class CardCombinationTest
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 		final Card aceOfHearts = new Card(Colour.HEARTS, Rank.ACE);
 
-		final Hand hand = new Hand(twoOfSpades, twoOfHearts, fourOfSpades, fiveOfHearts, threeOfDiamonds, queenOfClubs,
-				aceOfHearts);
+		final Hand hand = new Hand(twoOfSpades, twoOfHearts, fourOfSpades, fiveOfHearts, threeOfDiamonds, queenOfClubs, aceOfHearts);
 
 		assertFalse(CardCombination.TWO_PAIR.inHand(hand));
 	}
@@ -113,8 +109,7 @@ public class CardCombinationTest
 		final Card threeOfDiamonds = new Card(Colour.DIAMONDS, Rank.THREE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfHearts, eightOfClubs, eightOfHearts, eightOfDiamonds, eightOfSpades,
-				threeOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfHearts, eightOfClubs, eightOfHearts, eightOfDiamonds, eightOfSpades, threeOfDiamonds, queenOfClubs);
 
 		assertFalse(CardCombination.TWO_PAIR.inHand(hand));
 	}
@@ -131,8 +126,7 @@ public class CardCombinationTest
 		final Card threeOfDiamonds = new Card(Colour.DIAMONDS, Rank.THREE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfSpades, fiveOfClubs, twoOfHearts, fiveOfSpades, fiveOfHearts, threeOfDiamonds,
-				queenOfClubs);
+		final Hand hand = new Hand(twoOfSpades, fiveOfClubs, twoOfHearts, fiveOfSpades, fiveOfHearts, threeOfDiamonds, queenOfClubs);
 
 		assertTrue(CardCombination.THREE_OF_A_KIND.inHand(hand));
 	}
@@ -148,8 +142,7 @@ public class CardCombinationTest
 		final Card threeOfDiamonds = new Card(Colour.DIAMONDS, Rank.THREE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfSpades, twoOfHearts, fiveOfSpades, fiveOfHearts, sixOfClubs, threeOfDiamonds,
-				queenOfClubs);
+		final Hand hand = new Hand(twoOfSpades, twoOfHearts, fiveOfSpades, fiveOfHearts, sixOfClubs, threeOfDiamonds, queenOfClubs);
 
 		assertFalse(CardCombination.THREE_OF_A_KIND.inHand(hand));
 	}
@@ -166,8 +159,7 @@ public class CardCombinationTest
 		final Card threeOfDiamonds = new Card(Colour.DIAMONDS, Rank.THREE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfSpades, sixOfClubs, threeOfHearts, fourOfSpades, fiveOfHearts, threeOfDiamonds,
-				queenOfClubs);
+		final Hand hand = new Hand(twoOfSpades, sixOfClubs, threeOfHearts, fourOfSpades, fiveOfHearts, threeOfDiamonds, queenOfClubs);
 
 		assertTrue(CardCombination.STRAIGHT.inHand(hand));
 	}
@@ -184,8 +176,7 @@ public class CardCombinationTest
 		final Card threeOfDiamonds = new Card(Colour.DIAMONDS, Rank.THREE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfSpades, aceOfSpades, threeOfHearts, fourOfSpades, fiveOfHearts,
-				threeOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfSpades, aceOfSpades, threeOfHearts, fourOfSpades, fiveOfHearts, threeOfDiamonds, queenOfClubs);
 
 		assertTrue(CardCombination.STRAIGHT.inHand(hand));
 	}
@@ -202,8 +193,7 @@ public class CardCombinationTest
 		final Card aceOfClubs = new Card(Colour.CLUBS, Rank.ACE);
 		final Card aceOfDiamonds = new Card(Colour.DIAMONDS, Rank.ACE);
 
-		final Hand hand = new Hand(twoOfSpades, aceOfSpades, threeOfHearts, fourOfSpades, fiveOfHearts, aceOfDiamonds,
-				aceOfClubs);
+		final Hand hand = new Hand(twoOfSpades, aceOfSpades, threeOfHearts, fourOfSpades, fiveOfHearts, aceOfDiamonds, aceOfClubs);
 
 		assertTrue(CardCombination.STRAIGHT.inHand(hand));
 	}
@@ -220,8 +210,7 @@ public class CardCombinationTest
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(tenOfSpades, aceOfSpades, queenOfSpades, kingOfHearts, jackOfHearts, nineOfDiamonds,
-				queenOfClubs);
+		final Hand hand = new Hand(tenOfSpades, aceOfSpades, queenOfSpades, kingOfHearts, jackOfHearts, nineOfDiamonds, queenOfClubs);
 
 		assertTrue(hand.toString(), CardCombination.STRAIGHT.inHand(hand));
 	}
@@ -237,8 +226,7 @@ public class CardCombinationTest
 		final Card threeOfDiamonds = new Card(Colour.DIAMONDS, Rank.THREE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfSpades, svenOfClubs, threeOfHearts, fourOfSpades, fiveOfHearts,
-				threeOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfSpades, svenOfClubs, threeOfHearts, fourOfSpades, fiveOfHearts, threeOfDiamonds, queenOfClubs);
 
 		assertFalse(CardCombination.STRAIGHT.inHand(hand));
 	}
@@ -255,8 +243,7 @@ public class CardCombinationTest
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfHearts, threeOfHearts, fourOfHearts, fiveOfHearts, eightOfHearts,
-				nineOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfHearts, threeOfHearts, fourOfHearts, fiveOfHearts, eightOfHearts, nineOfDiamonds, queenOfClubs);
 
 		assertTrue(CardCombination.FLUSH.inHand(hand));
 	}
@@ -272,8 +259,7 @@ public class CardCombinationTest
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfHearts, threeOfHearts, fourOfDiamonds, fiveOfHearts, eightOfHearts,
-				nineOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfHearts, threeOfHearts, fourOfDiamonds, fiveOfHearts, eightOfHearts, nineOfDiamonds, queenOfClubs);
 
 		assertFalse(CardCombination.FLUSH.inHand(hand));
 	}
@@ -290,8 +276,7 @@ public class CardCombinationTest
 		final Card fourOfDiamonds = new Card(Colour.DIAMONDS, Rank.FOUR);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfHearts, twoOfClubs, eightOfHearts, eightOfDiamonds, eightOfSpades,
-				fourOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfHearts, twoOfClubs, eightOfHearts, eightOfDiamonds, eightOfSpades, fourOfDiamonds, queenOfClubs);
 
 		assertTrue(CardCombination.FULL_HOUSE.inHand(hand));
 	}
@@ -307,8 +292,7 @@ public class CardCombinationTest
 		final Card fourOfDiamonds = new Card(Colour.DIAMONDS, Rank.FOUR);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfHearts, twoOfClubs, eightOfHearts, sevenOfDiamonds, eightOfSpades,
-				fourOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfHearts, twoOfClubs, eightOfHearts, sevenOfDiamonds, eightOfSpades, fourOfDiamonds, queenOfClubs);
 
 		assertFalse(CardCombination.FULL_HOUSE.inHand(hand));
 	}
@@ -325,8 +309,7 @@ public class CardCombinationTest
 		final Card fourOfDiamonds = new Card(Colour.DIAMONDS, Rank.FOUR);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfHearts, eightOfClubs, eightOfHearts, eightOfDiamonds, eightOfSpades,
-				fourOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfHearts, eightOfClubs, eightOfHearts, eightOfDiamonds, eightOfSpades, fourOfDiamonds, queenOfClubs);
 
 		assertTrue(CardCombination.FOUR_OF_A_KIND.inHand(hand));
 	}
@@ -342,8 +325,7 @@ public class CardCombinationTest
 		final Card fourOfDiamonds = new Card(Colour.DIAMONDS, Rank.FOUR);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfHearts, twoOfClubs, eightOfHearts, eightOfDiamonds, eightOfSpades,
-				fourOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfHearts, twoOfClubs, eightOfHearts, eightOfDiamonds, eightOfSpades, fourOfDiamonds, queenOfClubs);
 
 		assertFalse(CardCombination.FOUR_OF_A_KIND.inHand(hand));
 	}
@@ -360,8 +342,7 @@ public class CardCombinationTest
 		final Card fourOfDiamonds = new Card(Colour.DIAMONDS, Rank.FOUR);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfSpades, fiveOfSpades, fourOfDiamonds,
-				queenOfClubs);
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfSpades, fiveOfSpades, fourOfDiamonds, queenOfClubs);
 
 		assertTrue(CardCombination.STRAIGHT_FLUSH.inHand(hand));
 	}
@@ -377,8 +358,7 @@ public class CardCombinationTest
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
 
-		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, fiveOfSpades,
-				nineOfDiamonds, queenOfClubs);
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, fiveOfSpades, nineOfDiamonds, queenOfClubs);
 
 		assertFalse(CardCombination.STRAIGHT_FLUSH.inHand(hand));
 	}
@@ -394,8 +374,7 @@ public class CardCombinationTest
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card fourOfClubs = new Card(Colour.CLUBS, Rank.FOUR);
 
-		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, fiveOfSpades,
-				nineOfDiamonds, fourOfClubs);
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, fiveOfSpades, nineOfDiamonds, fourOfClubs);
 
 		Set<Card> cards = CardCombination.PAIR.getCards(hand);
 		Set<Card> expected = new HashSet<Card>(2);
@@ -404,7 +383,7 @@ public class CardCombinationTest
 
 		assertEquals(expected, cards);
 	}
-	
+
 	@Test
 	public void testGetCardsForHighestPair()
 	{
@@ -416,8 +395,7 @@ public class CardCombinationTest
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card fourOfClubs = new Card(Colour.CLUBS, Rank.FOUR);
 
-		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, sixOfClubs,
-				nineOfDiamonds, fourOfClubs);
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, sixOfClubs, nineOfDiamonds, fourOfClubs);
 
 		Set<Card> cards = CardCombination.PAIR.getCards(hand);
 		Set<Card> expected = new HashSet<Card>(2);
@@ -438,14 +416,13 @@ public class CardCombinationTest
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card kingOfClubs = new Card(Colour.CLUBS, Rank.KING);
 
-		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, fiveOfSpades,
-				nineOfDiamonds, kingOfClubs);
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, fiveOfSpades, nineOfDiamonds, kingOfClubs);
 
 		Set<Card> cards = CardCombination.PAIR.getCards(hand);
 
 		assertTrue(cards.size() == 0);
 	}
-	
+
 	@Test
 	public void testGetCardsForTwoPair()
 	{
@@ -457,8 +434,7 @@ public class CardCombinationTest
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card fourOfClubs = new Card(Colour.CLUBS, Rank.FOUR);
 
-		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, sixOfClubs,
-				nineOfDiamonds, fourOfClubs);
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, sixOfClubs, nineOfDiamonds, fourOfClubs);
 
 		Set<Card> cards = CardCombination.TWO_PAIR.getCards(hand);
 		Set<Card> expected = new HashSet<Card>(2);
@@ -469,7 +445,7 @@ public class CardCombinationTest
 
 		assertEquals(expected, cards);
 	}
-	
+
 	@Test
 	public void testGetCardsForHighestTwoPair()
 	{
@@ -481,8 +457,7 @@ public class CardCombinationTest
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card fourOfClubs = new Card(Colour.CLUBS, Rank.FOUR);
 
-		final Hand hand = new Hand(twoOfSpades, sixOfSpades, nineOfSpades, fourOfDiamonds, sixOfClubs,
-				nineOfDiamonds, fourOfClubs);
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, nineOfSpades, fourOfDiamonds, sixOfClubs, nineOfDiamonds, fourOfClubs);
 
 		Set<Card> cards = CardCombination.TWO_PAIR.getCards(hand);
 		Set<Card> expected = new HashSet<Card>(2);
