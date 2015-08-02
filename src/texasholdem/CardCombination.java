@@ -1,7 +1,9 @@
 package texasholdem;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import cards.AceFirst;
 import cards.Card;
@@ -147,7 +149,7 @@ public enum CardCombination
 		return false;
 	}
 
-	public List<Card> getCards(Hand hand)
+	public Set<Card> getCards(Hand hand)
 	{
 		hand.sort();
 		switch(this)
@@ -173,51 +175,72 @@ public enum CardCombination
 		}
 	}
 
-	private List<Card> getCardsForStraight(Hand hand)
+	private Set<Card> getCardsForStraight(Hand hand)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private List<Card> getCardsForFlush(Hand hand)
+	private Set<Card> getCardsForFlush(Hand hand)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private List<Card> getCardsForStraightFlush(Hand hand)
+	private Set<Card> getCardsForStraightFlush(Hand hand)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private List<Card> getCardsForFourOfAKind(Hand hand)
+	private Set<Card> getCardsForFourOfAKind(Hand hand)
+	{
+		Set<Card> cards = new HashSet<Card>(4);
+		for(Card card : hand.copyOfAllCards())
+			if(hand.getNumberOfRank(card.getRank()) == 4)
+				cards.add(card);
+		return cards;
+	}
+
+	private Set<Card> getCardsForFullHouse(Hand hand)
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private List<Card> getCardsForFullHouse(Hand hand)
+	private Set<Card> getCardsForThreeOfAKind(Hand hand)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Set<Card> cards = new HashSet<Card>(3);
+		for(Card card : hand.copyOfAllCards())
+		{
+			if(hand.getNumberOfRank(card.getRank()) == 3)
+			{
+				if(cards.size() == 3)
+					cards.clear();
+				cards.add(card);
+			}
+		}
+		return cards;
 	}
 
-	private List<Card> getCardsForThreeOfAKind(Hand hand)
+	private Set<Card> getCardsForTwoPair(Hand hand)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		List<Card> cards = new LinkedList<Card>();
+		for(Card card : hand.copyOfAllCards())
+		{
+			if(hand.getNumberOfRank(card.getRank()) == 2)
+			{
+				if(cards.size() == 4)
+					cards.remove(0);
+				cards.add(card);
+			}
+		}
+		return new HashSet<Card>(cards);
 	}
 
-	private List<Card> getCardsForTwoPair(Hand hand)
+	private Set<Card> getCardsForPair(Hand hand)
 	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private List<Card> getCardsForPair(Hand hand)
-	{
-		List<Card> cards = new ArrayList<Card>(2);
+		Set<Card> cards = new HashSet<Card>(2);
 		for(Card card : hand.copyOfAllCards())
 		{
 			if(hand.getNumberOfRank(card.getRank()) == 2)

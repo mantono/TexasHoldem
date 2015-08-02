@@ -1,6 +1,7 @@
 package texasholdem;
 
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 
 import cards.Card;
@@ -10,6 +11,7 @@ import cards.Rules;
 
 public class TexasRules implements Rules
 {
+	private final static EnumSet<CardCombination> fiveCardCombinations = EnumSet.of(CardCombination.STRAIGHT_FLUSH, CardCombination.STRAIGHT, CardCombination.FLUSH, CardCombination.FULL_HOUSE);
 
 	@Override
 	public List<Hand> declareWinner(List<Hand> hands)
@@ -84,7 +86,7 @@ public class TexasRules implements Rules
 		}
 		return 0;
 	}
-	
+
 	private List<Card> sortAndReverse(Hand hand)
 	{
 		List<Card> cards = hand.copyOfAllCards();
@@ -95,6 +97,6 @@ public class TexasRules implements Rules
 
 	private boolean combinationUsesFiveCards(CardCombination combination)
 	{
-		return combination == CardCombination.STRAIGHT_FLUSH || combination == CardCombination.STRAIGHT || combination == CardCombination.FLUSH || combination == CardCombination.FULL_HOUSE;
+		return fiveCardCombinations.contains(combination);
 	}
 }

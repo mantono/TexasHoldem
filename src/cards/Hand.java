@@ -2,6 +2,7 @@ package cards;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -10,7 +11,7 @@ public final class Hand
 {
 	private final List<Card> cards = new ArrayList<Card>();
 
-	public Hand(List<Card> cards)
+	public Hand(Collection<Card> cards)
 	{
 		this.cards.addAll(cards);
 	}
@@ -32,7 +33,7 @@ public final class Hand
 		addToHand(Arrays.asList(newCards));
 	}
 	
-	public void newHand(List<Card> newCards)
+	public void newHand(Collection<Card> newCards)
 	{
 		cards.clear();
 		cards.addAll(newCards);
@@ -43,7 +44,7 @@ public final class Hand
 		cards.addAll(Arrays.asList(newCards));
 	}
 	
-	public void addToHand(List<Card> newCards)
+	public void addToHand(Collection<Card> newCards)
 	{
 		cards.addAll(newCards);
 	}
