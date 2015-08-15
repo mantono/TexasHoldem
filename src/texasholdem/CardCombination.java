@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import cards.AceFirst;
 import cards.Card;
@@ -177,8 +179,26 @@ public enum CardCombination
 
 	private Set<Card> getCardsForStraight(Hand hand)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		SortedSet<Card> foundCards = new TreeSet<Card>();
+		Card previousCard = null;
+		for(Card card : hand.copyOfAllCards())
+		{
+			if(previousCard == null || isAdjacentCardsByRank(previousCard, card))
+			{
+				previousCard = card;
+				foundCards.add(card);
+			}
+			else if(foundCards.size() == 5)
+				return foundCards;
+			else
+				foundCards.clear();
+		}
+		if(foundCards.size() < 5)
+			foundCards.clear();
+		while(foundCards.size() > 5)
+			foundCards.remove(foundCards.first());
+			
+		return foundCards;
 	}
 
 	private Set<Card> getCardsForFlush(Hand hand)
@@ -204,8 +224,11 @@ public enum CardCombination
 
 	private Set<Card> getCardsForFullHouse(Hand hand)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Set<Card> cards = CardCombination.PAIR.getCards(hand);
+		cards.addAll(CardCombination.THREE_OF_A_KIND.getCardsForThreeOfAKind(hand));
+		if(cards.size() != 5)
+			cards.clear();
+		return cards;
 	}
 
 	private Set<Card> getCardsForThreeOfAKind(Hand hand)
