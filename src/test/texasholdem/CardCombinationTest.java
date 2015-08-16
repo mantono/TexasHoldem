@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Set;
 import java.util.HashSet;
 
+import javax.xml.ws.ServiceMode;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -492,6 +494,28 @@ public class CardCombinationTest
 	}
 	
 	@Test
+	public void testGetHigherCardsFromTwoSetsOfThreeOfAkind()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card twoOfHearts = new Card(Colour.HEARTS, Rank.TWO);
+		final Card twoOfDiamonds = new Card(Colour.DIAMONDS, Rank.TWO);
+		final Card sixOfClubs = new Card(Colour.CLUBS, Rank.SIX);
+		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card sixOfDiamonds = new Card(Colour.DIAMONDS, Rank.SIX);
+		final Card fourOfClubs = new Card(Colour.CLUBS, Rank.FOUR);
+		
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, twoOfHearts, twoOfDiamonds, sixOfClubs, sixOfDiamonds, fourOfClubs);
+		
+		Set<Card> cards = CardCombination.THREE_OF_A_KIND.getCards(hand);
+		Set<Card> expected = new HashSet<Card>(3);
+		expected.add(sixOfSpades);
+		expected.add(sixOfClubs);
+		expected.add(sixOfDiamonds);
+		
+		assertEquals(expected, cards);
+	}
+	
+	@Test
 	public void testGetCardsForNoThreeOfAkind()
 	{
 		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
@@ -649,6 +673,110 @@ public class CardCombinationTest
 		final Hand hand = new Hand(twoOfSpades, eightOfSpades, threeOfSpades, fourOfDiamonds, fiveOfClubs, eightOfDiamonds, nineOfHearts); 
 
 		assertEquals(0, CardCombination.STRAIGHT.getCards(hand).size());
+	}
+	
+	@Test
+	public void testGetCardsForStraightFlush()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfSpades = new Card(Colour.SPADES, Rank.FOUR);
+		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
+		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card sevenOfSpades = new Card(Colour.SPADES, Rank.SEVEN);
+		final Card eightOfSpades = new Card(Colour.SPADES, Rank.EIGHT);
+
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfSpades, fiveOfSpades, eightOfSpades, sevenOfSpades);
+
+		Set<Card> cards = CardCombination.STRAIGHT_FLUSH.getCards(hand);
+		Set<Card> expected = new HashSet<Card>(5);
+		expected.add(fourOfSpades);
+		expected.add(fiveOfSpades);
+		expected.add(sixOfSpades);
+		expected.add(sevenOfSpades);
+		expected.add(eightOfSpades);
+
+		assertEquals(expected, cards);
+	}
+	
+	@Test
+	public void testGetCardsFromSmallerStraightFlushInsteadOfBiggerStraight()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfSpades = new Card(Colour.SPADES, Rank.FOUR);
+		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
+		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card sevenOfDiamonds = new Card(Colour.DIAMONDS, Rank.SEVEN);
+		final Card eightOfSpades = new Card(Colour.SPADES, Rank.EIGHT);
+
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfSpades, fiveOfSpades, eightOfSpades, sevenOfDiamonds);
+
+		Set<Card> cards = CardCombination.STRAIGHT_FLUSH.getCards(hand);
+		Set<Card> expected = new HashSet<Card>(5);
+		expected.add(fourOfSpades);
+		expected.add(fiveOfSpades);
+		expected.add(sixOfSpades);
+		expected.add(twoOfSpades);
+		expected.add(threeOfSpades);
+		
+		assertEquals(expected, cards);
+	}
+	
+	@Test
+	public void testGetNoCardsForPartialStraightFlush()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfSpades = new Card(Colour.SPADES, Rank.FOUR);
+		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
+		final Card sixOfClubs = new Card(Colour.CLUBS, Rank.SIX);
+		final Card eightOfDiamonds = new Card(Colour.DIAMONDS, Rank.EIGHT);
+		final Card nineOfHearts = new Card(Colour.HEARTS, Rank.NINE);
+
+		final Hand hand = new Hand(twoOfSpades, sixOfClubs, threeOfSpades, fourOfSpades, fiveOfSpades, eightOfDiamonds, nineOfHearts); 
+
+		assertEquals(0, CardCombination.STRAIGHT_FLUSH.getCards(hand).size());
+	}
+	
+	@Test
+	public void testGetCardsForFlush()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfSpades = new Card(Colour.SPADES, Rank.FOUR);
+		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
+		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card sevenOfSpades = new Card(Colour.SPADES, Rank.SEVEN);
+		final Card eightOfSpades = new Card(Colour.SPADES, Rank.EIGHT);
+
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfSpades, fiveOfSpades, eightOfSpades, sevenOfSpades);
+
+		Set<Card> cards = CardCombination.FLUSH.getCards(hand);
+		Set<Card> expected = new HashSet<Card>(5);
+		expected.add(fourOfSpades);
+		expected.add(fiveOfSpades);
+		expected.add(sixOfSpades);
+		expected.add(sevenOfSpades);
+		expected.add(eightOfSpades);
+		
+		assertEquals(expected, cards);
+	}
+	
+	@Test
+	public void testGetNoCardsForFlush()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfSpades = new Card(Colour.SPADES, Rank.FOUR);
+		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
+		final Card sixOfClubs = new Card(Colour.CLUBS, Rank.SIX);
+		final Card eightOfDiamonds = new Card(Colour.DIAMONDS, Rank.EIGHT);
+		final Card nineOfHearts = new Card(Colour.HEARTS, Rank.NINE);
+
+		final Hand hand = new Hand(twoOfSpades, sixOfClubs, threeOfSpades, fourOfSpades, fiveOfSpades, eightOfDiamonds, nineOfHearts); 
+
+		assertEquals(0, CardCombination.FLUSH.getCards(hand).size());
 	}
 
 }

@@ -150,6 +150,11 @@ public enum CardCombination
 		}
 		return false;
 	}
+	
+	private boolean isSameColor(Card first, Card second)
+	{
+		return first.getColour().equals(second.getColour());
+	}
 
 	public Set<Card> getCards(Hand hand)
 	{
@@ -163,7 +168,7 @@ public enum CardCombination
 			case THREE_OF_A_KIND:
 				return getCardsForThreeOfAKind(hand);
 			case STRAIGHT:
-				return getCardsForStraight(hand);
+				return getCardsForStraight(hand, false);
 			case FLUSH:
 				return getCardsForFlush(hand);
 			case FULL_HOUSE:
@@ -171,46 +176,62 @@ public enum CardCombination
 			case FOUR_OF_A_KIND:
 				return getCardsForFourOfAKind(hand);
 			case STRAIGHT_FLUSH:
-				return getCardsForStraightFlush(hand);
+				return getCardsForStraight(hand, true);
 			default:
 				return null;
 		}
 	}
 
-	private Set<Card> getCardsForStraight(Hand hand)
+	private Set<Card> getCardsForStraight(Hand hand, boolean checkForFlush)
 	{
 		SortedSet<Card> foundCards = new TreeSet<Card>();
 		Card previousCard = null;
 		for(Card card : hand.copyOfAllCards())
 		{
-			if(previousCard == null || isAdjacentCardsByRank(previousCard, card))
-			{
-				previousCard = card;
+			if(previousCard == null)
 				foundCards.add(card);
+			else if(isAdjacentCardsByRank(previousCard, card))
+			{
+				if(!checkForFlush || isSameColor(previousCard, card))
+					foundCards.add(card);
 			}
 			else if(foundCards.size() == 5)
 				return foundCards;
 			else
 				foundCards.clear();
+			previousCard = card;
 		}
 		if(foundCards.size() < 5)
 			foundCards.clear();
-		while(foundCards.size() > 5)
-			foundCards.remove(foundCards.first());
+		dropRedundantCards(foundCards);
 			
 		return foundCards;
 	}
 
 	private Set<Card> getCardsForFlush(Hand hand)
 	{
-		// TODO Auto-generated method stub
+		SortedSet<Card> foundCards = new TreeSet<Card>();
+		Colour flushColor = findFlushColor(hand);
+		if(flushColor != null)
+			for(Card card : hand.copyOfAllCards())
+				if(card.getColour().equals(flushColor))
+					foundCards.add(card);
+		dropRedundantCards(foundCards);
+		return foundCards;
+	}
+
+	private Colour findFlushColor(Hand hand)
+	{
+		for(Colour colour : Colour.values())
+			if(hand.getNumberOfColour(colour) >= 5)
+				return colour;
 		return null;
 	}
 
-	private Set<Card> getCardsForStraightFlush(Hand hand)
+	private void dropRedundantCards(SortedSet<Card> foundCards)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		while(foundCards.size() > 5)
+			foundCards.remove(foundCards.first());
 	}
 
 	private Set<Card> getCardsForFourOfAKind(Hand hand)
