@@ -1,8 +1,10 @@
 package texasholdem;
 
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -60,12 +62,13 @@ public enum CardCombination
 		}
 	}
 
-	private static boolean hasStraightFlush(final Hand hand)
+	private boolean hasStraightFlush(final Hand hand)
 	{
-		return hasStraight(hand) && hasFlush(hand);
+		hand.sort();
+		return getCardsForStraightFlush(hand).size() == 5;
 	}
 
-	private static boolean hasFourOfAKind(Hand hand)
+	private boolean hasFourOfAKind(Hand hand)
 	{
 		for(Card card : hand.copyOfAllCards())
 			if(hand.getNumberOfRank(card.getRank()) == 4)
@@ -73,14 +76,14 @@ public enum CardCombination
 		return false;
 	}
 
-	private static boolean hasFullHouse(Hand hand)
+	private boolean hasFullHouse(Hand hand)
 	{
 		if(hasThreeOfAKind(hand) && hasPair(hand))
 			return true;
 		return false;
 	}
 
-	private static boolean hasFlush(Hand hand)
+	private boolean hasFlush(Hand hand)
 	{
 		for(Colour colour : Colour.values())
 			if(hand.getNumberOfColour(colour) == 5)
@@ -88,7 +91,7 @@ public enum CardCombination
 		return false;
 	}
 
-	private static boolean hasStraight(Hand hand)
+	private boolean hasStraight(Hand hand)
 	{
 		hand.sort();
 		if(containsStraight(hand))
@@ -97,7 +100,7 @@ public enum CardCombination
 		return containsStraight(hand);
 	}
 
-	private static boolean containsStraight(Hand hand)
+	private boolean containsStraight(Hand hand)
 	{
 		int straightCards = 0;
 		Card previousCard = null;
@@ -117,14 +120,14 @@ public enum CardCombination
 		return false;
 	}
 
-	private static boolean isAdjacentCardsByRank(Card card1, Card card2)
+	private boolean isAdjacentCardsByRank(Card card1, Card card2)
 	{
 		final boolean adjacent = card1.getRank().getValue() - card2.getRank().getValue() == -1;
 		final boolean aceAndTwo = card1.getRank() == Rank.ACE && card2.getRank() == Rank.TWO;
 		return adjacent || aceAndTwo;
 	}
 
-	private static boolean hasThreeOfAKind(Hand hand)
+	private boolean hasThreeOfAKind(Hand hand)
 	{
 		for(Card card : hand.copyOfAllCards())
 			if(hand.getNumberOfRank(card.getRank()) == 3)
@@ -132,7 +135,7 @@ public enum CardCombination
 		return false;
 	}
 
-	private static boolean hasTwoPair(Hand hand)
+	private boolean hasTwoPair(Hand hand)
 	{
 		int counter = 0;
 		for(Rank rank : Rank.values())
@@ -141,7 +144,7 @@ public enum CardCombination
 		return counter == 2;
 	}
 
-	private static boolean hasPair(Hand hand)
+	private boolean hasPair(Hand hand)
 	{
 		for(Card card : hand.copyOfAllCards())
 		{
@@ -149,11 +152,6 @@ public enum CardCombination
 				return true;
 		}
 		return false;
-	}
-	
-	private boolean isSameColor(Card first, Card second)
-	{
-		return first.getColour().equals(second.getColour());
 	}
 
 	public Set<Card> getCards(Hand hand)
@@ -168,7 +166,7 @@ public enum CardCombination
 			case THREE_OF_A_KIND:
 				return getCardsForThreeOfAKind(hand);
 			case STRAIGHT:
-				return getCardsForStraight(hand, false);
+				return getCardsForStraight(hand);
 			case FLUSH:
 				return getCardsForFlush(hand);
 			case FULL_HOUSE:
@@ -176,36 +174,73 @@ public enum CardCombination
 			case FOUR_OF_A_KIND:
 				return getCardsForFourOfAKind(hand);
 			case STRAIGHT_FLUSH:
-				return getCardsForStraight(hand, true);
+				return getCardsForStraightFlush(hand);
 			default:
 				return null;
 		}
 	}
 
-	private Set<Card> getCardsForStraight(Hand hand, boolean checkForFlush)
+	private Set<Card> getCardsForStraight(Hand hand)
+	{
+		Set<Card> foundCards = findStraightCards(hand);
+		if(foundCards.size() != 5)
+		{
+			hand.sort(new AceFirst());
+			foundCards = findStraightCards(hand);
+		}
+		return foundCards;
+		
+	}
+	
+	private Set<Card> getCardsForStraightFlush(Hand hand)
+	{
+		final Map<Colour, SortedSet<Card>> cards = initiateCardColourMap();
+		for(Card card : hand.copyOfAllCards())
+			cards.get(card.getColour()).add(card);
+		for(Colour colour : Colour.values())
+			if(cards.get(colour).size() >= 5)
+				return getCardsForStraight(new Hand(cards.get(colour)));
+		return new TreeSet<Card>();
+	}
+	
+	private Map<Colour, SortedSet<Card>> initiateCardColourMap()
+	{
+		Map<Colour, SortedSet<Card>> cards = new EnumMap<Colour, SortedSet<Card>>(Colour.class);
+		for(Colour colour : Colour.values())
+			cards.put(colour, new TreeSet<Card>());
+		return cards;
+	}
+	
+	private Set<Card> findStraightCards(Hand hand)
 	{
 		SortedSet<Card> foundCards = new TreeSet<Card>();
 		Card previousCard = null;
 		for(Card card : hand.copyOfAllCards())
 		{
-			if(previousCard == null)
+			if(foundCards.isEmpty())
 				foundCards.add(card);
 			else if(isAdjacentCardsByRank(previousCard, card))
-			{
-				if(!checkForFlush || isSameColor(previousCard, card))
-					foundCards.add(card);
-			}
+				foundCards.add(card);
 			else if(foundCards.size() == 5)
 				return foundCards;
-			else
+			else if(!sameRank(previousCard, card) && foundCards.size() < 5)
+			{
 				foundCards.clear();
+				foundCards.add(card);
+			}
 			previousCard = card;
 		}
 		if(foundCards.size() < 5)
 			foundCards.clear();
-		dropRedundantCards(foundCards);
+		else
+			dropRedundantCards(foundCards);
 			
 		return foundCards;
+	}
+
+	private boolean sameRank(Card card1, Card card2)
+	{
+		return card1.getRank().equals(card2.getRank());
 	}
 
 	private Set<Card> getCardsForFlush(Hand hand)
