@@ -364,6 +364,22 @@ public class CardCombinationTest
 
 		assertFalse(CardCombination.STRAIGHT_FLUSH.inHand(hand));
 	}
+	
+	@Test
+	public void testHasFlushAndStraightButNotStraigtFlush()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfDiamonds = new Card(Colour.DIAMONDS, Rank.FOUR);
+		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
+		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card nineOfSpades = new Card(Colour.SPADES, Rank.NINE);
+		final Card queenOfClubs = new Card(Colour.CLUBS, Rank.QUEEN);
+
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, fiveOfSpades, nineOfSpades, queenOfClubs);
+
+		assertFalse(CardCombination.STRAIGHT_FLUSH.inHand(hand));
+	}
 
 	@Test
 	public void testGetCardsForPair()
@@ -393,6 +409,7 @@ public class CardCombinationTest
 		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
 		final Card fourOfDiamonds = new Card(Colour.DIAMONDS, Rank.FOUR);
 		final Card sixOfClubs = new Card(Colour.CLUBS, Rank.SIX);
+	
 		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
 		final Card nineOfDiamonds = new Card(Colour.DIAMONDS, Rank.NINE);
 		final Card fourOfClubs = new Card(Colour.CLUBS, Rank.FOUR);
@@ -528,8 +545,6 @@ public class CardCombinationTest
 		
 		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfDiamonds, sixOfClubs, kingOfDiamonds, fourOfClubs);
 		
-		Set<Card> cards = CardCombination.THREE_OF_A_KIND.getCards(hand);
-		
 		assertEquals(0, CardCombination.THREE_OF_A_KIND.getCards(hand).size());
 	}
 	
@@ -636,6 +651,30 @@ public class CardCombinationTest
 	}
 	
 	@Test
+	public void testGetCardsForStraightWithLeadingAce()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfDiamonds = new Card(Colour.DIAMONDS, Rank.FOUR);
+		final Card fiveOfClubs = new Card(Colour.CLUBS, Rank.FIVE);
+		final Card aceOfSpades = new Card(Colour.SPADES, Rank.ACE);
+		final Card eightOfDiamonds = new Card(Colour.DIAMONDS, Rank.EIGHT);
+		final Card nineOfHearts = new Card(Colour.HEARTS, Rank.NINE);
+		
+		final Hand hand = new Hand(twoOfSpades, aceOfSpades, threeOfSpades, fourOfDiamonds, fiveOfClubs, eightOfDiamonds, nineOfHearts);
+		
+		Set<Card> cards = CardCombination.STRAIGHT.getCards(hand);
+		Set<Card> expected = new HashSet<Card>(5);
+		expected.add(twoOfSpades);
+		expected.add(threeOfSpades);
+		expected.add(fourOfDiamonds);
+		expected.add(fiveOfClubs);
+		expected.add(aceOfSpades);
+		
+		assertEquals(expected, cards);
+	}
+	
+	@Test
 	public void testGetHighStraightFromTwoStraights()
 	{
 		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
@@ -700,6 +739,54 @@ public class CardCombinationTest
 	}
 	
 	@Test
+	public void testGetCardsForStraightFlushWithLeadingAce()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfSpades = new Card(Colour.SPADES, Rank.FOUR);
+		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
+		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card sevenOfSpades = new Card(Colour.SPADES, Rank.SEVEN);
+		final Card aceOfSpades = new Card(Colour.SPADES, Rank.ACE);
+		
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfSpades, fiveOfSpades, aceOfSpades, sevenOfSpades);
+		
+		Set<Card> cards = CardCombination.STRAIGHT_FLUSH.getCards(hand);
+		Set<Card> expected = new HashSet<Card>(5);
+		expected.add(aceOfSpades);
+		expected.add(twoOfSpades);
+		expected.add(threeOfSpades);
+		expected.add(fourOfSpades);
+		expected.add(fiveOfSpades);
+		
+		assertEquals(expected, cards);
+	}
+	
+	@Test
+	public void testGetCardsForStraightFlushWithEndingAce()
+	{
+		final Card tenOfSpades = new Card(Colour.SPADES, Rank.TEN);
+		final Card jackOfSpades = new Card(Colour.SPADES, Rank.JACK);
+		final Card queenOfSpades = new Card(Colour.SPADES, Rank.QUEEN);
+		final Card kingOfSpades = new Card(Colour.SPADES, Rank.KING);
+		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card sevenOfSpades = new Card(Colour.SPADES, Rank.SEVEN);
+		final Card aceOfSpades = new Card(Colour.SPADES, Rank.ACE);
+		
+		final Hand hand = new Hand(tenOfSpades, sixOfSpades, jackOfSpades, queenOfSpades, kingOfSpades, aceOfSpades, sevenOfSpades);
+		
+		Set<Card> cards = CardCombination.STRAIGHT_FLUSH.getCards(hand);
+		Set<Card> expected = new HashSet<Card>(5);
+		expected.add(aceOfSpades);
+		expected.add(tenOfSpades);
+		expected.add(jackOfSpades);
+		expected.add(queenOfSpades);
+		expected.add(kingOfSpades);
+		
+		assertEquals(expected, cards);
+	}
+	
+	@Test
 	public void testGetCardsFromSmallerStraightFlushInsteadOfBiggerStraight()
 	{
 		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
@@ -720,6 +807,30 @@ public class CardCombinationTest
 		expected.add(twoOfSpades);
 		expected.add(threeOfSpades);
 		
+		assertEquals(expected, cards);
+	}
+	
+	@Test
+	public void testGetCardsForStraightFlushWithTwoCardsOfSameRankButDifferentColour()
+	{
+		final Card twoOfSpades = new Card(Colour.SPADES, Rank.TWO);
+		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
+		final Card fourOfSpades = new Card(Colour.SPADES, Rank.FOUR);
+		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
+		final Card fiveOfDiamonds = new Card(Colour.DIAMONDS, Rank.FIVE);
+		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card sevenOfSpades = new Card(Colour.SPADES, Rank.SEVEN);
+
+		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfSpades, fiveOfSpades, fiveOfDiamonds, sevenOfSpades);
+
+		Set<Card> cards = CardCombination.STRAIGHT_FLUSH.getCards(hand);
+		Set<Card> expected = new HashSet<Card>(5);
+		expected.add(threeOfSpades);
+		expected.add(fourOfSpades);
+		expected.add(fiveOfSpades);
+		expected.add(sixOfSpades);
+		expected.add(sevenOfSpades);
+
 		assertEquals(expected, cards);
 	}
 	
