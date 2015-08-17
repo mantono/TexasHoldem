@@ -745,11 +745,11 @@ public class CardCombinationTest
 		final Card threeOfSpades = new Card(Colour.SPADES, Rank.THREE);
 		final Card fourOfSpades = new Card(Colour.SPADES, Rank.FOUR);
 		final Card fiveOfSpades = new Card(Colour.SPADES, Rank.FIVE);
-		final Card sixOfSpades = new Card(Colour.SPADES, Rank.SIX);
+		final Card sixOfHearts = new Card(Colour.HEARTS, Rank.SIX);
 		final Card sevenOfSpades = new Card(Colour.SPADES, Rank.SEVEN);
 		final Card aceOfSpades = new Card(Colour.SPADES, Rank.ACE);
 		
-		final Hand hand = new Hand(twoOfSpades, sixOfSpades, threeOfSpades, fourOfSpades, fiveOfSpades, aceOfSpades, sevenOfSpades);
+		final Hand hand = new Hand(twoOfSpades, sixOfHearts, threeOfSpades, fourOfSpades, fiveOfSpades, aceOfSpades, sevenOfSpades);
 		
 		Set<Card> cards = CardCombination.STRAIGHT_FLUSH.getCards(hand);
 		Set<Card> expected = new HashSet<Card>(5);
