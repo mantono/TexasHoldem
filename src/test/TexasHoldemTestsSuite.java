@@ -4,6 +4,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import test.texasholdem.BettingPlayerTest;
+import test.texasholdem.CardCombinationTest;
 import test.texasholdem.GameStateMachineTest;
 import test.texasholdem.GameTest;
 import test.texasholdem.PlayerBookTest;
@@ -19,7 +20,8 @@ import test.texasholdem.TexasRulesTest;
 	GameTest.class,
 	PotTest.class,
 	TexasRulesTest.class,
-	PlayerBookTest.class
+	PlayerBookTest.class,
+	CardCombinationTest.class
 })
 
 public class TexasHoldemTestsSuite
