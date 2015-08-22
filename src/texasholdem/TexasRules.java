@@ -16,15 +16,27 @@ public class TexasRules implements Rules
 	@Override
 	public List<Hand> declareWinner(List<Hand> hands)
 	{
-		// TODO Auto-generated method stub
+		Collections.sort(hands, new TexasRules());
+		//return hands.get(hands.size()-1);
+		//TODO iterate over all hands, compare them and remove inferiors hands until only winner(s) is left.
 		return null;
 	}
 
 	@Override
 	public boolean isDraw(List<Hand> hands)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		Hand previousHand = null; 
+		for(Hand hand : hands)
+		{
+			if(previousHand != null)
+			{
+				int result = compare(previousHand, hand);
+				if(result != 0)
+					return false;
+			}
+			previousHand = hand;
+		}
+		return true;
 	}
 
 	@Override
@@ -52,8 +64,13 @@ public class TexasRules implements Rules
 				return -1;
 			else if(hand1HasCombination && hand2HasCombination && combinationUsesFiveCards(combination))
 				return comapareHighestCardInCombination(combination, hand1, hand2);
-			else if(hand1HasCombination && hand2HasCombination && !combinationUsesFiveCards(combination))
+			else if(hand1HasCombination && hand2HasCombination)
+			{
+				final int result = comapareHighestCardInCombination(combination, hand1, hand2);
+				if(result != 0)
+					return result;
 				return compareKicker(hand1, hand2);
+			}
 		}
 		return compareKicker(hand1, hand2);
 	}
