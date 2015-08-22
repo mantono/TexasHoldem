@@ -147,13 +147,28 @@ public class TexasRulesTest
 		Hand pairOfAcesHand = new Hand(card1hand2, card2hand2);
 		pairOfAcesHand.addToHand(flop1, flop2, flop3, turn, river);
 		
-		assertEquals(-1, rules.compare(pairOfTwosHand, pairOfAcesHand));
+		assertTrue(rules.compare(pairOfTwosHand, pairOfAcesHand) < 0);
 		
 		pairOfTwosHand.newHand(new Card(Colour.SPADES, Rank.TWO), new Card(Colour.DIAMONDS, Rank.ACE));
 		Hand pairOfKingsHand = new Hand(new Card(Colour.CLUBS, Rank.KING), new Card(Colour.DIAMONDS, Rank.KING));
 		pairOfTwosHand.addToHand(flop1, flop2, flop3, turn, river);
 		pairOfKingsHand.addToHand(flop1, flop2, flop3, turn, river);
-		assertEquals(-1, rules.compare(pairOfTwosHand, pairOfKingsHand));
+		assertTrue(rules.compare(pairOfTwosHand, pairOfKingsHand) < 0);
+	}
+	
+	@Test
+	public void testCompareKickerOnPairOfSameRank()
+	{
+		Card flop1 = new Card(Colour.CLUBS, Rank.TWO);
+		Card flop2 = new Card(Colour.DIAMONDS, Rank.TWO);
+		
+		Card threeOfClubs = new Card(Colour.CLUBS, Rank.THREE);
+		
+		Card fourOfHearts = new Card(Colour.HEARTS, Rank.FOUR);
+		
+		Hand hand1 = new Hand(flop1, flop2, threeOfClubs);
+		Hand hand2 = new Hand(flop1, flop2, fourOfHearts);
+		assertTrue(rules.compare(hand1, hand2) < 0);
 	}
 
 	@Ignore
@@ -163,11 +178,23 @@ public class TexasRulesTest
 		fail("Not yet implemented");
 	}
 
-	@Ignore
 	@Test
 	public void testIsDraw()
 	{
-		fail("Not yet implemented");
+		Card flop1 = new Card(Colour.CLUBS, Rank.TWO);
+		Card flop2 = new Card(Colour.DIAMONDS, Rank.TWO);
+		
+		Card fourOfClubs = new Card(Colour.CLUBS, Rank.FOUR);
+		
+		Card fourOfHearts = new Card(Colour.HEARTS, Rank.FOUR);
+		
+		Hand hand1 = new Hand(flop1, flop2, fourOfClubs);
+		Hand hand2 = new Hand(flop1, flop2, fourOfHearts);
+		assertTrue(rules.compare(hand1, hand2) == 0);
+		List<Hand> hands = new ArrayList<Hand>(2);
+		hands.add(hand1);
+		hands.add(hand2);
+		assertTrue(rules.isDraw(hands));
 	}
 
 	@Ignore
