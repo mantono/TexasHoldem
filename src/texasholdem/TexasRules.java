@@ -2,6 +2,7 @@ package texasholdem;
 
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.LinkedList;
 import java.util.List;
 
 import cards.Card;
@@ -17,9 +18,14 @@ public class TexasRules implements Rules
 	public List<Hand> declareWinner(List<Hand> hands)
 	{
 		Collections.sort(hands, new TexasRules());
-		//return hands.get(hands.size()-1);
-		//TODO iterate over all hands, compare them and remove inferiors hands until only winner(s) is left.
-		return null;
+		final List<Hand> winners = new LinkedList<Hand>();
+		winners.add(hands.remove(hands.size()-1));
+		
+		for(Hand hand : hands)
+			if(compare(hand, winners.get(0)) == 0)
+				winners.add(hand);
+		
+		return winners;
 	}
 
 	@Override
@@ -37,17 +43,6 @@ public class TexasRules implements Rules
 			previousHand = hand;
 		}
 		return true;
-	}
-
-	@Override
-	public boolean equals(Object object)
-	{
-		return false;
-	}
-
-	@Override
-	public int hashCode(){
-		return -1; //TODO behövs hashCode för rules?
 	}
 
 	@Override
@@ -73,6 +68,14 @@ public class TexasRules implements Rules
 			}
 		}
 		return compareKicker(hand1, hand2);
+	}
+	
+	public CardCombination getHighestCardCombination(Hand hand)
+	{
+		for(CardCombination combination : CardCombination.values())
+			if(combination.inHand(hand))
+				return combination;
+		return CardCombination.NONE;
 	}
 
 	private int comapareHighestCardInCombination(CardCombination combination, Hand hand1, Hand hand2)

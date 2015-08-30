@@ -24,7 +24,8 @@ public enum CardCombination
 	STRAIGHT(18),
 	THREE_OF_A_KIND(17),
 	TWO_PAIR(16),
-	PAIR(15);
+	PAIR(15),
+	NONE(0);
 	private final int value;
 
 	private CardCombination(int value)
