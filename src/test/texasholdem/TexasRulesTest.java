@@ -8,11 +8,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import texasholdem.CardCombination;
 import texasholdem.TexasRules;
 import cards.Colour;
 import cards.Hand;
 import cards.Card;
 import cards.Rank;
+import cards.Rules;
 
 
 public class TexasRulesTest
@@ -171,11 +173,122 @@ public class TexasRulesTest
 		assertTrue(rules.compare(hand1, hand2) < 0);
 	}
 
-	@Ignore
 	@Test
-	public void testDeclareWinner()
+	public void testDeclareWinnerWithOneWinner()
 	{
-		fail("Not yet implemented");
+		TexasRules rules = new TexasRules();
+		
+		Card flop1 = new Card(Colour.DIAMONDS, Rank.TWO);
+		Card flop2 = new Card(Colour.DIAMONDS, Rank.FIVE);
+		Card flop3 = new Card(Colour.HEARTS, Rank.SIX);
+		Card turn = new Card(Colour.DIAMONDS, Rank.JACK);
+		Card river = new Card(Colour.SPADES, Rank.EIGHT);
+		
+		Card player1_1 = new Card(Colour.DIAMONDS, Rank.FOUR);
+		Card player1_2 = new Card(Colour.DIAMONDS, Rank.QUEEN);
+		
+		Card player2_1 = new Card(Colour.CLUBS, Rank.TWO);
+		Card player2_2 = new Card(Colour.CLUBS, Rank.THREE);
+		
+		Card player3_1 = new Card(Colour.HEARTS, Rank.ACE);
+		Card player3_2 = new Card(Colour.HEARTS, Rank.KING);
+		
+		Hand player1 = new Hand(flop1, flop2, flop3, turn, river, player1_1, player1_2);
+		assertEquals(CardCombination.FLUSH, rules.getHighestCardCombination(player1));
+		
+		Hand player2 = new Hand(flop1, flop2, flop3, turn, river, player2_1, player2_2);
+		assertEquals(CardCombination.PAIR, rules.getHighestCardCombination(player2));
+		
+		Hand player3 = new Hand(flop1, flop2, flop3, turn, river, player3_1, player3_2);
+		assertEquals(CardCombination.NONE, rules.getHighestCardCombination(player3));
+		
+		final List<Hand> hands = new ArrayList<Hand>(3);
+		hands.add(player1);
+		hands.add(player2);
+		hands.add(player3);
+		
+		final List<Hand> winner = rules.declareWinner(hands);
+		assertEquals(1, winner.size());
+		assertEquals(player1, winner.get(0));
+	}
+	
+	@Test
+	public void testDeclareWinnerWithTwoWinners()
+	{
+		TexasRules rules = new TexasRules();
+		
+		Card flop1 = new Card(Colour.DIAMONDS, Rank.NINE);
+		Card flop2 = new Card(Colour.DIAMONDS, Rank.THREE);
+		Card flop3 = new Card(Colour.HEARTS, Rank.FOUR);
+		Card turn = new Card(Colour.DIAMONDS, Rank.FIVE);
+		Card river = new Card(Colour.SPADES, Rank.SIX);
+		
+		Card player1_1 = new Card(Colour.DIAMONDS, Rank.SEVEN);
+		Card player1_2 = new Card(Colour.SPADES, Rank.QUEEN);
+		
+		Card player2_1 = new Card(Colour.CLUBS, Rank.SEVEN);
+		Card player2_2 = new Card(Colour.CLUBS, Rank.THREE);
+		
+		Card player3_1 = new Card(Colour.HEARTS, Rank.JACK);
+		Card player3_2 = new Card(Colour.HEARTS, Rank.KING);
+		
+		Hand player1 = new Hand(flop1, flop2, flop3, turn, river, player1_1, player1_2);
+		assertEquals(CardCombination.STRAIGHT, rules.getHighestCardCombination(player1));
+		
+		Hand player2 = new Hand(flop1, flop2, flop3, turn, river, player2_1, player2_2);
+		assertEquals(CardCombination.STRAIGHT, rules.getHighestCardCombination(player2));
+		
+		Hand player3 = new Hand(flop1, flop2, flop3, turn, river, player3_1, player3_2);
+		assertEquals(CardCombination.NONE, rules.getHighestCardCombination(player3));
+		
+		final List<Hand> hands = new ArrayList<Hand>(3);
+		hands.add(player1);
+		hands.add(player2);
+		hands.add(player3);
+		
+		final List<Hand> winner = rules.declareWinner(hands);
+		assertEquals(2, winner.size());
+		assertTrue(winner.get(0).equals(player1) || winner.get(0).equals(player2));
+		assertTrue(winner.get(1).equals(player1) || winner.get(1).equals(player2));
+	}
+	
+	@Test
+	public void testDeclareWinnerOnKicker()
+	{
+		TexasRules rules = new TexasRules();
+		
+		Card flop1 = new Card(Colour.CLUBS, Rank.TWO);
+		Card flop2 = new Card(Colour.SPADES, Rank.FOUR);
+		Card flop3 = new Card(Colour.HEARTS, Rank.FIVE);
+		Card turn = new Card(Colour.DIAMONDS, Rank.SEVEN);
+		Card river = new Card(Colour.SPADES, Rank.NINE);
+		
+		Card player1_1 = new Card(Colour.DIAMONDS, Rank.KING);
+		Card player1_2 = new Card(Colour.SPADES, Rank.QUEEN);
+		
+		Card player2_1 = new Card(Colour.CLUBS, Rank.JACK);
+		Card player2_2 = new Card(Colour.CLUBS, Rank.THREE);
+		
+		Card player3_1 = new Card(Colour.HEARTS, Rank.JACK);
+		Card player3_2 = new Card(Colour.HEARTS, Rank.EIGHT);
+		
+		Hand player1 = new Hand(flop1, flop2, flop3, turn, river, player1_1, player1_2);
+		assertEquals(CardCombination.NONE, rules.getHighestCardCombination(player1));
+		
+		Hand player2 = new Hand(flop1, flop2, flop3, turn, river, player2_1, player2_2);
+		assertEquals(CardCombination.NONE, rules.getHighestCardCombination(player2));
+		
+		Hand player3 = new Hand(flop1, flop2, flop3, turn, river, player3_1, player3_2);
+		assertEquals(CardCombination.NONE, rules.getHighestCardCombination(player3));
+		
+		final List<Hand> hands = new ArrayList<Hand>(3);
+		hands.add(player1);
+		hands.add(player2);
+		hands.add(player3);
+		
+		final List<Hand> winner = rules.declareWinner(hands);
+		assertEquals(1, winner.size());
+		assertEquals(player1, winner.get(0));
 	}
 
 	@Test
@@ -195,19 +308,5 @@ public class TexasRulesTest
 		hands.add(hand1);
 		hands.add(hand2);
 		assertTrue(rules.isDraw(hands));
-	}
-
-	@Ignore
-	@Test
-	public void testHashCode()
-	{
-		fail("Not yet implemented");
-	}
-
-	@Ignore
-	@Test
-	public void testEquals()
-	{
-		fail("Not yet implemented");
 	}
 }
