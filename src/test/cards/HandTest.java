@@ -1,8 +1,11 @@
 package test.cards;
 import static org.junit.Assert.*;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -151,10 +154,77 @@ public class HandTest
 	}
 	
 	@Test
-	public void hashCodeTest()
+	public void hashCodeTestEmptyHand()
 	{
-		assertEquals(434, hand.hashCode());
 		hand = new Hand();
-		assertEquals(0, hand.hashCode());
+		assertEquals(1, hand.hashCode());
+	}
+	
+	@Test
+	public void hashCodeTestDistribution()
+	{
+		final int number = 10000;
+		final Set<Integer> hashCodes = new HashSet<Integer>(number);
+		final Set<Hand> hands = new HashSet<Hand>(number);
+		for(int i = 0; i < number; i++)
+		{
+			final Hand hand = new Hand();
+			for(int n = 0; n < 10; n++)
+				hand.addToHand(getRandomCard());
+			hashCodes.add(hand.hashCode());
+			hands.add(hand);
+		}
+		final float distribution = ((float) hashCodes.size()/hands.size());
+		assertTrue("Distribution:" + distribution, distribution > 0.99);
+	}
+	
+	@Test
+	public void hashCodeTestMultipleHands()
+	{
+		for(int i = 0; i < 100; i++)
+		{
+			final Hand hand = new Hand();
+			final Hand differentHand = new Hand();
+
+			for(int n = 0; n < 10; n++)
+			{
+				hand.addToHand(getRandomCard());
+				differentHand.addToHand(getRandomCard());
+			}
+			
+			final Hand equalHand = new Hand(hand);
+			
+			assertEquals(hand, equalHand);
+			assertEquals(hand.hashCode(), equalHand.hashCode());
+			assertFalse(hand.equals(differentHand));
+			assertFalse(hand.hashCode() == differentHand.hashCode());
+		}
+	}
+	
+	private Card getRandomCard()
+	{
+		Colour colour = getRandomColour();
+		Rank rank = getRandomRank();
+		return new Card(colour, rank);
+	}
+
+	private Colour getRandomColour()
+	{
+		final SecureRandom random = new SecureRandom();
+		final int stop = random.nextInt(4);
+		for(Colour colour : Colour.values())
+			if(colour.getValue() == stop)
+				return colour;
+		throw new IllegalStateException("We are not supposed to ber here...");
+	}
+
+	private Rank getRandomRank()
+	{
+		final SecureRandom random = new SecureRandom();
+		final int stop = random.nextInt(12) + 2;
+		for(Rank rank : Rank.values())
+			if(rank.getValue() == stop)
+				return rank;
+		throw new IllegalStateException("We are not supposed to ber here...");
 	}
 }
