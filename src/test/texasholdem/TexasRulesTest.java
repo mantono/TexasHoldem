@@ -121,11 +121,16 @@ public class TexasRulesTest
 		assertEquals(1, rules.compare(straightHand,emptyHand));
 	}
 	
-	@Ignore
 	@Test
 	public void testCompareThreeOfAKind()
 	{
 		Hand threeOfAKindHand = new Hand();
+		Card card1 = new Card(Colour.DIAMONDS, Rank.FIVE);
+		Card card2 = new Card(Colour.HEARTS, Rank.FIVE);
+		Card card3 = new Card(Colour.CLUBS, Rank.FIVE);
+		threeOfAKindHand.addToHand(card1);
+		threeOfAKindHand.addToHand(card2);
+		threeOfAKindHand.addToHand(card3);
 		assertEquals(1, rules.compare(threeOfAKindHand, new Hand()));
 	}
 	
